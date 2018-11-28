@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Hello! My name is Luke :D"/>
+    <HelloWorld msg="Hi! My name is Luke :D"/>
     <p>
       <router-link to="/">About</router-link>
       &nbsp;
