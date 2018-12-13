@@ -126,7 +126,7 @@ sans-serif;
 	opacity: 0;
 	position: absolute;
 	top: 0;
-}
+} 
 .menu.effect ul li a:after {
 	color: #57bf3d;
 	content: ']';
