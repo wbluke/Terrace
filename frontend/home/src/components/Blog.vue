@@ -1,10 +1,10 @@
 <template>
-  <p>Study Component</p>
+  <p>Blog Component</p>
 </template>
 
 <script>
 export default {
-  name: 'Study'
+  name: 'Blog'
 }
 </script>
 

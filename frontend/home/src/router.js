@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import About from './components/About.vue'
-import Study from './components/Study.vue'
+import Blog from './components/Blog.vue'
 import Daily from './components/Daily.vue'
 
 Vue.use(Router)
@@ -15,9 +15,9 @@ export default new Router({
       component: About
     },
     {
-      path: '/study',
-      name :'Study',
-      component: Study
+      path: '/blog',
+      name :'Blog',
+      component: Blog
     },
     {
       path: '/daily',
