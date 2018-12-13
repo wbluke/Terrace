@@ -1,5 +1,5 @@
 run:
-	./bin/terrace
+	sudo ./bin/terrace
 
 build:
 	go build -x -o ./bin/terrace ./src
