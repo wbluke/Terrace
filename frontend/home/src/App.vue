@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <HelloWorld class="page_title" msg="Luke's Notes"/>
+    <div id="site-title">
+      <router-link to="/" class="page_title"><h1>Luke's Notes</h1></router-link>
+    </div>
     <div class="menu effect">
       <ul>
         <li><router-link to="/">About</router-link></li>
@@ -8,9 +10,7 @@
         <li><router-link to="/daily">Daily</router-link></li>
       </ul>
     </div>
-    <div>
-      <img id="aboutImg" src="../public/about.jpeg">
-    </div>
+
     <p>
       <router-view></router-view>
     </p>
@@ -18,14 +18,11 @@
   </div>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+  name: 'app'
 }
 </script>
 
@@ -37,13 +34,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-
-#aboutImg {
-   width: 200px;
-   height: 200px;
-   border-radius: 8px;
-   margin: 10px;
 }
 
 
@@ -64,12 +54,15 @@ body {
 	width: 100%;
 }
 .page_title {
+
 	color: #074d11;
 	font-weight: 200;
 	margin: 0;
 	padding: 5px 0;
 	text-shadow: 0 1px 1px rgba(0,0,0,.1);
 	text-transform: uppercase;
+  text-decoration: none;
+
 }
 
 /* PEN STYLES ========== */
