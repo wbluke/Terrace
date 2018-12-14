@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Hello! My name is Luke :D"/>
+    <HelloWorld class="page_title" msg="Luke's Notes"/>
     <div class="menu effect">
       <ul>
         <li><router-link to="/">About</router-link></li>
@@ -8,7 +8,9 @@
         <li><router-link to="/daily">Daily</router-link></li>
       </ul>
     </div>
-
+    <div>
+      <img id="aboutImg" src="../public/about.jpeg">
+    </div>
     <p>
       <router-view></router-view>
     </p>
@@ -37,6 +39,13 @@ export default {
   margin-top: 60px;
 }
 
+#aboutImg {
+   width: 200px;
+   height: 200px;
+   border-radius: 8px;
+   margin: 10px;
+}
+
 
 /* BASE TEMPLATE STYLES ========== */
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
@@ -44,9 +53,8 @@ body {
 	background: #fafafa;
 	background-attachment: fixed;
 	color: #555;
-	font-family: 'Raleway', Helvetica, Arial,
-sans-serif;
-	font-size: 18px;
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+	font-size: 15px;
 	font-weight: 300;
 	line-height: 140%;
 	margin: 0;
@@ -56,11 +64,10 @@ sans-serif;
 	width: 100%;
 }
 .page_title {
-	color: #0af;
-	border-bottom: 1px solid rgba(0,0,0,.05);
-	font-weight: 300;
+	color: #074d11;
+	font-weight: 200;
 	margin: 0;
-	padding: 20px 0;
+	padding: 5px 0;
 	text-shadow: 0 1px 1px rgba(0,0,0,.1);
 	text-transform: uppercase;
 }
@@ -79,6 +86,9 @@ sans-serif;
 	border-top: 1px solid #fff;
 	margin: 0;
 	padding: 0px 0;
+  max-width: 400px;
+  margin: auto auto 0px;
+  border-radius: 4px;
 }
 .menu:hover {
 	background: #fff;
@@ -106,7 +116,7 @@ sans-serif;
 .menu ul li a {
 	color: #555;
 	display: block;
-	line-height: 50px;
+	line-height: 35px;
 	padding: 0 30px;
 	text-decoration: none;
 }
@@ -126,7 +136,7 @@ sans-serif;
 	opacity: 0;
 	position: absolute;
 	top: 0;
-} 
+}
 .menu.effect ul li a:after {
 	color: #57bf3d;
 	content: ']';

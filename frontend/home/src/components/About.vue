@@ -1,5 +1,5 @@
 <template>
-  <p>About Component</p>
+  <p>피아노 치는 개발자</p>
 </template>
 
 <script>
