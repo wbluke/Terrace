@@ -2,7 +2,7 @@
   <div id="app">
     <div id="site-title">
       <router-link to="/" class="page_title">
-        <h1>Luke's Story</h1>
+        <h1>Luke's Note</h1>
       </router-link>
     </div>
     <div class="menu effect">
