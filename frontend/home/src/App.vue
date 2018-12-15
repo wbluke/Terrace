@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div id="site-title">
-      <router-link to="/" class="page_title"><h1>Luke's Notes</h1></router-link>
+      <router-link to="/" class="page_title">
+        <h1>Luke's Story</h1>
+      </router-link>
     </div>
     <div class="menu effect">
       <ul>
