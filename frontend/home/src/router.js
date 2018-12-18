@@ -18,7 +18,13 @@ export default new Router({
     {
       path: '/blog',
       name :'Blog',
-      component: Blog
+      component: Blog,
+      children: [
+        {
+          //send this info. to blog component
+          path: ':year/:month/:day/:title', 
+        }
+      ]
     },
     {
       path: '/daily',
