@@ -1,5 +1,5 @@
 <template>
-  <p>Daily Component</p>
+  <p>Coming Soon...!</p>
 </template>
 
 <script>

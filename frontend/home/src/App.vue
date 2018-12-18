@@ -2,7 +2,10 @@
   <div id="app">
     <div id="site-title">
       <router-link to="/" class="page_title">
-        <h1>Luke's Note</h1>
+        <h1>
+          <img :src="icoLink" width="24" height="24">
+          Luke's Note
+        </h1>
       </router-link>
     </div>
     <div class="menu effect">
@@ -24,7 +27,12 @@
 <script>
 
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      icoLink: require('./assets/favicon.png')
+    }
+  }
 }
 </script>
 
