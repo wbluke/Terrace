@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,6 +75,10 @@ body {
   text-decoration: none;
 
 }
+
+/* LINK STYLES ========== */
+
+
 
 /* PEN STYLES ========== */
 .menu,
@@ -145,9 +150,9 @@ body {
 	content: ']';
 	display: block;
 	font-size: 1.5em;
+  right: 30px;
 	opacity: 0;
 	position: absolute;
-	right: 30px;
 	top: 0;
 }
 .menu.effect ul li a:hover:before {

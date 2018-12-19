@@ -12,7 +12,7 @@
     </div>
     <div v-else>
       <div class="blog-list-element" v-for="i in index" :key="i">
-        <router-link :to="i.uri">{{ i.title }}</router-link>
+        <router-link :to="i.uri" class="nice-link">{{ i.title }}</router-link>
         <br>
         {{ i.date }}
       </div>
@@ -23,6 +23,12 @@
 <script>
 export default {
   name: 'blogExample',
+  mounted: function() {
+    var elements = document.querySelectorAll('a.nice-link');
+    Array.prototype.forEach.call(elements, function(el, i){
+      el.setAttribute('data-text', el.textContent)
+    });
+  },
   updated: function() {
     // Change file name to document's title
     // When the page is an artice page, get blogContents
@@ -50,7 +56,7 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index:
-[{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그]블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}] // __INSERTION_POSITION_END__ // DONT CHANGE!!
+[{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}] // __INSERTION_POSITION_END__ // DONT CHANGE!!
 ,
     year : this.$route.params.year,
     month : this.$route.params.month,
@@ -90,7 +96,51 @@ export default {
 </script>
 
 <style scoped>
+a.nice-link {
+    @bg-color: #262626;
+    @color: #168dff;
+
+    @hover-color: lighten(spin(saturate(@color, 80%), -10), 8%);
+
+    position: relative;
+    color:  @color;
+    h1 &:after {
+        border-bottom: 1px solid @hover-color; /* Underline */
+    }
+
+    &:after {
+        text-align: justify;
+        display: inline-block;
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        color: @hover-color;
+        min-height: 100%;
+        width: 0;
+        max-width: 100%; /* 'cause of IE bug */
+        background: @bg-color;
+        -moz-transition: .3s;
+        -o-transition: .3s;
+        -webkit-transition: .3s;
+        transition: .3s;
+    }
+
+    &:hover {
+        color: @color; /* To override default hover color */
+
+        &:after {
+            width: 100%;
+        }
+    }
+}
+
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
 div#blog {
+  font-family: 'Raleway', Helvetica, Arial, sans-serif;
   min-height: 300px;
   max-width: 800px;
   margin: auto;
@@ -101,9 +151,10 @@ div#blog {
 }
 .inner-title-container {
   text-align: center;
+  text-decoration: none;
 }
 .inner-title-container > h1{
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 .inner-title-container > h1 > a{
   color: #2c3e50;
@@ -118,7 +169,9 @@ div#blog {
   margin: 0;
 }
 .blog-list-element {
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 18px;
 }
 
 article {
