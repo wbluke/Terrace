@@ -12,8 +12,9 @@
     </div>
     <div v-else>
       <div class="blog-list-element" v-for="i in index" :key="i">
-        <router-link :to="i.uri" class="nice-link">{{ i.title }}</router-link>
-        <br>
+        <div class="blog-list-element-title">
+          <router-link :to="i.uri" class="nice-link">{{ i.title }}</router-link>
+        </div>
         {{ i.date }}
       </div>
     </div>
@@ -119,8 +120,12 @@ div#blog {
   margin: 0;
 }
 .blog-list-element {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 15px;
   text-decoration: none;
+}
+.blog-list-element-title {
+  font-size: 16px;
 }
 
 article {
