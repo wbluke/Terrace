@@ -28,6 +28,12 @@
 
 export default {
   name: 'app',
+  mounted: function() {
+    var elements = document.querySelectorAll('a.nice-link');
+    Array.prototype.forEach.call(elements, function(el, i){
+      el.setAttribute('data-text', el.textContent)
+    });
+  },
   data() {
     return {
       icoLink: require('./assets/favicon.png')
@@ -46,7 +52,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
 
 /* BASE TEMPLATE STYLES ========== */
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
@@ -78,6 +83,43 @@ body {
 
 /* LINK STYLES ========== */
 
+a {
+  text-decoration: none;
+}
+
+a.nice-link {
+  position: relative;
+  color:  #1a79d5;
+}
+.blog-list-element a.nice-link:after {
+    border-bottom: 1px solid #4eb6e9; /* Underline */
+}
+a.nice-link:after {
+    text-align: justify;
+    display: inline-block;
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #4eb6e9;
+    min-height: 100%;
+    width: 0;
+    max-width: 100%; /* 'cause of IE bug */
+    background: #fafafa;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+a.nice-link:hover {
+  color: #1a79d5; /* To override default hover color */
+}
+a.nice-link:hover:after {
+  width: 100%;
+}
 
 
 /* PEN STYLES ========== */

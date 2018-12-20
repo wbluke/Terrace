@@ -8,7 +8,9 @@ const productionPlugins = [
     routes: [
         "/",
         "/blog",
-        "/daily"
+        "/daily",
+        "/blog/2018/12/18/Algorithm-Problem-Solving-Strategies",
+        "/blog/2018/12/17/블로그-오픈"
     ],
     renderer: new PrerenderSpaPlugin.PuppeteerRenderer({
       renderAfterElementExists: '#app'

@@ -23,12 +23,6 @@
 <script>
 export default {
   name: 'blogExample',
-  mounted: function() {
-    var elements = document.querySelectorAll('a.nice-link');
-    Array.prototype.forEach.call(elements, function(el, i){
-      el.setAttribute('data-text', el.textContent)
-    });
-  },
   updated: function() {
     // Change file name to document's title
     // When the page is an artice page, get blogContents
@@ -96,47 +90,6 @@ export default {
 </script>
 
 <style scoped>
-a.nice-link {
-    @bg-color: #262626;
-    @color: #168dff;
-
-    @hover-color: lighten(spin(saturate(@color, 80%), -10), 8%);
-
-    position: relative;
-    color:  @color;
-    h1 &:after {
-        border-bottom: 1px solid @hover-color; /* Underline */
-    }
-
-    &:after {
-        text-align: justify;
-        display: inline-block;
-        content: attr(data-text);
-        position: absolute;
-        left: 0;
-        top: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        color: @hover-color;
-        min-height: 100%;
-        width: 0;
-        max-width: 100%; /* 'cause of IE bug */
-        background: @bg-color;
-        -moz-transition: .3s;
-        -o-transition: .3s;
-        -webkit-transition: .3s;
-        transition: .3s;
-    }
-
-    &:hover {
-        color: @color; /* To override default hover color */
-
-        &:after {
-            width: 100%;
-        }
-    }
-}
-
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
 div#blog {
@@ -162,16 +115,12 @@ div#blog {
 .inner-title-container > h1 > a:hover{
   color: #3073b3;
 }
-.blog-title > h1 {
-  margin-bottom: 0;
-}
 .meta {
   margin: 0;
 }
 .blog-list-element {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-size: 18px;
+  margin-top: 10px;
+  text-decoration: none;
 }
 
 article {
@@ -184,17 +133,6 @@ article {
   text-align: left;
   color: #000;
   line-height: 1.6em;
-}
-#share-buttons {
-  text-align: center;
-  padding: 20px 0 20px 0;
-}
-.button-clicked {
-  color: #fff;
-  background-color: #2c3e50;
-}
-#adjacent-articles {
-  text-align: center;
 }
 .blog-article-list {
   max-width: 800px;
