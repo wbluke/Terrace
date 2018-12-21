@@ -28,23 +28,21 @@
 
 export default {
   name: 'app',
-  mounted: function() {
-    var elements = document.querySelectorAll('a.nice-link');
-    Array.prototype.forEach.call(elements, function(el, i){
-      el.setAttribute('data-text', el.textContent)
-    });
+  methods: {
+    applyNiceLink: function() {
+      var elements = document.querySelectorAll('a.nice-link');
+      Array.prototype.forEach.call(elements, function(el, i){
+        el.setAttribute('data-text', el.textContent)
+      });
+    }
   },
-  updated: function() {
-    var elements = document.querySelectorAll('a.nice-link');
-    Array.prototype.forEach.call(elements, function(el, i){
-      el.setAttribute('data-text', el.textContent)
-    });
-  },
+  mounted: function() { this.applyNiceLink() },
+  updated: function() { this.applyNiceLink() },
   data() {
     return {
       icoLink: require('./assets/favicon.png')
     }
-  }
+  },
 }
 </script>
 
