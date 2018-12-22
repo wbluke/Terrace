@@ -121,10 +121,10 @@ div#blog {
   margin-bottom: 10px;
 }
 .inner-title-container > h1 > a{
-  color: #2c3e50;
+  color: #04652e;
 }
 .inner-title-container > h1 > a:hover{
-  color: #3073b3;
+  color: #2f945a;
 }
 .meta {
   margin: 0;
