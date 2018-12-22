@@ -24,12 +24,37 @@
 <script>
 export default {
   name: 'blogExample',
+  methods: {
+    getPage: function() {
+      if (this.year === undefined) {
+        return;
+      }
+
+      var htmlDocUri =
+        '/blog_contents/'
+        + this.year + '/'
+        + this.month + '/'
+        + this.day + '/'
+        + this.title + '.html';
+
+      fetch(htmlDocUri)
+        .then(response => response.text())
+        .then(responseText => this.articleHtmlSource = responseText);
+
+      var uri = htmlDocUri.replace('blog_contents/', '')
+                     .replace('.html', '');
+      this.address = this.domain + uri;
+    },
+  },
+  mounted: function() {
+    this.getPage();
+  },
   updated: function() {
     // Change file name to document's title
     // When the page is an artice page, get blogContents
     var blogContents = document.querySelector('#blog-contents');
     if(blogContents == null){
-      this.toTheTop();
+      //this.toTheTop();
       return;
     }
     // Now, below scripts are for displaying an article,
@@ -68,23 +93,8 @@ export default {
       this.month = to.params.month;
       this.day = to.params.day;
       this.title = to.params.title;
-      if (this.year === undefined) {
-        return;
-      }
+      this.getPage();
 
-      var htmlDocUri =
-        '/blog_contents/'
-        + this.year + '/'
-        + this.month + '/'
-        + this.day + '/'
-        + this.title + '.html';
-      fetch(htmlDocUri)
-        .then(response => response.text())
-        .then(responseText => this.articleHtmlSource = responseText);
-
-      var uri = htmlDocUri.replace('blog_contents/', '')
-                     .replace('.html', '');
-      this.address = this.domain + uri;
     }
   }
 }
