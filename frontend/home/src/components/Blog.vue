@@ -76,7 +76,7 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index:
-[{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}] // __INSERTION_POSITION_END__ // DONT CHANGE!!
+[{"title":"[알고리즘] 6-1. PICNIC (소풍)","uri":"/blog/2018/12/23/6-1.PICNIC/","date":"2018/12/23"},{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}] // __INSERTION_POSITION_END__ // DONT CHANGE!!
 ,
     year : this.$route.params.year,
     month : this.$route.params.month,
@@ -120,12 +120,12 @@ div#blog {
 .inner-title-container > h1{
   margin-bottom: 10px;
 }
-.inner-title-container > h1 > a{
+/* .inner-title-container > h1 > a{
   color: #04652e;
 }
 .inner-title-container > h1 > a:hover{
   color: #2f945a;
-}
+} */
 .meta {
   margin: 0;
 }

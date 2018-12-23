@@ -58,7 +58,8 @@ func execPandocMdToHtml(path string) {
 			result,
 			"--to",
 			"html5",
-			"--no-highlight",
+			//"--highlight-style",
+			//"--no-highlight",
 		)
 		// cmd := exec.Command("pwd")
 		var out bytes.Buffer
