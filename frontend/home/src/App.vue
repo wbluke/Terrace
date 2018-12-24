@@ -58,18 +58,6 @@ export default {
   margin-top: 60px;
 }
 
-/* pre {
-  font-size: 14px;
-  font-family: monospace;
-  border-radius: 3px;
-  background-color: #e2e7e5
-}
-code {
-  font-size: 14px;
-  font-family: monospace;
-  border-radius: 3px;
-  background-color: #e2e7e5
-} */
 
 
 /* BASE TEMPLATE STYLES ========== */

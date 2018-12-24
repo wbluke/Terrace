@@ -1,0 +1,58 @@
+<h1 id="testfile">Testfile</h1>
+<h3 id="this-is-cpp-code">This is cpp code</h3>
+<pre class="cpp"><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+int student, soulmateCount;
+bool soulmate[10][10];
+bool matching[10];
+
+int countPairing(bool matching[10]) {
+
+    int first = -1;
+    for (int i = 0; i &lt; student; i++) {
+        if (!matching[i]) {
+            first = i;
+            break;
+        }
+    }
+
+    //base case
+    if (first == -1) return 1;
+
+    int ret = 0;
+    for (int soul = first + 1; soul &lt; student; soul++) {
+        if (!matching[soul] &amp;&amp; soulmate[first][soul]) {
+            matching[first] = matching[soul] = true;
+            ret += countPairing(matching);
+            matching[first] = matching[soul] = false;
+        }
+    }
+    return ret;
+}
+
+int main(void) {
+
+    int num, f1, f2;
+    cin &gt;&gt; num;
+
+    for (int i = 0; i &lt; num; i++) {
+
+        cin &gt;&gt; student &gt;&gt; soulmateCount;
+
+        memset(soulmate, false, sizeof(soulmate));
+        memset(matching, false, sizeof(matching));
+
+        for (int j = 0; j &lt; soulmateCount; j++) {
+            cin &gt;&gt; f1 &gt;&gt; f2;
+            soulmate[f1][f2] = soulmate[f2][f1] = true;
+        }
+        cout &lt;&lt; countPairing(matching) &lt;&lt; endl;
+
+    }
+
+
+    return 0;
+}</code></pre>
+<p>ok. please.</p>

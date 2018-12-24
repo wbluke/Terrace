@@ -38,62 +38,62 @@
 <hr />
 <!-- <details>
 <summary>코드 보기</summary> -->
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" title="1"></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="pp">#include</span><span class="im">&lt;iostream&gt;</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="pp">#include</span><span class="im">&lt;cstring&gt;</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="kw">using</span> <span class="kw">namespace</span> std;</a>
-<a class="sourceLine" id="cb4-5" title="5"></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="dt">int</span> student, soulmateCount;</a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="dt">bool</span> soulmate[<span class="dv">10</span>][<span class="dv">10</span>];</a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="dt">bool</span> matching[<span class="dv">10</span>];</a>
-<a class="sourceLine" id="cb4-9" title="9"></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="dt">int</span> countPairing(<span class="dt">bool</span> matching[<span class="dv">10</span>]) {</a>
-<a class="sourceLine" id="cb4-11" title="11"></a>
-<a class="sourceLine" id="cb4-12" title="12">    <span class="dt">int</span> first = -<span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb4-13" title="13">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; student; i++) {</a>
-<a class="sourceLine" id="cb4-14" title="14">        <span class="cf">if</span> (!matching[i]) {</a>
-<a class="sourceLine" id="cb4-15" title="15">            first = i;</a>
-<a class="sourceLine" id="cb4-16" title="16">            <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb4-17" title="17">        }</a>
-<a class="sourceLine" id="cb4-18" title="18">    }</a>
-<a class="sourceLine" id="cb4-19" title="19"></a>
-<a class="sourceLine" id="cb4-20" title="20">    <span class="co">//base case</span></a>
-<a class="sourceLine" id="cb4-21" title="21">    <span class="cf">if</span> (first == -<span class="dv">1</span>) <span class="cf">return</span> <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb4-22" title="22"></a>
-<a class="sourceLine" id="cb4-23" title="23">    <span class="dt">int</span> ret = <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb4-24" title="24">    <span class="cf">for</span> (<span class="dt">int</span> soul = first + <span class="dv">1</span>; soul &lt; student; soul++) {</a>
-<a class="sourceLine" id="cb4-25" title="25">        <span class="cf">if</span> (!matching[soul] &amp;&amp; soulmate[first][soul]) {</a>
-<a class="sourceLine" id="cb4-26" title="26">            matching[first] = matching[soul] = <span class="kw">true</span>;</a>
-<a class="sourceLine" id="cb4-27" title="27">            ret += countPairing(matching);</a>
-<a class="sourceLine" id="cb4-28" title="28">            matching[first] = matching[soul] = <span class="kw">false</span>;</a>
-<a class="sourceLine" id="cb4-29" title="29">        }</a>
-<a class="sourceLine" id="cb4-30" title="30">    }</a>
-<a class="sourceLine" id="cb4-31" title="31">    <span class="cf">return</span> ret;</a>
-<a class="sourceLine" id="cb4-32" title="32">}</a>
-<a class="sourceLine" id="cb4-33" title="33"></a>
-<a class="sourceLine" id="cb4-34" title="34"><span class="dt">int</span> main(<span class="dt">void</span>) {</a>
-<a class="sourceLine" id="cb4-35" title="35"></a>
-<a class="sourceLine" id="cb4-36" title="36">    <span class="dt">int</span> num, f1, f2;</a>
-<a class="sourceLine" id="cb4-37" title="37">    cin &gt;&gt; num;</a>
-<a class="sourceLine" id="cb4-38" title="38"></a>
-<a class="sourceLine" id="cb4-39" title="39">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; num; i++) {</a>
-<a class="sourceLine" id="cb4-40" title="40"></a>
-<a class="sourceLine" id="cb4-41" title="41">        cin &gt;&gt; student &gt;&gt; soulmateCount;</a>
-<a class="sourceLine" id="cb4-42" title="42"></a>
-<a class="sourceLine" id="cb4-43" title="43">        memset(soulmate, <span class="kw">false</span>, <span class="kw">sizeof</span>(soulmate));</a>
-<a class="sourceLine" id="cb4-44" title="44">        memset(matching, <span class="kw">false</span>, <span class="kw">sizeof</span>(matching));</a>
-<a class="sourceLine" id="cb4-45" title="45"></a>
-<a class="sourceLine" id="cb4-46" title="46">        <span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">0</span>; j &lt; soulmateCount; j++) {</a>
-<a class="sourceLine" id="cb4-47" title="47">            cin &gt;&gt; f1 &gt;&gt; f2;</a>
-<a class="sourceLine" id="cb4-48" title="48">            soulmate[f1][f2] = soulmate[f2][f1] = <span class="kw">true</span>;</a>
-<a class="sourceLine" id="cb4-49" title="49">        }</a>
-<a class="sourceLine" id="cb4-50" title="50">        cout &lt;&lt; countPairing(matching) &lt;&lt; endl;</a>
-<a class="sourceLine" id="cb4-51" title="51"></a>
-<a class="sourceLine" id="cb4-52" title="52">    }</a>
-<a class="sourceLine" id="cb4-53" title="53"></a>
-<a class="sourceLine" id="cb4-54" title="54"></a>
-<a class="sourceLine" id="cb4-55" title="55">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb4-56" title="56">}</a></code></pre></div>
+<pre class="cpp"><code>//PICNIC.cpp
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+int student, soulmateCount;
+bool soulmate[10][10];
+bool matching[10];
+
+int countPairing(bool matching[10]) {
+
+    int first = -1;
+    for (int i = 0; i &lt; student; i++) {
+        if (!matching[i]) {
+            first = i;
+            break;
+        }
+    }
+
+    //base case
+    if (first == -1) return 1;
+
+    int ret = 0;
+    for (int soul = first + 1; soul &lt; student; soul++) {
+        if (!matching[soul] &amp;&amp; soulmate[first][soul]) {
+            matching[first] = matching[soul] = true;
+            ret += countPairing(matching);
+            matching[first] = matching[soul] = false;
+        }
+    }
+    return ret;
+}
+
+int main(void) {
+
+    int num, f1, f2;
+    cin &gt;&gt; num;
+
+    for (int i = 0; i &lt; num; i++) {
+
+        cin &gt;&gt; student &gt;&gt; soulmateCount;
+
+        memset(soulmate, false, sizeof(soulmate));
+        memset(matching, false, sizeof(matching));
+
+        for (int j = 0; j &lt; soulmateCount; j++) {
+            cin &gt;&gt; f1 &gt;&gt; f2;
+            soulmate[f1][f2] = soulmate[f2][f1] = true;
+        }
+        cout &lt;&lt; countPairing(matching) &lt;&lt; endl;
+
+    }
+
+
+    return 0;
+}</code></pre>
 <!-- </details> -->
 <h3 id="문법">문법</h3>
 <hr />
