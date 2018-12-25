@@ -115,10 +115,11 @@ export default {
 </script>
 
 <style scoped>
-
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+code {
+  font-family: 'Ubuntu Mono', monospace;
+}
 div#blog {
-  font-family: 'Raleway', Helvetica, Arial, sans-serif;
   min-height: 300px;
   max-width: 800px;
   margin: auto;

@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style>
-
+/* BASE TEMPLATE STYLES ========== */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -56,24 +56,17 @@ export default {
   letter-spacing: 0.5px;
   color: #2c3e50;
   margin-top: 60px;
+  font-size: 15px;
+	font-weight: 300;
+	line-height: 140%;
 }
 
-
-
-/* BASE TEMPLATE STYLES ========== */
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
 body {
 	background: #fafafa;
 	background-attachment: fixed;
-	color: #555;
-	/* font-family: 'Raleway', Helvetica, Arial, sans-serif; */
-	font-size: 15px;
-	font-weight: 300;
-	line-height: 140%;
 	margin: 0;
 	height: 100%;
 	padding: 0;
-	text-align: center;
 	width: 100%;
 }
 .page_title {
@@ -89,105 +82,7 @@ body {
 
 
 
-/* BASIC LINK STYLES ========== */
-a {
-  text-decoration: none;
-  color: #04652e;
-}
-a:hover {
-  color: #2f945a;
-}
-
-
-
-/* DETAILS SUMMARY LINK STYLES ========== */
-details {
-  border-radius: 3px;
-  background: #EEE;
-}
-details summary {
-  font-size: 17px;
-  vertical-align: top;
-  background: #333;
-  color: #FFF;
-  border-radius: 3px;
-  padding: 5px 10px;
-  outline: none;
-  cursor: pointer;
-}
-details summary:hover {
-  background: #04652e;
-}
-details[open] summary {
-  background: #04652e;
-  color: #FFF;
-}
-details[open] summary:hover {
-  background: #333;
-  color: #FFF;
-}
-
-/* Hide the default marker. */
-details summary::-webkit-details-marker {
-  display: none;
-}
-
-/* Add the custom marker in the default state. */
-details summary:before {
-  display: inline-block;
-  width: 10px;
-  height: 18px;
-  content: "";
-  background-repeat: no-repeat;
-  background-position: 0 0;
-}
-
-/* Move the sprite image when the details box is open. */
-details[open] summary:before {
-  background-position: -18px 0;
-}
-
-
-
-
-/* NICE-LINK STYLES ========== */
-a.nice-link {
-  position: relative;
-  color:  #04652e;
-}
-.blog-list-element a.nice-link:after {
-  border-bottom: 1px solid #53cf44; /* Underline */
-}
-a.nice-link:after {
-  text-align: justify;
-  display: inline-block;
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  /* top: 0; */
-  white-space: nowrap;
-  overflow: hidden;
-  color: #53cf44;
-  min-height: 100%;
-  width: 0;
-  max-width: 100%; /* 'cause of IE bug */
-  /* background: #fafafa; */
-  -moz-transition: .3s;
-  -o-transition: .3s;
-  -webkit-transition: .3s;
-  transition: .3s;
-}
-a.nice-link:hover {
-  color: #04652e; /* To override default hover color */
-}
-a.nice-link:hover:after {
-  width: 100%;
-}
-
-
-
-
-/* PEN STYLES ========== */
+/* MENU PEN STYLES ========== */
 .menu,
 .menu .menu_title,
 .menu ul li a,
@@ -271,5 +166,103 @@ a.nice-link:hover:after {
   background: trasnparent;
 }
 
+
+
+
+/* BASIC LINK STYLES ========== */
+a {
+  text-decoration: none;
+  color: #04652e;
+}
+a:hover {
+  color: #2f945a;
+}
+
+
+
+
+/* DETAILS & SUMMARY LINK STYLES ========== */
+details {
+  border-radius: 3px;
+  background: #EEE;
+}
+details summary {
+  font-size: 17px;
+  vertical-align: top;
+  background: #333;
+  color: #FFF;
+  border-radius: 3px;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+}
+details summary:hover {
+  background: #04652e;
+}
+details[open] summary {
+  background: #04652e;
+  color: #FFF;
+}
+details[open] summary:hover {
+  background: #333;
+  color: #FFF;
+}
+
+/* Hide the default marker. */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Add the custom marker in the default state. */
+details summary:before {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  content: "";
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+/* Move the sprite image when the details box is open. */
+details[open] summary:before {
+  background-position: -18px 0;
+}
+
+
+
+
+/* NICE-LINK STYLES ========== */
+a.nice-link {
+  position: relative;
+  color:  #04652e;
+}
+.blog-list-element a.nice-link:after {
+  border-bottom: 1px solid #53cf44; /* Underline */
+}
+a.nice-link:after {
+  text-align: justify;
+  display: inline-block;
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  /* top: 0; */
+  white-space: nowrap;
+  overflow: hidden;
+  color: #53cf44;
+  min-height: 100%;
+  width: 0;
+  max-width: 100%; /* 'cause of IE bug */
+  /* background: #fafafa; */
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+a.nice-link:hover {
+  color: #04652e; /* To override default hover color */
+}
+a.nice-link:hover:after {
+  width: 100%;
+}
 
 </style>
