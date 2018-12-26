@@ -9,8 +9,9 @@ const productionPlugins = [
         "/",
         "/blog",
         "/daily",
+        "/blog/2018/12/17/블로그-오픈",
         "/blog/2018/12/18/Algorithm-Problem-Solving-Strategies",
-        "/blog/2018/12/17/블로그-오픈"
+        "/blog/2018/12/23/6-1.PICNIC/"
     ],
     renderer: new PrerenderSpaPlugin.PuppeteerRenderer({
       renderAfterElementExists: '#app'

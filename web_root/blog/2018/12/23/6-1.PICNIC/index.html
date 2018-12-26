@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title>Luke's Note</title><link href="/css/app.45f87b86.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.751c5dbd.js" rel="preload" as="script"><link href="/js/chunk-vendors.87feca90.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.45f87b86.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog" class="router-link-active">Blog</a></li><li><a href="/daily" class="">Daily</a></li></ul></div><p><div data-v-fe12daf6="" id="blog"><div data-v-fe12daf6="" id="blog-contents"><article data-v-fe12daf6=""><div data-v-fe12daf6="" class="inner-title-container"><h1 data-v-fe12daf6=""><a data-v-fe12daf6="" href="http://wbluke.com/blog/2018/12/23/6-1.PICNIC" id="inner-title">[알고리즘] 6-1. PICNIC (소풍)</a></h1><p data-v-fe12daf6="" class="meta">2018 / 12 / 23</p></div><div data-v-fe12daf6="" id="article-content"><h1 id="알고리즘-6-1.-picnic-소풍" style="display: none;">[알고리즘] 6-1. PICNIC (소풍)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/PICNIC">Algospot Link : PICNIC</a></p>
+<p>안드로메다 유치원 익스프레스반에서는 다음 주에 율동공원으로 소풍을 갑니다. 원석 선생님은 소풍 때 학생들을 두 명씩 짝을 지어 행동하게 하려고 합니다. 그런데 서로 친구가 아닌 학생들끼리 짝을 지어 주면 서로 싸우거나 같이 돌아다니지 않기 때문에, 항상 서로 친구인 학생들끼리만 짝을 지어 줘야 합니다.</p>
+<p>각 학생들의 쌍에 대해 이들이 서로 친구인지 여부가 주어질 때, 학생들을 짝지어줄 수 있는 방법의 수를 계산하는 프로그램을 작성하세요. 짝이 되는 학생들이 일부만 다르더라도 다른 방법이라고 봅니다. 예를 들어 다음 두 가지 방법은 서로 다른 방법입니다.</p>
+<p>(태연,제시카) (써니,티파니) (효연,유리) (태연,제시카) (써니,유리) (효연,티파니) 입력 입력의 첫 줄에는 테스트 케이스의 수 C (C &lt;= 50) 가 주어집니다. 각 테스트 케이스의 첫 줄에는 학생의 수 n (2 &lt;= n &lt;= 10) 과 친구 쌍의 수 m (0 &lt;= m &lt;= n*(n-1)/2) 이 주어집니다. 그 다음 줄에 m 개의 정수 쌍으로 서로 친구인 두 학생의 번호가 주어집니다. 번호는 모두 0 부터 n-1 사이의 정수이고, 같은 쌍은 입력에 두 번 주어지지 않습니다. 학생들의 수는 짝수입니다.</p>
+<p>출력 각 테스트 케이스마다 한 줄에 모든 학생을 친구끼리만 짝지어줄 수 있는 방법의 수를 출력합니다.</p>
+<p>예제 입력</p>
+<pre><code class="hljs">3
+2 1
+0 1
+4 6
+0 1 1 2 2 3 3 0 0 2 1 3
+6 10
+0 1 0 2 1 2 1 3 1 4 2 3 2 4 3 4 3 5 4 5</code></pre>
+<p>예제 출력</p>
+<pre><code class="hljs">1
+3
+4</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li><p>완전탐색 문제입니다.<br>
+사람이 손으로 셀 수 없는 문제를 컴퓨터가 대신 하나하나 세도록 함으로써 불가능을 가능토록 하는 아름답고 무식한 방법입니다.</p></li>
+<li>재귀호출의 기본은 아래와 같습니다.</li>
+</ul>
+<pre><code class="hljs">1. 기저사례(Base Case) 설정
+2. 한 조각(작업)을 마친 후 되돌아오는 과정(이 때, 문제의 크기가 작아져야 한다.)</code></pre>
+<ul>
+<li><p>재귀 호출을 이용하여 문제를 해결하려면 우선 각 답을 만드는 과정을 여러 개의 조각으로 나누어야 합니다.<br>
+이 문제에서는 <code class="hljs">아직 짝을 찾지 못한 학생들의 명단이 주어질 때, 친구끼리 둘씩 짝짓는 경우의 수를 계산하라.</code> 가 한 조각이 되겠습니다.</p></li>
+<li><p>친구인 학생 쌍의 표시를 bool타입의 이차원배열 <code class="hljs">soulmate</code>에 저장하고, 우리가 찾을 친구쌍을 일차원배열 <code class="hljs">matching</code>에 저장합니다.<br>
+짝이 있거나 찾은 경우 <code class="hljs bash"><span class="hljs-literal">true</span></code>, 짝이 없거나 아직 찾지 못한 경우 <code class="hljs bash"><span class="hljs-literal">false</span></code>로 처리합니다.<br>
+main함수에서 각 배열을 <code class="hljs cpp"><span class="hljs-built_in">memset</span></code>함수로 초기화 시킨 후, 들어오는 입력을 <code class="hljs">soulmate</code>배열에 입력해 놓습니다.</p></li>
+<li><code class="hljs">countPairing</code>함수에서 이 문제의 핵심인 재귀호출을 구현합니다.<br>
+다만, 단순히 아무렿게나 세기만 하면 다음과 같은 문제가 발생합니다.</li>
+</ul>
+<pre><code class="hljs">- 중복으로 세는 문제 : 같은 쌍을 두번씩 셉니다. (1,0)과 (0,1)이 다르게 카운팅됩니다.
+- 순서 존재 문제 : (0,1), (2,3) 순으로 세는 것과 (2,3), (0,1) 순으로 세는 것이 다르게 카운팅됩니다.</code></pre>
+<ul>
+<li><p>이를 해결하기 위해, 각 단계에서 남아있는 학생들 중 <code class="hljs">가장 번호가 빠른 학생</code>의 짝을 찾아주도록 합니다.<br>
+이렇게 하면, (1,0)과 같은 경우를 셀 일은 없어지고, 또 순서 문제도 자연스레 해결됩니다.<br>
+first 변수를 초기값 -1로 세팅하고 <code class="hljs">matching</code>함수를 순회하면서, <code class="hljs bash"><span class="hljs-literal">false</span></code>값이 있으면 그 인덱스를 넣어주고, 없으면 기저사례로 처리해 모든 짝이 다 지어진 1가지 방법으로 인식하고 1을 return해 줍니다.</p></li>
+<li><p>기저사례를 처리한 후에는 나머지 로직에서 재귀호출을 하여 완전탐색합니다.<br>
+잊지 말아야 할 것은 하나의 경우를 탐색한 후에 다시 같은 깊이의 다른 노드를 탐색할 수 있도록 재귀호출 후에 해당 인덱스 <code class="hljs">matching</code>값을 <code class="hljs bash"><span class="hljs-literal">false</span></code>값으로 돌려주어야 한다는 것입니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH06/CH06/PICNIC.cpp">Github Link</a></p>
+<pre class="cpp"><code class="hljs"><span class="hljs-comment">/* PICNIC.cpp */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">int</span> student, soulmateCount;
+<span class="hljs-keyword">bool</span> soulmate[<span class="hljs-number">10</span>][<span class="hljs-number">10</span>];
+<span class="hljs-keyword">bool</span> matching[<span class="hljs-number">10</span>];
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">countPairing</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> matching[<span class="hljs-number">10</span>])</span> </span>{
+
+    <span class="hljs-keyword">int</span> first = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; student; i++) {
+        <span class="hljs-keyword">if</span> (!matching[i]) {
+            first = i;
+            <span class="hljs-keyword">break</span>;
+        }
+    }
+
+    <span class="hljs-comment">//base case</span>
+    <span class="hljs-keyword">if</span> (first == <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">int</span> ret = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> soul = first + <span class="hljs-number">1</span>; soul &lt; student; soul++) {
+        <span class="hljs-keyword">if</span> (!matching[soul] &amp;&amp; soulmate[first][soul]) {
+            matching[first] = matching[soul] = <span class="hljs-literal">true</span>;
+            ret += countPairing(matching);
+            matching[first] = matching[soul] = <span class="hljs-literal">false</span>;
+        }
+    }
+    <span class="hljs-keyword">return</span> ret;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+
+    <span class="hljs-keyword">int</span> num, f1, f2;
+    <span class="hljs-built_in">cin</span> &gt;&gt; num;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; num; i++) {
+
+        <span class="hljs-built_in">cin</span> &gt;&gt; student &gt;&gt; soulmateCount;
+
+        <span class="hljs-built_in">memset</span>(soulmate, <span class="hljs-literal">false</span>, <span class="hljs-keyword">sizeof</span>(soulmate));
+        <span class="hljs-built_in">memset</span>(matching, <span class="hljs-literal">false</span>, <span class="hljs-keyword">sizeof</span>(matching));
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; soulmateCount; j++) {
+            <span class="hljs-built_in">cin</span> &gt;&gt; f1 &gt;&gt; f2;
+            soulmate[f1][f2] = soulmate[f2][f1] = <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-built_in">cout</span> &lt;&lt; countPairing(matching) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+    }
+
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</details>
+<h3 id="문법">문법</h3>
+<hr>
+<ul>
+<li>memset : 어떤 메모리의 시작점부터 연속된 범위를 어떤 값으로(바이트 단위) 모두 지정하고 싶을 때 사용하는 함수<br>
+void * memset ( void * ptr, int value, size_t num );<br>
+<strong>주의) cstring 헤더 안에 있습니다. 선언 필요!</strong></li>
+</ul>
+</div></article><hr data-v-fe12daf6=""></div></div></p></div><script src="/js/chunk-vendors.87feca90.js"></script><script src="/js/app.751c5dbd.js"></script></body></html>
