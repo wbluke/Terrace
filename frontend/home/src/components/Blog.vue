@@ -27,6 +27,7 @@ import HighlightJS from 'highlight.js/lib/highlight.js'
 // Add languages manually to decrease size of my website
 HighlightJS.registerLanguage('vim', require('highlight.js/lib/languages/vim'));
 HighlightJS.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
+HighlightJS.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'));
 // eslint-disable-next-line
 import _ from 'highlight.js/styles/xcode.css'
 
@@ -89,7 +90,7 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index:
-[{"title":"Testfile","uri":"/blog/2018/12/24/testpandoc/","date":"2018/12/24"},{"title":"[알고리즘] 6-1. PICNIC (소풍)","uri":"/blog/2018/12/23/6-1.PICNIC/","date":"2018/12/23"},{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}]
+[{"title":"[알고리즘] 6-1. PICNIC (소풍)","uri":"/blog/2018/12/23/6-1.PICNIC/","date":"2018/12/23"},{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}]
 // __INSERTION_POSITION_END__ // DONT CHANGE!!
 ,
     year : this.$route.params.year,
@@ -115,10 +116,7 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
-code {
-  font-family: 'Ubuntu Mono', monospace;
-}
+
 div#blog {
   min-height: 300px;
   max-width: 800px;
@@ -126,6 +124,7 @@ div#blog {
   margin-bottom: 50px;
 }
 #blog-contents {
+  margin: auto;
   text-align: left;
 }
 .inner-title-container {
@@ -163,6 +162,7 @@ article {
   text-align: left;
   color: #000;
   line-height: 1.6em;
+  padding: 8px;
 }
 .blog-article-list {
   max-width: 800px;

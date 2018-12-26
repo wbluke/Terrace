@@ -169,6 +169,32 @@ body {
 
 
 
+/* BASIC CODE BOX STYLES ========== */
+@import url('https://fonts.googleapis.com/css?family=PT+Mono');
+code.hljs{
+  display: inline;
+  background-color: #F0F0F0;
+  box-shadow: none;
+  padding: 1px;
+}
+
+
+code, pre>code.hljs {
+  font-family: 'PT Mono', monospace;
+  background-color: #f1f1f1;
+  border-radius: 1px;
+  -webkit-box-shadow: 3px 3px 7px 0px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 7px 0px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 7px 0px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  line-height: 1.6em;
+  padding: 0.7em;
+  padding-left: 1.6em;
+  display: block;
+  overflow: auto;
+  font-size: 14px;
+}
+
+
 /* BASIC LINK STYLES ========== */
 a {
   text-decoration: none;
@@ -185,6 +211,8 @@ a:hover {
 details {
   border-radius: 3px;
   background: #EEE;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 details summary {
   font-size: 17px;

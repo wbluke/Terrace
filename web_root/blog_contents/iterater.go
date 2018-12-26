@@ -58,6 +58,7 @@ func execPandocMdToHtml(path string) {
 			result,
 			"--to",
 			"html5",
+			//"--standalone",
 			"--no-highlight",
 		)
 		// cmd := exec.Command("pwd")
