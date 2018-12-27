@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-img#aboutImg {
+#aboutImg {
    width: 200px;
    height: 200px;
    border-radius: 8px;

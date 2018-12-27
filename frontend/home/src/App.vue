@@ -306,14 +306,27 @@ a.nice-link:after {
   -webkit-transition: .3s;
   transition: .3s;
 }
-@media only screen and (min-width: 768px) {
-  a.nice-link:hover {
-    color: #04652e; /* To override default hover color */
-  }
-  a.nice-link:hover:after {
-    width: 100%;
-  }
-};
+a.nice-link.laptop:hover {
+  color: #04652e; /* To override default hover color */
+}
+a.nice-link.laptop:hover::after {
+  width: 100%;
+}
+a.nice-link.desktop:hover {
+  color: #04652e; /* To override default hover color */
+}
+a.nice-link.desktop:hover::after {
+  width: 100%;
+}
+/* a.nice-link:hover {
+  &.mobile { }
+  &.laptop {  }
+}
+a.nice-link:hover::after {
+  &.mobile { width: 0%; }
+  &.laptop { width: 100%; }
+} */
+
 
 
 </style>

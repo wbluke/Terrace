@@ -13,7 +13,7 @@
     <div v-else>
       <div class="blog-list-element" v-for="i in index" :key="i">
         <div class="blog-list-element-title">
-          <router-link :to="i.uri" class="nice-link">{{ i.title }}</router-link>
+          <router-link :to="i.uri" class="nice-link" :class="$mq">{{ i.title }}</router-link>
         </div>
         {{ i.date }}
       </div>
