@@ -310,10 +310,10 @@ a.nice-link:after {
   a.nice-link:hover {
     color: #04652e; /* To override default hover color */
   }
+  a.nice-link:hover:after {
+    width: 100%;
+  }
 };
-a.nice-link:hover:after {
-  width: 100%;
-}
 
 
 </style>
