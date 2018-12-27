@@ -220,12 +220,9 @@ a {
   text-decoration: none;
   color: #04652e;
 }
-@media only screen and (min-width: 768px) {
-  a:hover {
-    color: #2f945a;
-  }
-};
-
+a:hover {
+  color: #2f945a;
+}
 
 
 
