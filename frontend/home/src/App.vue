@@ -286,9 +286,11 @@ a.nice-link:after {
   -webkit-transition: .3s;
   transition: .3s;
 }
-a.nice-link:hover {
-  color: #04652e; /* To override default hover color */
-}
+@media only screen and (max-width: 768px) {
+  a.nice-link:hover {
+    color: #04652e; /* To override default hover color */
+  }
+};
 a.nice-link:hover:after {
   width: 100%;
 }
