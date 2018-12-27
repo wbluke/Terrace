@@ -35,18 +35,15 @@ export default {
         el.setAttribute('data-text', el.textContent)
       });
     },
-    cancelHoverCssOnmobile: function() {
-      document.addEventListener('DOMContentLoaded', function() {
-        [].forEach.call( document.querySelectorAll('a'), function(el) {
-          el.addEventListener('click touchend', function(e) {
-            var el = document.querySelector(this);
-            var link = el.setAttribute('href');
-            window.location = link;
-          }, false);
-
-        });
+    cancelHoverCssOnMobile: function() {
+      [].forEach.call( document.querySelectorAll('a'), function(el) {
+        el.addEventListener('click touchend', function(e) {
+          var el = document.querySelector(this);
+          var link = el.setAttribute('href');
+          window.location = link;
+        }, false);
       });
-
+    }
       //have to change
       // $(document).ready(function() {
       //   $("a").on("click touchend", function(e) {
@@ -55,11 +52,10 @@ export default {
       //     window.location = link;
       //   });
       // });
-    }
   },
   mounted: function() {
     this.applyNiceLink(),
-    this.cancelHoverCssOnmobile()
+    this.cancelHoverCssOnMobile()
   },
   updated: function() { this.applyNiceLink() },
   data() {
