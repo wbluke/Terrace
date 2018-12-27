@@ -34,9 +34,33 @@ export default {
       Array.prototype.forEach.call(elements, function(el, i){
         el.setAttribute('data-text', el.textContent)
       });
+    },
+    cancelHoverCssOnmobile: function() {
+      document.addEventListener('DOMContentLoaded', function() {
+        [].forEach.call( document.querySelectorAll('a'), function(el) {
+          el.addEventListener('click touchend', function(e) {
+            var el = document.querySelector(this);
+            var link = el.setAttribute('href');
+            window.location = link;
+          }, false);
+
+        });
+      });
+
+      //have to change
+      // $(document).ready(function() {
+      //   $("a").on("click touchend", function(e) {
+      //     var el = $(this);
+      //     var link = el.attr("href");
+      //     window.location = link;
+      //   });
+      // });
     }
   },
-  mounted: function() { this.applyNiceLink() },
+  mounted: function() {
+    this.applyNiceLink(),
+    this.cancelHoverCssOnmobile()
+  },
   updated: function() { this.applyNiceLink() },
   data() {
     return {
@@ -286,11 +310,9 @@ a.nice-link:after {
   -webkit-transition: .3s;
   transition: .3s;
 }
-@media only screen and (max-width: 768px) {
-  a.nice-link:hover {
-    color: #04652e; /* To override default hover color */
-  }
-};
+a.nice-link:hover {
+  color: #04652e; /* To override default hover color */
+}
 a.nice-link:hover:after {
   width: 100%;
 }
