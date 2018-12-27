@@ -35,15 +35,15 @@ export default {
         el.setAttribute('data-text', el.textContent)
       });
     },
-    cancelHoverCssOnMobile: function() {
-      [].forEach.call( document.querySelectorAll('a'), function(el) {
-        el.addEventListener('click touchend', function(e) {
-          var el = document.querySelector(this);
-          var link = el.setAttribute('href');
-          window.location = link;
-        }, false);
-      });
-    }
+    // cancelHoverCssOnMobile: function() {
+    //   [].forEach.call( document.querySelectorAll('a'), function(el) {
+    //     el.addEventListener('click touchend', function(e) {
+    //       var el = document.querySelector(this);
+    //       var link = el.setAttribute('href');
+    //       window.location = link;
+    //     }, false);
+    //   });
+    // }
       //have to change
       // $(document).ready(function() {
       //   $("a").on("click touchend", function(e) {
@@ -54,8 +54,8 @@ export default {
       // });
   },
   mounted: function() {
-    this.applyNiceLink(),
-    this.cancelHoverCssOnMobile()
+    this.applyNiceLink()
+    // this.cancelHoverCssOnMobile()
   },
   updated: function() { this.applyNiceLink() },
   data() {
@@ -220,9 +220,12 @@ a {
   text-decoration: none;
   color: #04652e;
 }
-a:hover {
-  color: #2f945a;
-}
+@media only screen and (min-width: 768px) {
+  a:hover {
+    color: #2f945a;
+  }
+};
+
 
 
 
@@ -306,11 +309,13 @@ a.nice-link:after {
   -webkit-transition: .3s;
   transition: .3s;
 }
-a.nice-link:hover {
-  color: #04652e; /* To override default hover color */
-}
-a.nice-link:hover:after {
-  width: 100%;
-}
+@media only screen and (min-width: 768px) {
+  a.nice-link:hover {
+    color: #04652e; /* To override default hover color */
+  }
+  a.nice-link:hover:after {
+    width: 100%;
+  }
+};
 
 </style>
