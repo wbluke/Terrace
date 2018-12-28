@@ -318,14 +318,7 @@ a.nice-link.desktop:hover {
 a.nice-link.desktop:hover::after {
   width: 100%;
 }
-/* a.nice-link:hover {
-  &.mobile { }
-  &.laptop {  }
-}
-a.nice-link:hover::after {
-  &.mobile { width: 0%; }
-  &.laptop { width: 100%; }
-} */
+
 
 
 
