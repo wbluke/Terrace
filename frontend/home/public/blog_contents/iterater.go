@@ -23,9 +23,15 @@ const (
 	EXT_MD            string = ".md"
 	DirPrefix         string = "../../public/blog_contents"
 	PathBlogComponent string = "../../src/components/Blog.vue"
+	PathVueConfigJs   string = "../../vue.config.js"
 )
 
 var articles []string
+var prerenderingArticles = []string{
+	"/",
+	"/blog",
+	"/daily",
+}
 
 func execRmOldHtml(path string) {
 	if (len(path) > len(EXT_HTML)) &&
@@ -159,6 +165,33 @@ func insertJsonToBlogComponent(json string) {
 	ioutil.WriteFile(PathBlogComponent, []byte(componentSource), 0644)
 }
 
+func insertJsonToVueConfigJs(json string) {
+	vueConfigJsSourceBytes, err := ioutil.ReadFile(PathVueConfigJs)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	vueConfigJsSource := string(vueConfigJsSourceBytes)
+
+	i := strings.Index(vueConfigJsSource, "__INSERTION_POSITION__")
+
+	from := strings.Index(vueConfigJsSource[i:], "[")
+	from += i
+
+	k := strings.Index(vueConfigJsSource, "__INSERTION_POSITION_END__")
+	to := strings.LastIndex(vueConfigJsSource[i:k+2], "]")
+	to += i
+
+	fmt.Println(" -- old json -- ")
+	fmt.Println(string(vueConfigJsSource[from : to+1]))
+	fmt.Println("-- old json end -- ")
+
+	vueConfigJsSource = vueConfigJsSource[0:from] + json + vueConfigJsSource[to+1:]
+	fmt.Println(vueConfigJsSource)
+
+	ioutil.WriteFile(PathVueConfigJs, []byte(vueConfigJsSource), 0644)
+}
+
 func main() {
 	dirInfo, err := ioutil.ReadDir(DirPrefix)
 	if err != nil {
@@ -196,4 +229,16 @@ func main() {
 	fmt.Println(string(b))
 
 	insertJsonToBlogComponent(string(b))
+
+	//prerendering
+	for _, articlePath := range articles {
+		uri := strings.Replace(articlePath, "../../public/blog_contents/", "/blog/", 1)
+		uri = strings.Replace(uri, ".html", "/", 1)
+		prerenderingArticles = append(prerenderingArticles, uri)
+	}
+	u, err := json.Marshal(prerenderingArticles)
+	if err != nil {
+		log.Fatal(err)
+	}
+	insertJsonToVueConfigJs(string(u))
 }
