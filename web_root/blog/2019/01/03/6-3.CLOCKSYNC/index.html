@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title>Luke's Note</title><link href="/css/app.3461e2a0.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.080ecf14.js" rel="preload" as="script"><link href="/js/chunk-vendors.ead35525.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.3461e2a0.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog" class="router-link-active">Blog</a></li><li><a href="/daily" class="">Daily</a></li></ul></div><p><div data-v-c10c4b30="" id="blog"><div data-v-c10c4b30="" id="blog-contents"><article data-v-c10c4b30=""><div data-v-c10c4b30="" class="inner-title-container"><h1 data-v-c10c4b30=""><a data-v-c10c4b30="" href="http://wbluke.com/blog/2019/01/03/6-3.CLOCKSYNC" id="inner-title">[알고리즘] 6-3. CLOCKSYNC (시계 맞추기)</a></h1><p data-v-c10c4b30="" class="meta">2019 / 01 / 03</p></div><div data-v-c10c4b30="" id="article-content"><h1 id="알고리즘-6-3.-clocksync-시계-맞추기" style="display: none;">[알고리즘] 6-3. CLOCKSYNC (시계 맞추기)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/CLOCKSYNC">Algospot Link : CLOCKSYNC</a></p>
+<p><strong>문제</strong></p>
+<figure>
+<img src="http://algospot.com/media/judge-attachments/d3428bd7a9a425b85c9d3c042b674728/clocks.PNG" alt="시계 맞추기"><figcaption>시계 맞추기</figcaption>
+</figure>
+<p>그림과 같이 4 x 4 개의 격자 형태로 배치된 16개의 시계가 있다. 이 시계들은 모두 12시, 3시, 6시, 혹은 9시를 가리키고 있다. 이 시계들이 모두 12시를 가리키도록 바꾸고 싶다.</p>
+<p>시계의 시간을 조작하는 유일한 방법은 모두 10개 있는 스위치들을 조작하는 것으로, 각 스위치들은 모두 적게는 3개에서 많게는 5개의 시계에 연결되어 있다. 한 스위치를 누를 때마다, 해당 스위치와 연결된 시계들의 시간은 3시간씩 앞으로 움직인다. 스위치들과 그들이 연결된 시계들의 목록은 다음과 같다.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">스위치</th>
+<th style="text-align: left;">연결된 시계 번호</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0, 1, 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3, 7, 9, 11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">4, 10, 14, 15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">0, 4, 5, 6, 7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">6, 7, 8, 10, 12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">0, 2, 14, 15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">3, 14, 15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">4, 5, 7, 14, 15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">1, 2, 3, 4, 5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">3, 4, 5, 9, 13</td>
+</tr>
+</tbody>
+</table>
+<p>시계들은 맨 윗줄부터, 왼쪽에서 오른쪽으로 순서대로 번호가 매겨졌다고 가정하자. 시계들이 현재 가리키는 시간들이 주어졌을 때, 모든 시계를 12시로 돌리기 위해 최소한 눌러야 할 스위치의 수를 계산하는 프로그램을 작성하시오.</p>
+<p><strong>입력</strong></p>
+<p>첫 줄에 테스트 케이스의 개수 C (&lt;= 30) 가 주어진다. 각 테스트 케이스는 한 줄에 16개의 정수로 주어지며, 각 정수는 0번부터 15번까지 각 시계가 가리키고 있는 시간을 12, 3, 6, 9 중 하나로 표현한다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스당 한 줄을 출력한다. 시계들을 모두 12시로 돌려놓기 위해 눌러야 할 스위치의 최소 수를 출력한다. 만약 이것이 불가능할 경우 -1 을 출력한다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">2
+12 6 6 6 6 6 12 12 12 12 12 12 12 12 12 12 
+12 9 3 12 6 6 9 3 12 9 12 9 12 12 6 6</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">2
+9</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li><p>이 문제를 처음에 딱 보고 완전탐색을 구현하려고 했더니, 한 조각의 크기를 어떻게, 재귀의 깊이를 어디까지 잡아야하는지 전혀 감이 오질 않아서 접근하지 못했습니다. <code class="hljs">스위치는 무한대로 누를 수 있는데, 어떻게 경우를 세지?</code>라는 물음을 깨부수는 아이디어가 책에 나와있더군요.</p></li>
+<li><p>먼저, 스위치를 누르는 순서는 상관이 없습니다. 정말 중요한 것은 한 스위치를 4번 누르면 시계가 제자리로 돌아오기 때문에, <code class="hljs">어떤 스위치건 4번 이상 누를 필요가 없다!</code>는 놀라운 사실. <del>뒷통수 맞았습니다</del></p></li>
+<li><p>문제에 표로 제시된 스위치의 상태를 꺼내쓰기 위해 <code class="hljs">clockSwitch</code> 이차원 배열에 저장해 놓습니다. 오타에 유의하세요.</p></li>
+<li><p>저는 입력되는 시계의 시간을 12, 3, 6, 9로 처리하기 싫어서 0, 1, 2, 3으로 바꾸고 시작했습니다. 중요한 건 아닙니다. <del>개취</del></p></li>
+<li><p>재귀함수를 구현할 <code class="hljs">solve</code>함수, base case인 <code class="hljs">모든 시계가 12시인가?</code>를 확인하기 위한 <code class="hljs">checkTwelve</code>함수, 그리고 현재 시계들의 상태(<code class="hljs">clocks</code>배열)와 스위치 번호를 인수로 받아 스위치를 누르는 <code class="hljs">push</code>함수를 구현합니다.<br>
+이번 문제에서 눈여겨 보아야 할 부분은 크게 두가지입니다.</p></li>
+</ul>
+<pre><code class="hljs vim"><span class="hljs-number">1</span>. 최솟값을 구하는 문제에서, <span class="hljs-built_in">min</span>()함수를 사용하기 때문에, 매우 큰 상수인 INF를 활용하기
+<span class="hljs-number">2</span>. 위 <span class="hljs-number">1</span>번의 내용을 base case에서 삼항 연산자를 활용하여 적용하기</code></pre>
+<ul>
+<li><p><code class="hljs">solve</code>함수에서는 재귀 호출 시 스위치의 번호를 1씩 증가하면서 호출하기 때문에 base case에서는 스위치의 번호가 10인지를 물어봅니다. 전 단계까지 해서 0~9번 스위치를 다 돌았냐는 뜻이겠죠. 여기서 바로 return값으로 삼항 연산자를 사용하면서, 모든 시계가 12시라면 (<code class="hljs">checkTewlve</code>가 <code class="hljs bash"><span class="hljs-literal">true</span></code>) 0, 아니라면 답이 되는 경우가 없다는 뜻으로 정말 큰 수인 INF를 반환합니다.<br>
+참일 때 0을 반환시키는 이유는 호출 부분에서 기존의 스위치를 누른 횟수인 <code class="hljs vim"><span class="hljs-built_in">count</span></code>에 더해져서 계산되기 때문입니다.</p></li>
+<li><p>책의 저자 분은 보통 INF를 사용할 때, 적당히 크면서 값을 체크하기도 좋은 987654321을 사용한다고 하시네요. 저도 맘에 드는 숫자입니다.</p></li>
+<li><p><code class="hljs">push</code>함수는 for문 내에서 최종적으로 4번 호출되기 때문에, 결국 시계는 제자리로 돌아옵니다. 따로 관련된 처리를 해줄 필요가 없습니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH06/CH06/CLOCKSYNC.cpp">Github Link</a></p>
+<pre class="cpp"><code class="hljs"><span class="hljs-comment">/* CLOCKSYNC.cpp */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;vector&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> INF = <span class="hljs-number">987654321</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> clockSwitch[<span class="hljs-number">10</span>][<span class="hljs-number">16</span>] = {
+    { <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span> },
+    { <span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> },
+    { <span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> },
+    { <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> }
+};
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;clocks, <span class="hljs-keyword">int</span> sw)</span> </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; i++) {
+        clocks[i] += clockSwitch[sw][i];
+        <span class="hljs-keyword">if</span> (clocks[i] == <span class="hljs-number">4</span>) {
+            clocks[i] = <span class="hljs-number">0</span>;
+        }
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkTwelve</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;clocks)</span> </span>{
+    <span class="hljs-keyword">bool</span> ret = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; i++) {
+        <span class="hljs-keyword">if</span> (clocks[i] != <span class="hljs-number">3</span>) {
+            ret = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">break</span>;
+        }
+    }
+    <span class="hljs-keyword">return</span> ret;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">solve</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;clocks, <span class="hljs-keyword">int</span> sw)</span> </span>{
+    <span class="hljs-comment">//if all switches were pushed, check where clocks point out.</span>
+    <span class="hljs-keyword">if</span> (sw == <span class="hljs-number">10</span>) <span class="hljs-keyword">return</span> checkTwelve(clocks) ? <span class="hljs-number">0</span> : INF;
+
+    <span class="hljs-keyword">int</span> ret = INF;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>; count &lt; <span class="hljs-number">4</span>; count++) {
+        ret = min(ret, count + solve(clocks, sw + <span class="hljs-number">1</span>));
+        <span class="hljs-comment">//cout &lt;&lt; ret;</span>
+        push(clocks, sw);
+    }
+    <span class="hljs-keyword">return</span> ret;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+
+    <span class="hljs-keyword">int</span> num;
+    <span class="hljs-built_in">cin</span> &gt;&gt; num;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>; a &lt; num; a++) {
+
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; clocks(<span class="hljs-number">16</span>);
+        <span class="hljs-comment">//3-&gt;0, 6-&gt;1, 9-&gt;2, 12-&gt;3</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; i++) {
+            <span class="hljs-built_in">cin</span> &gt;&gt; clocks[i];
+            clocks[i] = clocks[i] / <span class="hljs-number">3</span> - <span class="hljs-number">1</span>;
+        }
+
+        <span class="hljs-keyword">int</span> ret = solve(clocks, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">if</span> (ret &gt;= INF) {
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-number">-1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        }
+        <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">cout</span> &lt;&lt; ret &lt;&lt; <span class="hljs-built_in">endl</span>;
+        }
+
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</details>
+<h3 id="문법">문법</h3>
+<hr>
+<ul>
+<li><code class="hljs vim"><span class="hljs-built_in">min</span>(<span class="hljs-keyword">a</span>, <span class="hljs-keyword">b</span>)</code>, <code class="hljs vim"><span class="hljs-built_in">max</span>(<span class="hljs-keyword">a</span>, <span class="hljs-keyword">b</span>)</code> : <code class="hljs">algorithm</code> 헤더파일에 있습니다.</li>
+</ul>
+</div></article><hr data-v-c10c4b30=""></div></div></p></div><script src="/js/chunk-vendors.ead35525.js"></script><script src="/js/app.080ecf14.js"></script></body></html>
