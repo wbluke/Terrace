@@ -29,8 +29,8 @@ const (
 var articles []string
 var prerenderingArticles = []string{
 	"/",
-	"/blog",
-	"/daily",
+	"/blog/",
+	"/daily/",
 }
 
 func execRmOldHtml(path string) {

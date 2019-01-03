@@ -1,0 +1,171 @@
+<h1 id="알고리즘-6-2.-boardcover-게임판-덮기">[알고리즘] 6-2. BOARDCOVER (게임판 덮기)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/BOARDCOVER">Algospot Link : BOARDCOVER</a></p>
+<p><strong>문제</strong></p>
+<figure>
+<img src="http://algospot.com/media/judge-attachments/2b7bfee35cbec2f4e799bb011ac18f69/03.png" alt="게임판 덮기" /><figcaption>게임판 덮기</figcaption>
+</figure>
+<p>H*W 크기의 게임판이 있습니다. 게임판은 검은 칸과 흰 칸으로 구성된 격자 모양을 하고 있는데 이 중 모든 흰 칸을 <code>3칸짜리 L자 모양의 블록</code>으로 덮고 싶습니다. 이 때 블록들은 자유롭게 회전해서 놓을 수 있지만, 서로 겹치거나, 검은 칸을 덮거나, 게임판 밖으로 나가서는 안 됩니다. 위 그림은 한 게임판과 이를 덮는 방법을 보여줍니다.</p>
+<p>게임판이 주어질 때 이를 덮는 방법의 수를 계산하는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code>C (C &lt;= 30)</code> 가 주어집니다. 각 테스트 케이스의 첫 줄에는 2개의 정수 <code>H, W (1 &lt;= H,W &lt;= 20)</code> 가 주어집니다. 다음 H 줄에 각 W 글자로 게임판의 모양이 주어집니다. <code>#</code> 은 검은 칸, <code>.</code> 는 흰 칸을 나타냅니다. 입력에 주어지는 게임판에 있는 흰 칸의 수는 50 을 넘지 않습니다.</p>
+<p><strong>출력</strong></p>
+<p>한 줄에 하나씩 흰 칸을 모두 덮는 방법의 수를 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>3 
+3 7 
+#.....# 
+#.....# 
+##...## 
+3 7 
+#.....# 
+#.....# 
+##..### 
+8 10 
+########## 
+#........# 
+#........# 
+#........# 
+#........# 
+#........# 
+#........# 
+########## </code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>0
+2
+1514</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li><p>완전탐색 문제입니다.<br />
+어떤 방법을 선택하여 모든 경우를 순회할 것인지를 고민해보아야 합니다.</p></li>
+<li><p>먼저 버어있는 칸의 개수를 세서 3의 배수가 아니면 거르도록 합니다. 덮을 수 없을테니 셀 필요가 없지요. 재귀호출을 걸 작은 조각이 무엇일지 생각해봅니다. L자 블록이 어떤 식으로 채워질지 고민해보면 방향을 잡을 수 있습니다.<br />
+중복을 피하고 특정한 순서로 답을 세기 위하여 빈칸 중 <code>가장 윗 줄, 가장 왼쪽 칸</code>을 덮는 조각의 경우 수를 고려합니다.<br />
+총 4가지의 경우가 생기는 것을 알 수 있습니다.</p></li>
+<li><p>저는 처음에 입력된 게임판을 이차원배열에 넣어놓고 Head 포인터로 움직이면서 칸을 채우려다가… 생각해야하는 조건이 너무 많아져서 포기했습니다. 줄 끝에 가면 행을 바꿔주어야 하는데 무언가 잘못되었다는 본능의 외침…</p></li>
+<li><p>4가지의 경우를 <code>coverType[4][3][2]</code> 3차원배열에 상대좌표(dy, dx)형태로 저장합니다.</p></li>
+<li><p>먼저 main에서 <code>vector&lt;vector&lt;int&gt;&gt; board(h, vector&lt;int&gt;(w, 0));</code> 이차원 배열 형태로 세로 h, 가로 w의 0으로 초기화된 board판을 만들고, 입력되는 게임판을 받아줍니다. <code>#</code>으로 칠해진 칸은 1로 채우고, 동시에 (3의 배수가 아닌 경우를 고르기 위해) 빈 칸의 개수를 같이 세어줍니다.</p></li>
+<li><p><code>cover</code>함수에서 <code>가장 윗 줄, 가장 왼쪽 칸</code>을 찾은 다음, 칸이 다 채워져있는 경우를 기저사례(base case)로 처리합니다.</p></li>
+<li><p>재귀호출의 핵심은 블록의 맞춤 가능성을 반환하는 <code>bool set(vector&lt;vector&lt;int&gt;&gt; &amp;board, int y, int x, int type, int delta)</code> 함수입니다.</p></li>
+</ul>
+<pre class="cpp"><code>if (ny &lt; 0 || ny &gt;= board.size() || nx &lt; 0 || nx &gt;= board[0].size()) {
+    ok = false;
+}
+else if ((board[ny][nx] += delta) &gt; 1) {
+    ok = false;
+}</code></pre>
+<ul>
+<li><p>함수 내에서 보드판을 벗어나는 경우와 채우려는 칸이 이미 칠해져있는 경우를 판별해내는 조건문이 있는데, 이 부분이 가장 이해하는 데 오래걸리고 흥미로운 부분이었습니다.<br />
+<code>cover</code>함수에서 <code>delta</code>변수를 1 혹은 -1로 호출하는데, <code>set</code>함수의 <code>(board[ny][nx] += delta)</code>부분 때문에 <code>delta</code>가 1일 때는 칸을 덮고, -1일때는 칸을 치워버리는 효과를 가져올 수 있습니다. (board가 참조자 <code>&amp;</code>로 접근되기 때문에 바로 값의 변경이 가능합니다.)</p></li>
+<li><p><code>cover</code>함수에서 시작블록의 <code>type</code>을 바꿔가면서 <code>set</code>함수가 가능성을 <code>true</code>로 판별해 주었을 때, 자기 자신을 재귀호출하며 ret에 카운팅을 시켜줍니다. 덮었던 판은 다시 <code>delta = -1</code>로 치워줍니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH06/CH06/BOARDCOVER.cpp">Github Link</a></p>
+<pre class="cpp"><code>/* BOARDCOVER.cpp */
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+int h, w;
+char piece; //&#39;#&#39; OR &#39;.&#39;
+int coverType[4][3][2] = {
+    { { 0,0 },{ 1,0 },{ 0,1 } },
+    { { 0,0 },{ 1,1 },{ 0,1 } },
+    { { 0,0 },{ 1,0 },{ 1,1 } },
+    { { 0,0 },{ 1,0 },{ 1,-1 } },
+};
+
+bool set(vector&lt;vector&lt;int&gt;&gt; &amp;board, int y, int x, int type, int delta) {
+    
+    bool ok = true;
+
+    for (int i = 0; i &lt; 3; i++) {
+        const int ny = y + coverType[type][i][0];
+        const int nx = x + coverType[type][i][1];
+
+        if (ny &lt; 0 || ny &gt;= board.size() || nx &lt; 0 || nx &gt;= board[0].size()) {
+            ok = false;
+        }
+        else if ((board[ny][nx] += delta) &gt; 1) {
+            ok = false;
+        }
+    }
+    return ok;
+}
+
+int cover(vector&lt;vector&lt;int&gt;&gt; &amp;board) {
+    int ret = 0;
+
+    int y = -1, x = -1;
+    for (int i = 0; i &lt; board.size(); i++) {
+        for (int j = 0; j &lt; board[0].size(); j++) {
+            if (board[i][j] == 0) {
+                y = i;
+                x = j;
+                break;
+            }
+        }
+        if (y != -1) break;
+    }
+
+    //base case
+    if (y == -1) return 1;
+
+    for (int type = 0; type &lt; 4; type++) {
+        if (set(board, y, x, type, 1)) {
+            ret += cover(board);
+        }
+        set(board, y, x, type, -1);
+    }
+
+    return ret;
+}
+
+int main(void) {
+
+    int num, countWhitePiece;
+    cin &gt;&gt; num;
+
+    for (int i = 0; i &lt; num; i++) {
+        countWhitePiece = 0;
+
+        //Initialize Board
+        cin &gt;&gt; h &gt;&gt; w;
+        vector&lt;vector&lt;int&gt;&gt; board(h, vector&lt;int&gt;(w, 0));
+        for (int j = 0; j &lt; h; j++) {
+            for (int k = 0; k &lt; w; k++) {
+                cin &gt;&gt; piece;
+                if (piece == &#39;#&#39;) {
+                    board[j][k] = 1;
+                }
+                else {
+                    countWhitePiece++;
+                }
+            }
+        }
+        //if number of pieces is not divided by 3, count = 0.
+        if (countWhitePiece % 3 != 0) {
+            cout &lt;&lt; 0 &lt;&lt; endl;
+        }
+        else {
+            cout &lt;&lt; cover(board) &lt;&lt; endl;
+        }
+    }
+    return 0;
+}</code></pre>
+</details>
+<h3 id="문법">문법</h3>
+<hr />
+<ul>
+<li><p>이차원 벡터의 선언 및 초기화 : <code>vector&lt;vector&lt;int&gt;&gt; board(h, vector&lt;int&gt;(w, 0))</code></p></li>
+<li><p>참조자로 접근하기 : <code>vector&lt;vector&lt;int&gt;&gt; &amp;board</code></p></li>
+<li><p>y좌표 ny가 벗어남 : <code>ny&gt;= board.size()</code><br />
+x좌표 nx가 벗어남 : <code>nx&gt;= board[0].size()</code></p></li>
+</ul>
