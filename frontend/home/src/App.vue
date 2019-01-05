@@ -3,7 +3,7 @@
     <div id="site-title">
       <router-link to="/" class="page_title">
         <h1>
-          <img :src="icoLink" width="24" height="24">
+          <img id="site-logo" :src="icoLink" width="24" height="24">
           Luke's Note
         </h1>
       </router-link>
@@ -35,23 +35,6 @@ export default {
         el.setAttribute('data-text', el.textContent)
       });
     },
-    // cancelHoverCssOnMobile: function() {
-    //   [].forEach.call( document.querySelectorAll('a'), function(el) {
-    //     el.addEventListener('click touchend', function(e) {
-    //       var el = document.querySelector(this);
-    //       var link = el.setAttribute('href');
-    //       window.location = link;
-    //     }, false);
-    //   });
-    // }
-      //have to change
-      // $(document).ready(function() {
-      //   $("a").on("click touchend", function(e) {
-      //     var el = $(this);
-      //     var link = el.attr("href");
-      //     window.location = link;
-      //   });
-      // });
   },
   mounted: function() {
     this.applyNiceLink()
@@ -98,7 +81,24 @@ body {
 	text-transform: uppercase;
   text-decoration: none;
 }
-
+img {
+  max-width: 100%;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 3px 7px 0px #ccc;  
+  -moz-box-shadow:    3px 3px 7px 0px #ccc; 
+  box-shadow:         3px 3px 7px 0px #ccc;
+}
+figure {
+  text-align: center;
+}
+figcaption {
+  color: #808080;
+}
+#site-logo {
+  -webkit-box-shadow: none;  
+  -moz-box-shadow:    none;
+  box-shadow:         none;
+}
 
 
 

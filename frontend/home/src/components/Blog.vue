@@ -25,9 +25,11 @@
 import HighlightJS from 'highlight.js/lib/highlight.js'
 //var HighlightJS = require("highlight.js/lib/highlight.js");
 // Add languages manually to decrease size of my website
-HighlightJS.registerLanguage('vim', require('highlight.js/lib/languages/vim'));
 HighlightJS.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
 HighlightJS.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'));
+HighlightJS.registerLanguage('markdown', require('highlight.js/lib/languages/markdown'));
+HighlightJS.registerLanguage('java', require('highlight.js/lib/languages/java'));
+HighlightJS.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 // eslint-disable-next-line
 import _ from 'highlight.js/styles/xcode.css'
 
@@ -121,6 +123,7 @@ div#blog {
   min-height: 300px;
   max-width: 800px;
   margin: auto;
+  margin-top: 25px;
   margin-bottom: 50px;
 }
 #blog-contents {
@@ -134,19 +137,13 @@ div#blog {
 .inner-title-container > h1{
   margin-bottom: 10px;
 }
-/* .inner-title-container > h1 > a{
-  color: #04652e;
-}
-.inner-title-container > h1 > a:hover{
-  color: #2f945a;
-} */
 .meta {
   margin: 0;
 }
 .blog-list-element {
-  margin-top: 20px;
-  margin-bottom: 15px;
+  /* margin-top: 25px; */
   text-decoration: none;
+  padding: 12px;
 }
 .blog-list-element-title {
   font-size: 16px;

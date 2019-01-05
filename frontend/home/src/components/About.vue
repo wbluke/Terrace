@@ -1,5 +1,5 @@
 <template>
-  <div class="About">
+  <div class="about">
     <img :src="aboutMyImageLink" id="aboutImg">
     <h1 id="aboutMyName">{{ aboutMyName }}</h1>
     <div class="personInfo">
@@ -63,17 +63,21 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 @import url('https://fonts.googleapis.com/css?family=Gothic+A1');
 
+.about {
+  margin-top: 20px;
+}
 #aboutImg {
    width: 200px;
    height: 200px;
    border-radius: 8px;
-   margin: 0 10px 10px 10px;
+   margin: 0 10px 3px 10px;
    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #aboutMyName {
   font-family: 'Indie Flower', cursive;
   font-size: 32px;
-  margin: 15px;
+  padding: 10px;
+  margin: 5px;
   font-weight: normal;
 }
 .personInfo {
@@ -82,7 +86,7 @@ export default {
   text-align: left;
   margin: auto;
   width: 260px;
-  margin-top: 35px;
+  margin-top: 15px;
 }
 .personInfoRecord {
   margin-bottom: 1px;
@@ -94,6 +98,10 @@ export default {
   text-align: center;
   vertical-align: top;
   margin-left: 20px;
+  -webkit-box-shadow: none;  
+  -moz-box-shadow:    none;
+  box-shadow:         none;
+  border-radius: 0px;
 }
 .personInfoText {
   display: inline;
