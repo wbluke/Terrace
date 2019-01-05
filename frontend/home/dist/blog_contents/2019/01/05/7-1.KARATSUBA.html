@@ -1,0 +1,108 @@
+<h1 id="알고리즘-7-1.-karatsuba-카라츠바-알고리즘">[알고리즘] 7-1. KARATSUBA (카라츠바 알고리즘)</h1>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li><p>문제는 아니지만, 뒤에 나올 문제에서 쓰이는 알고리즘이기에 한번 정리해봅니다.<br />
+카라츠바(Karatsuba)는 러시아 사람이고, 이 알고리즘은 두 개의 큰 정수를 빠르게 곱하는 알고리즘입니다. 보통 50자리 이상의 큰 수들을 다룰 때 사용하는 것 같습니다.</p></li>
+<li><p>먼저 보통의 큰 수를 곱하는 알고리즘을 살펴보겠습니다. 두 정수를 정수형 변수가 아닌 <code>정수형 배열</code>에 <code>뒤집어서</code> 저장합니다. 뒤집어서 저장하면 출력할 때는 불편하지만, 자릿수의 크기를 직관적으로 볼 수 있기에 편리합니다. 배열에 저장하는 것도 자릿수 올림을 처리하기 위함입니다.</p></li>
+</ul>
+<pre class="cpp"><code>//num[]의 자릿수 올림을 처리
+void normalize(vector&lt;int&gt;&amp; num){
+    num.push_back(0);
+    //자릿수 올림 처리 
+    for(int i=0; i&lt;num.size(); i++){
+        if(num[i] &lt; 0){
+            int borrow = (abs(num[i]) + 9) / 10;
+            num[i+1] -= borrow;
+            num[i] += borrow * 10;
+        }
+        else {
+            num[i+1] += num[i] / 10;
+            num[i] %= 10;
+        }
+    }
+    while(num.size() &gt; 1 &amp;&amp; num.back() == 0) num.pop_back();
+}
+
+//두 긴 자연수의 곱
+//ex) multiply([3,2,1],[6,5,4]) = 123 * 456 = 56088 = [8,8,0,6,5]
+vector&lt;int&gt; multiply(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b){
+    vector&lt;int&gt; c(a.size() + b.size() +1, 0);
+    for(int i=0; i&lt;a.size(); i++){
+        for(int j=0; j&lt;b.size(); j++){
+            c[i+j] += a[i] * b[j];
+        }
+    }
+    normalize(c);
+    return c;
+}</code></pre>
+<ul>
+<li>카라츠바의 곱셈은 두 수를 각각 절반으로 쪼갭니다. 258자리의 두 정수 a,b라 하면 다음과 같이 쪼개는 것이죠.<br />
+</li>
+</ul>
+<pre><code>a = a1 * 10^128 + a0
+b = b1 * 10^128 + b0</code></pre>
+<ul>
+<li>두 수를 곱했을 때 나오는 세 부분을 다음과 같이 치환을 합니다.<br />
+</li>
+</ul>
+<pre><code>a * b = (a1 * b1) * 10^256 + (a1 * b0 + a0 * b1) * 10^128 + (a0 * b0)
+-
+z2 = a1 * b1
+z1 = a1 * b0 + a0 * b1
+z0 = a0 * b0</code></pre>
+<p>여기서 다음 식을 이용하면 z1을 z0와 z2로 표현할 수 있습니다.</p>
+<pre><code>(a0 + a1) * (b0 + b1) = (a0 * b0) + (a1 * b0 + a0 + b1) + (a1 * b1)
+= z0 + z1 + z2</code></pre>
+<pre><code>z2 = a1 * b1
+z0 = a0 * b0
+z1 = (a0 + a1) * (b0 + b1) - z0 - z2</code></pre>
+<ul>
+<li>이 과정은 기존의 방법이 네 번의 곱셈을 쓰는 것과 달리 세 번의 곱셈 밖에 쓰지 않습니다!<br />
+이 결과를 조합하면 원래의 답을 도출할 수 있습니다.</li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p>실제 구현한 코드가 아닌 의사코드입니다.</p>
+<pre class="cpp"><code>//a += b * (10^k);를 구현한다.
+void addTo(vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b, int k);
+//a -= b;를 구현한다. a &gt;= b를 가정.
+void subFrom(vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b);
+//두 긴 정수의 곱을 반환.
+vector&lt;int&gt; karatsuba(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b){
+    int an = a.size(), bn = b.size();
+    //a가 b보다 짧을 경우 둘을 바꾼다.
+    if(an &lt; bn) return karatsuba(b, a);
+    //base case : a나 b가 비어 있는 경우 
+    if(an == 0 || bn == 0) return vector&lt;int&gt;();
+    //base case : a가 비교적 짧은 경우 multiply(a, b)로 계산 
+    if(an &lt;= 50) return karatsuba(b, a);
+
+    int half = an / 2;
+    //a와 b를 밑에서 half자리와 나머지로 분리 
+    vector&lt;int&gt; a0(a.begin(), a.begin() + half);
+    vector&lt;int&gt; a1(a.begin() + half, a.end());
+    vector&lt;int&gt; b0(b.begin(), b.begin() min&lt;int&gt;(b.size(), half));
+    vector&lt;int&gt; b0(b.begin() min&lt;int&gt;(b.size(), half), b.end());
+
+    //z2 = a1 * b1
+    vector&lt;int&gt; z2 = karatsuba(a1, b1);
+    //z0 = a0 * b0
+    vector&lt;int&gt; z0 = karatsuba(a0, b0);
+    //a0 = a0 + a1; b0 = b0 + b1;
+    addTo(a0, a1, 0); addTo(b0, b1, 0);
+    //z1 = (a0 * b0) - z0 - z2;
+    vector&lt;int&gt; z1 = karatsuba(a0, b0);
+    subFrom(z1, z0);
+    subFrom(z1, z2);
+
+    //ret = z0 + z1 * 10^half + z2 * 10^(half * 2);
+    vector&lt;int&gt; ret;
+    addTo(ret, z0, 0);
+    addTo(ret, z1, half);
+    addTo(ret, z2, half + half);
+    return ret;
+}</code></pre>
+</details>
