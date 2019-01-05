@@ -90,7 +90,7 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index:
-[{"title":"[알고리즘] 6-3. CLOCKSYNC (시계 맞추기)","uri":"/blog/2019/01/03/6-3.CLOCKSYNC/","date":"2019/01/03"},{"title":"[알고리즘] 6-2. BOARDCOVER (게임판 덮기)","uri":"/blog/2019/01/03/6-2.BOARDCOVER/","date":"2019/01/03"},{"title":"[알고리즘] 6-1. PICNIC (소풍)","uri":"/blog/2018/12/23/6-1.PICNIC/","date":"2018/12/23"},{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}]
+[{"title":"[알고리즘] 7-0. 분할 정복 (Divide \u0026amp; Conquer)","uri":"/blog/2019/01/05/7-0.Divide_Conquer/","date":"2019/01/05"},{"title":"[알고리즘] 6-3. CLOCKSYNC (시계 맞추기)","uri":"/blog/2019/01/03/6-3.CLOCKSYNC/","date":"2019/01/03"},{"title":"[알고리즘] 6-2. BOARDCOVER (게임판 덮기)","uri":"/blog/2019/01/03/6-2.BOARDCOVER/","date":"2019/01/03"},{"title":"[알고리즘] 6-1. PICNIC (소풍)","uri":"/blog/2018/12/23/6-1.PICNIC/","date":"2018/12/23"},{"title":"[알고리즘] Algorithm Problem Solving Strategies","uri":"/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/","date":"2018/12/18"},{"title":"[블로그] 블로그 오픈","uri":"/blog/2018/12/17/블로그-오픈/","date":"2018/12/17"}]
 // __INSERTION_POSITION_END__ // DONT CHANGE!!
 ,
     year : this.$route.params.year,
