@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title>Luke's Note</title><link href="/css/app.c4078476.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.9b42ab58.js" rel="preload" as="script"><link href="/js/chunk-vendors.ca8a5250.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.c4078476.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog" class="router-link-active">Blog</a></li><li><a href="/daily" class="">Daily</a></li></ul></div><p><div data-v-6adce662="" id="blog"><div data-v-6adce662="" id="blog-contents"><article data-v-6adce662=""><div data-v-6adce662="" class="inner-title-container"><h1 data-v-6adce662=""><a data-v-6adce662="" href="http://wbluke.com/blog/2019/01/05/7-2.QUADTREE" id="inner-title">[알고리즘] 7-2. QUADTREE (쿼드 트리 뒤집기)</a></h1><p data-v-6adce662="" class="meta">2019 / 01 / 05</p></div><div data-v-6adce662="" id="article-content"><h1 id="알고리즘-7-2.-quadtree-쿼드-트리-뒤집기" style="display: none;">[알고리즘] 7-2. QUADTREE (쿼드 트리 뒤집기)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/QUADTREE">Algospot Link : QUADTREE</a></p>
+<p><strong>문제</strong></p>
+<figure>
+<img src="http://algospot.com/media/judge-attachments/0cafdb9ffa8ace4fb8315949d25d2fb3/quadtree.png" alt="쿼드 트리 뒤집기"><figcaption>쿼드 트리 뒤집기</figcaption>
+</figure>
+<p>대량의 좌표 데이터를 메모리 안에 압축해 저장하기 위해 사용하는 여러 기법 중 쿼드 트리(quad tree)란 것이 있습니다. 주어진 공간을 항상 4개로 분할해 재귀적으로 표현하기 때문에 쿼드 트리라는 이름이 붙었는데, 이의 유명한 사용처 중 하나는 검은 색과 흰 색밖에 없는 흑백 그림을 압축해 표현하는 것입니다. 쿼드 트리는 <code class="hljs">2^N × 2^N</code> 크기의 흑백 그림을 다음과 같은 과정을 거쳐 문자열로 압축합니다.</p>
+<ul>
+<li>이 그림의 모든 픽셀이 검은 색일 경우 이 그림의 쿼드 트리 압축 결과는 그림의 크기에 관계없이 <code class="hljs">b</code>가 됩니다.<br>
+</li>
+<li>이 그림의 모든 픽셀이 흰 색일 경우 이 그림의 쿼드 트리 압축 결과는 그림의 크기에 관계없이 <code class="hljs">w</code>가 됩니다.<br>
+</li>
+<li>모든 픽셀이 같은 색이 아니라면, 쿼드 트리는 이 그림을 가로 세로로 각각 2등분해 4개의 조각으로 쪼갠 뒤 각각을 쿼드 트리 압축합니다. 이때 전체 그림의 압축 결과는 <code class="hljs">x(왼쪽 위 부분의 압축 결과)(오른쪽 위 부분의 압축 결과)(왼쪽 아래 부분의 압축 결과)(오른쪽 아래 부분의 압축 결과)</code>가 됩니다. 예를 들어 <code class="hljs">그림 (a)</code>의 왼쪽 위 4분면은 <code class="hljs">xwwwb</code>로 압축됩니다.</li>
+</ul>
+<p><code class="hljs">그림 (a)</code>와 <code class="hljs">그림 (b)</code>는 <code class="hljs">16×16</code> 크기의 예제 그림을 쿼드 트리가 어떻게 분할해 압축하는지를 보여줍니다. 이때 전체 그림의 압축 결과는 <code class="hljs">xxwww bxwxw bbbww xxxww bbbww wwbb</code>가 됩니다.</p>
+<p>쿼드 트리로 압축된 흑백 그림이 주어졌을 때, 이 그림을 상하로 뒤집은 그림 을 쿼드 트리 압축해서 출력하는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>첫 줄에 테스트 케이스의 개수 <code class="hljs">C (C≤50)</code>가 주어집니다. 그 후 <code class="hljs">C</code>줄에 하나씩 쿼드 트리로 압축한 그림이 주어집니다. 모든 문자열의 길이는 1,000 이하이며, 원본 그림의 크기는 2^20 × 2^20 을 넘지 않습니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스당 한 줄에 주어진 그림을 상하로 뒤집은 결과를 쿼드 트리 압축해서 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">4
+w
+xbwwb
+xbwxwbbwb
+xxwwwbxwxwbbbwwxxxwwbbbwwwwbb</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">w
+xwbbw
+xxbwwbbbw
+xxwbxwwxbbwwbwbxwbwwxwwwxbbwb</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li>분할 정복 문제입니다.<br>
+단순하게 생각해서, 4등분한 하나의 조각을 재귀호출한다고 생각해보면, 4개의 분할이 생기는 것으로 생각할 수 있습니다.<br>
+그리고 잘 생각해보면, 함수 내에서 처리한 4개의 조각을 순서만 바꿔서 <del>뱉어내</del> 반환해주면 위아래로 뒤집은 효과를 가져올 수 있다는 것을 알 수 있습니다.<br>
+</li>
+</ul>
+<pre><code class="hljs">| 12 |  | 34 |
+| 34 |  | 12 |</code></pre>
+<ul>
+<li><p>왼쪽 1234를 오른쪽 3412로요. 어차피 재귀호출 된 각 조각은 이미 뒤집혀 있을 것이니까요.</p></li>
+<li><p>이 문제에서 주요한 포인트는 <code class="hljs">stirng</code>에서 <code class="hljs">iterator</code>를 호출하여 주어진 문자를 순회한다는 것입니다. 이 문제를 풀 당시 아이디어는 생각해냈는데 아직 C++ STL이 약해서 못풀었던 기억이 있네요. <del>공부하자</del></p></li>
+<li><p><code class="hljs">quadTreeReverse</code>함수에서는 인수로 받은 <code class="hljs">iterator</code>가 현재 가리키고 있는 값을 <code class="hljs">head</code>에 저장하고 <code class="hljs">iterator</code>는 한 칸 뒤로 이동시킵니다.<br>
+그리고 base case로 <code class="hljs">head</code>가 <code class="hljs">w</code>나 <code class="hljs">b</code>일 경우를 처리해줍니다.<br>
+그 다음 각 4개의 조각을 재귀호출 해주고, 받은 결과물들을 뒤집은 순서에 맞게 <code class="hljs">x</code>를 붙여서 return해주면 됩니다. 짜잔. <del>짜고나니 간단해보이는 마법</del></p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH07/CH07/QUADTREE.cpp">Github Link</a></p>
+<pre class="cpp"><code class="hljs"><span class="hljs-comment">/* QUADTREE.cpp */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;vector&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">quadTreeReverse</span><span class="hljs-params">(<span class="hljs-built_in">string</span>::iterator &amp;it)</span> </span>{
+    <span class="hljs-keyword">char</span> head = *it;
+    it++;
+
+    <span class="hljs-comment">//base case</span>
+    <span class="hljs-keyword">if</span> (head == <span class="hljs-string">'w'</span> || head == <span class="hljs-string">'b'</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>(<span class="hljs-number">1</span>, head);
+
+    <span class="hljs-built_in">string</span> upLeft = quadTreeReverse(it);
+    <span class="hljs-built_in">string</span> upRight = quadTreeReverse(it);
+    <span class="hljs-built_in">string</span> downLeft = quadTreeReverse(it);
+    <span class="hljs-built_in">string</span> downRight = quadTreeReverse(it);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>(<span class="hljs-string">"x"</span>) + downLeft + downRight + upLeft + upRight;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+
+    <span class="hljs-keyword">int</span> num;
+    <span class="hljs-built_in">cin</span> &gt;&gt; num;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>; a &lt; num; a++) {
+
+        <span class="hljs-built_in">string</span> input;
+        <span class="hljs-built_in">cin</span> &gt;&gt; input;
+        
+        <span class="hljs-built_in">string</span>::iterator it = input.begin();
+        <span class="hljs-built_in">cout</span> &lt;&lt; quadTreeReverse(it) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</details>
+<h3 id="문법">문법</h3>
+<hr>
+<ul>
+<li><code class="hljs cpp"><span class="hljs-built_in">string</span>::iterator it = input.begin();</code> : 컨테이너의 원소들을 순회할 수 있는 반복자의 활용.<br>
+<code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt;::iterator a = c.begin ; a != c.end() ; ++a)</code> 보통 이런 식으로 활용한다고 한다.<br>
+</li>
+<li><code class="hljs bash">string(n, <span class="hljs-string">'문자'</span>)</code> : ’문자’를 n개만큼 채운 <code class="hljs cpp"><span class="hljs-built_in">string</span></code> 생성자.<br>
+</li>
+<li><code class="hljs">string1.compare(string2) == 0</code> : 문자열이 같은지 비교.</li>
+</ul>
+</div></article><hr data-v-6adce662=""></div></div></p></div><script src="/js/chunk-vendors.ca8a5250.js"></script><script src="/js/app.9b42ab58.js"></script></body></html>
