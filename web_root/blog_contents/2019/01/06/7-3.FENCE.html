@@ -1,0 +1,179 @@
+<h1 id="알고리즘-7-3.-fence-울타리-잘라내기">[알고리즘] 7-3. FENCE (울타리 잘라내기)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/FENCE">Algospot Link : FENCE</a></p>
+<p><strong>문제</strong></p>
+<figure>
+<img src="http://algospot.com/media/judge-attachments/506874700c7251881727ee4e70a1d502/fence.png" alt="울타리 잘라내기" /><figcaption>울타리 잘라내기</figcaption>
+</figure>
+<p>너비가 같은 N개의 나무 판자를 붙여 세운 울타리가 있습니다. 시간이 지남에 따라 판자들이 부러지거나 망가져 높이가 다 달라진 관계로 울타리를 통째로 교체하기로 했습니다. 이 때 버리는 울타리의 일부를 직사각형으로 잘라내 재활용하고 싶습니다. 그림 (b)는 (a)의 울타리에서 잘라낼 수 있는 많은 직사각형 중 가장 넓은 직사각형을 보여줍니다. 울타리를 구성하는 각 판자의 높이가 주어질 때, 잘라낼 수 있는 직사각형의 최대 크기를 계산하는 프로그램을 작성하세요. 단 (c)처럼 직사각형을 비스듬히 잘라낼 수는 없습니다.</p>
+<p>판자의 너비는 모두 1이라고 가정합니다.</p>
+<p><strong>입력</strong></p>
+<p>첫 줄에 테스트 케이스의 개수 <code>C (C≤50)</code>가 주어집니다. 각 테스트 케이스의 첫 줄에는 판자의 수 <code>N (1≤N≤20000)</code>이 주어집니다. 그 다음 줄에는 N개의 정수로 왼쪽부터 각 판자의 높이가 순서대로 주어집니다. 높이는 모두 10,000 이하의 음이 아닌 정수입니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스당 정수 하나를 한 줄에 출력합니다. 이 정수는 주어진 울타리에서 잘라낼 수 있는 최대 직사각형의 크기를 나타내야 합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>3
+7
+7 1 5 9 6 7 3
+7
+1 4 4 4 4 1 1
+4
+1 8 2 2</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>20
+16
+8</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li><p>처음에 이 문제를 보았을 때는 분할 정복 알고리즘을 적용하기 위해 문제를 어떻게 분할해야 할지 감이 잘 오지 않았습니다. 눈에 확 띄는 구조가 아니었고, 제가 분할의 기준을 정해야했기에 막막했습니다.</p></li>
+<li><p>문제의 n개 판자를 반으로 나눕니다. 그러면 우리가 찾는 최대 직사각형은 다음의 세 가지 경우 중 하나에 속하게 됩니다.</p></li>
+</ul>
+<pre class="markdown"><code>1. 가장 큰 직사각형을 왼쪽 부분 문제에서만 잘라낼 수 있다.  
+2. 가장 큰 직사각형을 오른쪽 부분 문제에서만 잘라낼 수 있다.  
+3. 가장 큰 직사각형은 왼쪽 부분 문제와 오른쪽 부분 문제에 걸쳐 있다.  </code></pre>
+<ul>
+<li><p>이제 1번과 2번의 부분은 재귀호출을 하면 해결된다는 것이 보입니다. 관건은 3번을 처리하는 것이겠지요.</p></li>
+<li><p>3번 문제의 포인트는 다음과 같습니다. 우리가 찾는 최대 직사각형은 <code>반드시 부분 문제 경계에 있는 두 판자를 포함</code>한다는 것입니다. 두 판자를 포함하는 (너비가 2인) 최대 직사각형을 출발점으로 해서, 왼쪽 혹은 오른쪽으로 너비를 하나씩 넓혀가며 최대 직사각형을 갱신해주면 됩니다.</p></li>
+<li><p>이 때 중요한 원칙은 가장 큰 사각형을 잡기 위해 왼쪽 혹은 오른쪽 판자 중 <code>사각형의 높이를 최대화</code>할 수 있는 방향으로 판자를 선택해야한다는 것입니다. 그러니까 왼쪽과 오른쪽 판자 중에 더 높은 판자를 선택하도록 하면 되겠죠.</p></li>
+<li><p>제 코드에서 아쉬운 점은, 문제를 해결하는 <code>fenceArea</code>함수의 인자로 판자들의 높이 벡터인 <code>fence</code>로 끌고 들어가서 처리한 것입니다. 책의 코드에서는 벡터를 통째로 끌고 들어가는 것이 아니라, 단순히 왼쪽과 오른쪽 정수 높이만을 가지고 처리해서 코드로직이 한결 깔끔했습니다. 이에 제 코드 밑에 추가로 책의 의사코드를 첨부하겠습니다. 저는 그것도 모르고 <del>벡터 분할해서 복사하고 순회하고 가운데가 어디지 어떻게 자르지 이게 무슨 변수였지 막 난리난리치다가</del> 겨우 풀기만 했습니다.ㅠ</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<h4 id="제-코드">제 코드</h4>
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH07/CH07/FENCE.cpp">Github Link</a></p>
+<pre class="cpp"><code>/* FENCE.cpp */
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+int fenceArea(vector&lt;int&gt; &amp;fence) {
+
+    //base case
+    if (fence.size() == 1) return fence[0];
+
+    int mid = fence.size() / 2;
+    vector&lt;int&gt; fenceLeft;
+    vector&lt;int&gt; fenceRight;
+
+    if (fence.size() % 2 == 0) {
+        fenceLeft.resize(mid);
+        fenceRight.resize(mid);
+    }
+    else {
+        fenceLeft.resize(mid);
+        fenceRight.resize(mid + 1);
+    }
+    copy(fence.begin(), fence.begin() + mid, fenceLeft.begin());
+    copy(fence.begin() + mid, fence.end(), fenceRight.begin());
+    
+
+    int ret = max(fenceArea(fenceLeft), fenceArea(fenceRight));
+
+    //the case when maximal rectangular cover both left side and right side 
+    int coverRec = 2 * min(fence[mid - 1], fence[mid]);
+    ret = max(ret, coverRec);
+    int left = mid - 1;
+    int right = mid;
+
+    while (left &gt;= 0 &amp;&amp; right &lt;= fence.size() - 1) {
+        if (right &lt; fence.size() - 1) {
+            if (left == 0 || fence[left - 1] &lt;= fence[right + 1]) {
+                right++;
+                coverRec = (right - left + 1) * min(coverRec / (right - left), fence[right]);
+            }
+            else if (fence[left - 1] &gt; fence[right + 1]) {
+                left--;
+                coverRec = (right - left + 1) * min(coverRec / (right - left), fence[left]);
+            }
+        }
+        else if (left &gt; 0) {
+            left--;
+            coverRec = (right - left + 1) * min(coverRec / (right - left), fence[left]);
+        }
+        ret = max(ret, coverRec);
+        if (left == 0 &amp;&amp; right == fence.size() - 1) break;
+    }
+    return ret;
+}
+
+int main(void) {
+
+    int num;
+    cin &gt;&gt; num;
+    
+    for (int a = 0; a &lt; num; a++) {
+
+        int N;
+        cin &gt;&gt; N;
+        vector&lt;int&gt; fence(N);
+        for (int i = 0; i &lt; N; i++) {
+            cin &gt;&gt; fence[i];
+        }
+
+        cout &lt;&lt; fenceArea(fence) &lt;&lt; endl;
+
+    }
+
+    return 0;
+}</code></pre>
+</details>
+<h4 id="책의-의사코드">책의 의사코드</h4>
+<details>
+<p><summary>코드 보기</summary></p>
+<pre class="cpp"><code>//각 판자의 높이를 저장하는 배열 
+vector&lt;int&gt; h;
+//h[left, right] 구간에서 찾아낼 수 있는 가장 큰 사각형의 넓이를 반환한다. 
+int solve(int left, int right){
+    //base case : 판자가 하나 밖에 없는 경우 
+    if(left == right) return h[left];
+    //[left, mid], [mid+1, right]의 두 구간으로 문제를 분할한다. 
+    int mid = (left + right) / 2;
+    //분할한 문제를 각개격파 
+    int ret = max(solve(left, mid), solve(mid+1, right));
+    //부분 문제 3 : 두 부분에 모두 걸치는 사각형 중 가장 큰 것을 찾는다. 
+    int lo = mid, hi = mid + 1;
+    int height = min(h[lo], h[hi]);
+    //[mid, mid+1]만 포함하는 너비 2인 사각형을 고려한다. 
+    ret = max(ret, height * 2);
+    //사각형이 입력 전체를 덮을 때까지 확장해 나간다. 
+    while(left &lt; lo || hi &lt; right) {
+        //항상 높이가 더 높은 쪽으로 확장한다. 
+        if(hi &lt; right &amp;&amp; (lo == left || h[lo-1] &lt; h[hi+1])) {
+            ++hi;
+            height = min(height, h[hi]);
+        }
+        else {
+            --lo;
+            height = min(height, h[lo]);
+        }
+        //확장한 후 사각형의 넓이 
+        ret = max(ret, height * (hi - lo + 1));
+    }
+    return ret;
+}</code></pre>
+</details>
+<h3 id="문법">문법</h3>
+<hr />
+<ul>
+<li>벡터의 복사는 보통 다음과 같이 이루어집니다 :<br />
+</li>
+</ul>
+<pre class="cpp"><code>vector&lt;type&gt; vec;
+vector&lt;type&gt; dest;
+dest.resize(vec.size());
+copy(vec.begin(), vec.end(), dest.begin());</code></pre>
+<ul>
+<li><code>v.begin()</code>과 <code>v.end()</code>는 <code>iterator</code>입니다.<br />
+범위를 지정할 때에도 기존 벡터를 반으로 나눈다고 했을 때,</li>
+</ul>
+<pre class="cpp"><code>fence.begin(), fence.begin() + mid
+fence.begin() + mid, fence.end()</code></pre>
+<p>이런 식으로 나누어야 둘로 나누어집니다. 그림을 그려서 생각해보면 헷갈리지 않을 것입니다.</p>
