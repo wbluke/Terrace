@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title>Luke's Note</title><link href="/css/app.5caee619.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.b62ea0fa.js" rel="preload" as="script"><link href="/js/chunk-vendors.ca8a5250.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.5caee619.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog" class="router-link-active">Blog</a></li><li><a href="/daily" class="">Daily</a></li></ul></div><p><div data-v-66cc789e="" id="blog"><div data-v-66cc789e="" id="blog-contents"><article data-v-66cc789e=""><div data-v-66cc789e="" class="inner-title-container"><h1 data-v-66cc789e=""><a data-v-66cc789e="" href="http://wbluke.com/blog/2019/01/07/8-1.JUMPGAME" id="inner-title">[알고리즘] 8-1. JUMPGAME (외발 뛰기)</a></h1><p data-v-66cc789e="" class="meta">2019 / 01 / 07</p></div><div data-v-66cc789e="" id="article-content"><h1 id="알고리즘-8-1.-jumpgame-외발-뛰기" style="display: none;">[알고리즘] 8-1. JUMPGAME (외발 뛰기)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/JUMPGAME">Algospot Link : JUMPGAME</a></p>
+<p><strong>문제</strong></p>
+<figure>
+<img src="http://algospot.com/media/judge-attachments/3a3560eb4194bc927e325514b88468df/jumpgame.png" alt="외발 뛰기"><figcaption>외발 뛰기</figcaption>
+</figure>
+<p>땅따먹기를 하다 질린 재하와 영훈이는 땅따먹기의 변종인 새로운 게임을 하기로 했습니다. 이 게임은 그림과 같이 n*n 크기의 격자에 각 1부터 9 사이의 정수를 쓴 상태로 시작합니다. 각 차례인 사람은 맨 왼쪽 윗 칸에서 시작해 외발로 뛰어서 오른쪽 아래 칸으로 내려가야 합니다. 이 때 각 칸에 적혀 있는 숫자만큼 오른쪽이나 아래 칸으로 움직일 수 있으며, 중간에 게임판 밖으로 벗어나면 안 됩니다.</p>
+<p>균형을 잃어서 다른 발로 서거나 넘어져도 게임에서 집니다만, 재하와 영훈이는 젊고 활기차기 때문에 외발로 뛰어다니는 것은 아무것도 아닙니다. 다만 걱정되는 것은 주어진 게임판에 시작점에서 끝점으로 가는 방법이 존재하지 않을 수도 있다는 것입니다. 예를 들어 그림 (a)의 게임판에서는 사각형으로 표시된 칸들을 통해 끝에 도달할 수 있지만, 숫자가 하나 바뀐 그림 (b)에서는 그럴 수가 없습니다.</p>
+<p>게임판이 주어질 때 왼쪽 위의 시작점에서 오른쪽 아래의 시작점에 도달할 수 있는 방법이 있는지 확인하는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code class="hljs">C(C &lt;= 50)</code>가 주어집니다. 각 테스트 케이스의 첫 줄에는 격자의 크기 <code class="hljs">n(2 &lt;= n &lt;= 100)</code>이 주어지고, 그 후 n줄에 각 n개의 숫자로 왼쪽 위부터 각 칸에 쓰인 숫자들이 주어집니다. 오른쪽 아래 있는 끝 점 위치에는 0이 주어집니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 한 줄로, 시작점에서 끝 점으로 도달할 수 있을 경우 <code class="hljs bash"><span class="hljs-string">"YES"</span></code>를, 아닐 경우 <code class="hljs bash"><span class="hljs-string">"NO"</span></code>를 출력합니다. (따옴표 제외)</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">2
+7
+2 5 1 6 1 4 1
+6 1 1 2 2 9 3
+7 2 3 2 1 3 1
+1 1 3 1 7 1 2
+4 1 2 3 4 1 2
+3 3 1 2 3 4 1
+1 5 2 9 4 7 0
+7
+2 5 1 6 1 4 1
+6 1 1 2 2 9 3
+7 2 3 2 1 3 1
+1 1 3 1 7 1 2
+4 1 2 3 4 1 3
+3 3 1 2 3 4 1
+1 5 2 9 4 7 0 </code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">YES
+NO</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li><p>단순하게 재귀호출로 해결한다치면, 중복인 계산이 너무나도 많아지는 문제입니다. 그러나 메모이제이션을 활용하려고 하면 이미 갔던 길로는 두 번 이상 갈 필요가 없다는 것을 깨달을 수 있습니다.</p></li>
+<li><p>입력되는 게임판을 받을 <code class="hljs">gameBoard[][]</code>와 캐시인 <code class="hljs">checkJump[][]</code>를 생성합니다. 이 때 bool이 아닌 int형으로 선언하는 이유는 각 위치에서의 경우가 <code class="hljs">길이 있다</code>, <code class="hljs">길이 없다</code>, <code class="hljs">아직 가보지 않은 길이다</code> 의 세 가지이기 때문입니다. 정수형으로 선언해놓으면 각각을 1, 0, -1로 표현할 수 있습니다.</p></li>
+<li><p>두 이차원 배열을 memset()으로 -1로 초기화하고, <code class="hljs">gameBoard[][]</code>에 게임판을 입력 받아줍니다.</p></li>
+<li><p><code class="hljs">jump</code>함수에서는 먼저 게임판을 벗어났을 경우와 도착한 경우를 기저사례로 분리해줍니다. 그리고 메모이제이션 패턴에 따라 현재 캐시 값을 참조자로 받아옵니다. 캐시가 -1이 아닌 경우는 바로 return해 줍니다.</p></li>
+<li><p>저는 여기서 문제를 해결할 때, 아래로 갈 때와 오른쪽으로 갈 때를 어떻게 분리해주어야하나, 고민했었습니다. OR 연산을 쓰면 이 문제가 간단히 해결됩니다.<br>
+<code class="hljs">ret = jump(a + now, b) || jump(a, b + now);</code>와 같이 캐싱 및 return을 해주면 어느 쪽으로 가든 경우의 가능성 유무를 저장할 수 있습니다. 어차피 재귀호출이 되고 있으니까요.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH08/CH08/JUMPGAME.cpp">Github Link</a></p>
+<pre class="cpp"><code class="hljs"><span class="hljs-comment">/* FENCE.cpp */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">int</span> checkJump[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];
+<span class="hljs-keyword">int</span> gameBoard[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];
+<span class="hljs-keyword">int</span> N;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+    <span class="hljs-keyword">int</span> now = gameBoard[a][b];
+
+    <span class="hljs-comment">//base case : if we jump out of the game board </span>
+    <span class="hljs-keyword">if</span> (a &gt;= N || b &gt;= N) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">//base case : if we arrive at 0</span>
+    <span class="hljs-keyword">if</span> (now == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">int</span> &amp;ret = checkJump[a][b];
+    <span class="hljs-keyword">if</span> (ret != <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span> ret;
+    
+    ret = jump(a + now, b) || jump(a, b + now);
+    <span class="hljs-keyword">return</span> ret;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+
+    <span class="hljs-keyword">int</span> num;
+    <span class="hljs-built_in">cin</span> &gt;&gt; num;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>; a &lt; num; a++) {
+
+        <span class="hljs-built_in">cin</span> &gt;&gt; N;
+        <span class="hljs-comment">//initialize checkJump, gameBoard</span>
+        <span class="hljs-built_in">memset</span>(checkJump, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span>(checkJump));
+        <span class="hljs-built_in">memset</span>(gameBoard, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span>(gameBoard));
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; N; j++) {
+                <span class="hljs-built_in">cin</span> &gt;&gt; gameBoard[i][j];
+            }
+        }
+
+        <span class="hljs-keyword">if</span> (jump(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>)) {
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"YES"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        }
+        <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"NO"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        }
+
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</details></div></article><hr data-v-66cc789e=""></div></div></p></div><script src="/js/chunk-vendors.ca8a5250.js"></script><script src="/js/app.b62ea0fa.js"></script></body></html>
