@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title>Luke's Note</title><link href="/css/app.8316b245.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.b1976b22.js" rel="preload" as="script"><link href="/js/chunk-vendors.ca8a5250.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.8316b245.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog" class="router-link-active">Blog</a></li><li><a href="/daily" class="">Daily</a></li></ul></div><p><div data-v-53b522ba="" id="blog"><div data-v-53b522ba="" id="blog-contents"><article data-v-53b522ba=""><div data-v-53b522ba="" class="inner-title-container"><h1 data-v-53b522ba=""><a data-v-53b522ba="" href="http://wbluke.com/blog/2019/01/06/7-4.FANMEETING" id="inner-title">[알고리즘] 7-4. FANMEETING (팬미팅)</a></h1><p data-v-53b522ba="" class="meta">2019 / 01 / 06</p></div><div data-v-53b522ba="" id="article-content"><h1 id="알고리즘-7-4.-fanmeeting-팬미팅" style="display: none;">[알고리즘] 7-4. FANMEETING (팬미팅)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/FANMEETING">Algospot Link : FANMEETING</a></p>
+<p><strong>문제</strong></p>
+<p>가장 멤버가 많은 아이돌 그룹으로 기네스 북에 올라 있는 혼성 팝 그룹 하이퍼시니어가 데뷔 10주년 기념 팬 미팅을 개최했습니다. 팬 미팅의 한 순서로, 멤버들과 참가한 팬들이 포옹을 하는 행사를 갖기로 했습니다. 하이퍼시니어의 멤버들은 우선 무대에 일렬로 섭니다. 팬 미팅에 참가한 M명의 팬들은 줄을 서서 맨 오른쪽 멤버에서부터 시작해 한 명씩 왼쪽으로 움직이며 멤버들과 하나씩 포옹을 합니다. 모든 팬들은 동시에 한 명씩 움직입니다. 아래 그림은 행사 과정의 일부를 보여줍니다. a~d는 네 명의 하이퍼시니어 멤버들이고, 0~5는 여섯 명의 팬들입니다.</p>
+<figure>
+<img src="http://algospot.com/media/judge-attachments/bcbb33d48baf27a4347cf09608aece35/Screenshot%20from%202013-01-14%2022%3A31%3A18.png" alt="팬미팅"><figcaption>팬미팅</figcaption>
+</figure>
+<p>하지만 하이퍼시니어의 남성 멤버들이 남성 팬과 포옹하기가 민망하다고 여겨서, 남성 팬과는 포옹 대신 악수를 하기로 했습니다. 줄을 선 멤버들과 팬들의 성별이 각각 주어질 때 팬 미팅이 진행되는 과정에서 하이퍼시니어의 모든 멤버가 동시에 포옹을 하는 일이 몇 번이나 있는지 계산하는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>첫 줄에 테스트 케이스의 개수 <code class="hljs">C (C≤20)</code>가 주어집니다. 각 테스트 케이스는 멤버들의 성별과 팬들의 성별을 각각 나타내는 두 줄의 문자열로 구성되어 있습니다. 각 문자열은 왼쪽부터 오른쪽 순서대로 각 사람들의 성별을 나타냅니다.</p>
+<p><code class="hljs">M</code>은 해당하는 사람이 남자, <code class="hljs">F</code>는 해당하는 사람이 여자임을 나타냅니다. 멤버의 수와 팬의 수는 모두 <code class="hljs">1 이상 200,000 이하의 정수</code>이며, 멤버의 수는 항상 팬의 수 이하입니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 한 줄에 모든 멤버들이 포옹을 하는 일이 몇 번이나 있는지 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">4
+FFFMMM
+MMMFFF
+FFFFF
+FFFFFFFFFF
+FFFFM
+FFFFFMMMMF
+MFMFMFFFMMMFMF
+MMFFFFFMFFFMFFFFFFMFFFMFFFFMFMMFFFFFFF</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">1
+6
+2
+2</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li><p>단순하게 생각하면 반복문을 돌려서 모든 시뮬레이션을 구현해보면 되겠지만, 멤버의 수와 팬의 수 모두 20만에 달하는 숫자임을 인지하면 시간 안에는 풀기 어렵다는 것을 알 수 있습니다.</p></li>
+<li><p>이 문제를 빠르게 푸는 방법은 놀랍게도 두 큰 수의 곱셈으로 이 문제를 바꾸는 것입니다. 길이 N인 정수와 길이 M인 정수를 곱하는 과정을 살펴봅시다.</p></li>
+</ul>
+<pre class="markdown"><code class="hljs"><span class="hljs-code">                                            A2      A1      A0</span>
+<span class="hljs-code">            X       B5      B4      B3      B2      B1      B0</span>
+<span class="hljs-code">    ______________________________________________________________</span>
+<span class="hljs-code">                                            A2*B0   A1*B0   A0*B0</span>
+<span class="hljs-code">                                    A2*B1   A1*B1   A0*B1</span>
+<span class="hljs-code">                            A2*B2   A1*B2   A0*B2</span>
+<span class="hljs-code">                    A2*B3   A1*B3   A0*B3</span>
+<span class="hljs-code">            A2*B4   A1*B4   A0*B4</span>
+<span class="hljs-code">    A2*B5   A1*B5   A0*B5</span>
+<span class="hljs-code">    ______________________________________________________________</span>
+<span class="hljs-code">    C7      C6      C5      C4      C3      C2      C1      C0</span></code></pre>
+<ul>
+<li>각 Ci를 일반화 해보면 다음과 같습니다.<br>
+</li>
+</ul>
+<pre><code class="hljs">    Ci = A0*Bi + A1*B(i-1) + A2*B(i-2)</code></pre>
+<ul>
+<li>그런데 문제에 활용하기 위해서는 A의 원소들과 B의 원소들의 순서를 맞춰주어야 합니다. 간단히 A원소들의 앞뒤를 뒤집어서 곱셈을 하면 되겠죠. 다음과 같이 됩니다.<br>
+</li>
+</ul>
+<pre><code class="hljs">    Ci = A2*Bi + A1*B(i-1) + A0*B(i-2)</code></pre>
+<ul>
+<li><p>위 형태를 문제에 이용해보도록 하겠습니다. 일렬로 선 사람들의 성별을 긴 정수로 표시합니다. 각 자릿수는 한 사람의 성별을 나타내며, 남성은 1, 여성은 0으로 표시하겠습니다. 이 때 남성과 남성이 만나서 곱해지면 두 자릿수의 곱은 1이 됩니다. 이 경우 외에는 자릿수의 곱이 모두 0이 됨을 알 수 있습니다.<br>
+따라서 자릿수의 올림을 생략했을 때, <code class="hljs">Ci</code>가 0이면 해당 위치에서 남성 팬과 남성 멤버가 만나는 일이 없다는 뜻이 됩니다.</p></li>
+<li><p>여기까지 이해하고 나면 이제 앞에서 정리했던 <a href="http://wbluke.com/blog/2019/01/05/7-1.KARATSUBA/">카라츠바 알고리즘</a> 을 이용해서 곱셈을 하면 됩니다. 자릿수 올림을 구현하는 <code class="hljs">normalize</code>함수만 제외시키면 됩니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/CH07/CH07/FANMEETING.cpp">Github Link</a></p>
+<pre class="cpp"><code class="hljs"><span class="hljs-comment">/* FANMEETING.cpp */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;vector&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-comment">/* 자릿수 올림함수 제외 */</span>
+<span class="hljs-comment">/*
+void normalize(vector&lt;int&gt; &amp;num) {
+    num.push_back(0);
+    for (int i = 0; i &lt; num.size(); i++) {
+        if (num[i] &lt; 0) {
+            int borrow = (abs(num[i]) + 9) / 10;
+            num[i + 1] -= borrow;
+            num[i] += borrow * 10;
+        }
+        else {
+            num[i + 1] += num[i] / 10;
+            num[i] %= 10;
+        }
+    }
+    while (num.size() &gt; 1 &amp;&amp; num.back() == 0) num.pop_back();
+}
+*/</span>
+
+
+<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; multiply(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;a, <span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;b) {
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; c(a.size() + b.size() + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; a.size(); i++) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; b.size(); j++) {
+            c[i + j] += a[i] * b[j];
+        }
+    }
+    <span class="hljs-comment">//normalize(c);</span>
+    <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-comment">//a += b * (10^k);</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addTo</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;a, <span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;b, <span class="hljs-keyword">int</span> k)</span> </span>{
+    a.resize(max(a.size(), b.size() + k));
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; b.size(); i++) {
+        a[i + k] += b[i];
+    }
+}
+
+<span class="hljs-comment">// a -= b; when a &gt;= b</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">subFrom</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;a, <span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;b)</span> </span>{
+    a.resize(max(a.size(), b.size()) + <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; b.size(); i++) {
+        a[i] -= b[i];
+    }
+}
+
+<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; karatsuba(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;a, <span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;b) {
+    <span class="hljs-keyword">int</span> an = a.size(), bn = b.size();
+    <span class="hljs-comment">//if a is short than b, switch them.</span>
+    <span class="hljs-keyword">if</span> (an &lt; bn) <span class="hljs-keyword">return</span> karatsuba(b, a);
+
+    <span class="hljs-comment">//base case : a or b is emtpy</span>
+    <span class="hljs-keyword">if</span> (an == <span class="hljs-number">0</span> || bn == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;();
+
+    <span class="hljs-comment">//base case : if a is relatively short, change multiply</span>
+    <span class="hljs-keyword">if</span> (an &lt;= <span class="hljs-number">50</span>) <span class="hljs-keyword">return</span> multiply(a, b);
+
+    <span class="hljs-keyword">int</span> half = an / <span class="hljs-number">2</span>;
+
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; a0(a.begin(), a.begin() + half);
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; a1(a.begin() + half, a.end());
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; b0(b.begin(), b.begin() + min&lt;<span class="hljs-keyword">int</span>&gt;(b.size(), half));
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; b1(b.begin() + min&lt;<span class="hljs-keyword">int</span>&gt;(b.size(), half), b.end());
+
+    <span class="hljs-comment">//z2=a1*b1</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; z2 = karatsuba(a1, b1);
+
+    <span class="hljs-comment">//z0=a0*b0</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; z0 = karatsuba(a0, b0);
+
+    <span class="hljs-comment">//a0=a0+a1; b0=b0+b1;</span>
+    addTo(a0, a1, <span class="hljs-number">0</span>);
+    addTo(b0, b1, <span class="hljs-number">0</span>);
+
+    <span class="hljs-comment">//z1=(a0+a1)*(b0+b1)-z0-z2</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; z1 = karatsuba(a0, b0);
+    subFrom(z1, z0);
+    subFrom(z1, z2);
+
+    <span class="hljs-comment">//result=z0+z1*10^half+z2*10^(half*2)</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ret;
+    addTo(ret, z0, <span class="hljs-number">0</span>);
+    addTo(ret, z1, half);
+    addTo(ret, z2, half + half);
+
+    <span class="hljs-keyword">return</span> ret;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">hugs</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;members, <span class="hljs-built_in">string</span> &amp;fans)</span> </span>{
+
+    <span class="hljs-keyword">int</span> N = members.size(), M = fans.size();
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; A(N), B(M);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) A[i] = (members[i] == <span class="hljs-string">'M'</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; M; i++) B[M-i<span class="hljs-number">-1</span>] = (fans[i] == <span class="hljs-string">'M'</span>);
+
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; C = karatsuba(A, B);
+    <span class="hljs-keyword">int</span> allHugs = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = N - <span class="hljs-number">1</span>; i &lt; M; i++) {
+        <span class="hljs-keyword">if</span> (C[i] == <span class="hljs-number">0</span>) allHugs++;
+    }
+    <span class="hljs-keyword">return</span> allHugs;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+
+    <span class="hljs-keyword">int</span> num;
+    <span class="hljs-built_in">cin</span> &gt;&gt; num;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>; a &lt; num; a++) {
+
+        <span class="hljs-built_in">string</span> members;
+        <span class="hljs-built_in">string</span> fans;
+        <span class="hljs-built_in">cin</span> &gt;&gt; members &gt;&gt; fans;
+
+        <span class="hljs-built_in">cout</span> &lt;&lt; hugs(members, fans) &lt;&lt; <span class="hljs-built_in">endl</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</details>
+</div></article><hr data-v-53b522ba=""></div></div></p></div><script src="/js/chunk-vendors.ca8a5250.js"></script><script src="/js/app.b1976b22.js"></script></body></html>
