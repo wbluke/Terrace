@@ -51,7 +51,7 @@ export default {
       aboutMyJob: '(Prepared) Software Engineer',
       aboutMyMajor: 'Mathematics, Hanyang University',
       aboutMyGithub: 'github.com/wbluke',
-      aboutMyEmail: 'pwb0127@naver.com',
+      aboutMyEmail: 'dev@wbluke.com',
       aboutMyLocation: 'Seoul, Korea'
     }
   }

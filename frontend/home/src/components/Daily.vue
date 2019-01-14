@@ -18,7 +18,7 @@ export default {
       },
       {
         'property': 'og:description',
-        'content': 'Information of Luke\'s Note',
+        'content': 'Daily Story',
         'template': chunk => `${chunk}`,
         'vmid': 'og:description'
       }
