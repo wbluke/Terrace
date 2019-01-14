@@ -28,6 +28,31 @@
 
 export default {
   name: 'app',
+  metaInfo: {
+    title: 'About',
+    titleTemplate: '%s | Luke\'s Note',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        'property': 'og:title',
+        'content': 'About',
+        'template': chunk => `${chunk} | Luke\'s Note`,
+        'vmid': 'og:title'
+      },
+      {
+        'property': 'og:description',
+        'content': 'Information of Luke\'s Note',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:description'
+      },
+      {
+        'property': 'og:image',
+        'content': './assets/about.jpeg',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:image'
+      }
+    ]
+  },
   methods: {
     applyNiceLink: function() {
       var elements = document.querySelectorAll('a.nice-link');

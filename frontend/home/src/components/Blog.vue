@@ -35,6 +35,47 @@ import _ from 'highlight.js/styles/xcode.css'
 
 export default {
   name: 'blogExample',
+  metaInfo () {
+    if(this.title === undefined) {
+      return {
+        title: 'Blog',
+        meta: [
+          { charset: 'utf-8' },
+          {
+            'property': 'og:title',
+            'content': 'Blog',
+            'template': chunk => `${chunk} | Luke\'s Note`,
+            'vmid': 'og:title'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Article List',
+            'template': chunk => `${chunk}`,
+            'vmid': 'og:description'
+          },
+        ]
+      }
+    } else {
+      return {
+        title: this.titleForMeta,
+        meta: [
+          { charset: 'utf-8' },
+          {
+            'property': 'og:title',
+            'content': this.title,
+            'template': chunk => `${chunk} | Luke\'s Note`,
+            'vmid': 'og:title'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Thank you for reading my article 🦊',
+            'template': chunk => `${chunk}`,
+            'vmid': 'og:description'
+          }
+        ]
+      }
+    }
+  },
   methods: {
     getPage: function() {
       if (this.year === undefined) {

@@ -4,7 +4,26 @@
 
 <script>
 export default {
-  name: 'Daily'
+  name: 'Daily',
+  metaInfo: {
+    title: 'Daily',
+    titleTemplate: '%s | Luke\'s Note',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        'property': 'og:title',
+        'content': 'Daily',
+        'template': chunk => `${chunk} | Luke\'s Note`,
+        'vmid': 'og:title'
+      },
+      {
+        'property': 'og:description',
+        'content': 'Information of Luke\'s Note',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:description'
+      }
+    ]
+  },
 }
 </script>
 
