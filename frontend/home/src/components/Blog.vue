@@ -94,7 +94,7 @@ export default {
         .then(responseText => this.articleHtmlSource = responseText);
 
       var uri = htmlDocUri.replace('blog_contents/', '')
-                     .replace('.html', '');
+                     .replace('.html', '/');
       this.address = this.domain + uri;
     },
   },

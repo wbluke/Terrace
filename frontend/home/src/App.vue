@@ -11,8 +11,8 @@
     <div class="menu effect">
       <ul>
         <li><router-link to="/">About</router-link></li>
-        <li><router-link to="/blog">Blog</router-link></li>
-        <li><router-link to="/daily">Daily</router-link></li>
+        <li><router-link to="/blog/">Blog</router-link></li>
+        <li><router-link to="/daily/">Daily</router-link></li>
       </ul>
     </div>
 
@@ -47,7 +47,7 @@ export default {
       },
       {
         'property': 'og:image',
-        'content': './assets/about.jpeg',
+        'content': 'https://wbluke.com/img/about.f9a09115.jpeg',
         'template': chunk => `${chunk}`,
         'vmid': 'og:image'
       }
