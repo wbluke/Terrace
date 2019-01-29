@@ -17,11 +17,15 @@
       </div>
       <div class="personInfoRecord">
         <img :src="aboutMyGithubLink" class="personInfoIcon">
-        <div class="personInfoText">{{ aboutMyGithub }}</div>
+        <div class="personInfoText">
+          <a href="https://github.com/wbluke">github.com/wbluke</a>
+        </div>
       </div>
       <div class="personInfoRecord">
         <img :src="aboutMyEmailLink" class="personInfoIcon">
-        <div class="personInfoText">{{ aboutMyEmail }}</div>
+        <div class="personInfoText">
+          <a href="mailto:dev@wbluke.com">dev@wbluke.com</a>
+        </div>
       </div>
       <div class="personInfoRecord">
         <img :src="aboutMyLocationLink" class="personInfoIcon">
@@ -46,12 +50,10 @@ export default {
       aboutMyGithubLink: require('../assets/gitIcon.png'),
       aboutMyEmailLink: require('../assets/mailIcon.png'),
       aboutMyLocationLink: require('../assets/locateIcon.png'),
-      aboutMyName: 'WooBin Park',
+      aboutMyName: 'Park WooBin',
       aboutMyHobby: '피아노 치는 개발자',
-      aboutMyJob: '(Prepared) Software Engineer',
+      aboutMyJob: 'Software Engineer',
       aboutMyMajor: 'Mathematics, Hanyang University',
-      aboutMyGithub: 'github.com/wbluke',
-      aboutMyEmail: 'dev@wbluke.com',
       aboutMyLocation: 'Seoul, Korea'
     }
   }
