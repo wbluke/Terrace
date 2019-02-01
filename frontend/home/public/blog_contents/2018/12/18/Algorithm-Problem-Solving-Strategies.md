@@ -2,7 +2,7 @@
 
 ### 0. 알고리즘 문제 해결 전략
 ___
-![프로그래밍 대회에서 배우는 알고리즘 문제해결전략](http://image.kyobobook.co.kr/images/book/xlarge/546/x9788966260546.jpg){width=300px height=300px}  
+![프로그래밍 대회에서 배우는 알고리즘 문제해결전략](https://cdn.wbluke.com/Algorithmic_PS_Book.jpg){width=300px height=300px}  
 
 도서 사이트 : <http://book.algospot.com/>  
 채점받을 수 있는 알고스팟 사이트 : <https://algospot.com/>
