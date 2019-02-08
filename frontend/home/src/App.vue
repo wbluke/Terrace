@@ -12,7 +12,7 @@
       <ul>
         <li><router-link to="/">About</router-link></li>
         <li><router-link to="/blog/">Blog</router-link></li>
-        <li><router-link to="/daily/">Daily</router-link></li>
+        <li><router-link to="/insight/">Insight</router-link></li>
       </ul>
     </div>
 
@@ -112,6 +112,12 @@ img {
   -webkit-box-shadow: 3px 3px 7px 0px #ccc;  
   -moz-box-shadow:    3px 3px 7px 0px #ccc; 
   box-shadow:         3px 3px 7px 0px #ccc;
+}
+div#insight-article-content img {
+  vertical-align: middle;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-right: 5px;
 }
 figure {
   text-align: center;
@@ -309,9 +315,9 @@ a.nice-link {
   position: relative;
   color:  #04652e;
 }
-.blog-list-element a.nice-link:after {
+/* .blog-list-element  a.nice-link:after {
   border-bottom: 1px solid #53cf44; /* Underline */
-}
+/* } */
 a.nice-link:after {
   text-align: justify;
   display: inline-block;

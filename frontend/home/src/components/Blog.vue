@@ -34,7 +34,7 @@ HighlightJS.registerLanguage('javascript', require('highlight.js/lib/languages/j
 import _ from 'highlight.js/styles/xcode.css'
 
 export default {
-  name: 'blogExample',
+  name: 'Blog',
   metaInfo () {
     if(this.title === undefined) {
       return {
