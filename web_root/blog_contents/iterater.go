@@ -166,6 +166,8 @@ func insertJsonToBlogComponent(json string) {
 }
 
 func insertJsonToVueConfigJs(json string) {
+	json = strings.Replace(json, "]", ",", 1)
+
 	vueConfigJsSourceBytes, err := ioutil.ReadFile(PathVueConfigJs)
 	if err != nil {
 		log.Fatal(err)
@@ -179,14 +181,14 @@ func insertJsonToVueConfigJs(json string) {
 	from += i
 
 	k := strings.Index(vueConfigJsSource, "__INSERTION_POSITION_END__")
-	to := strings.LastIndex(vueConfigJsSource[i:k+2], "]")
+	to := strings.LastIndex(vueConfigJsSource[i:k+2], "\"/insight/\"")
 	to += i
 
 	fmt.Println(" -- old json -- ")
 	fmt.Println(string(vueConfigJsSource[from : to+1]))
 	fmt.Println("-- old json end -- ")
 
-	vueConfigJsSource = vueConfigJsSource[0:from] + json + vueConfigJsSource[to+1:]
+	vueConfigJsSource = vueConfigJsSource[0:from] + json + vueConfigJsSource[to:]
 	fmt.Println(vueConfigJsSource)
 
 	ioutil.WriteFile(PathVueConfigJs, []byte(vueConfigJsSource), 0644)

@@ -185,7 +185,7 @@ article {
 #insight-article-content {
   text-align: left;
   color: #000;
-  line-height: 1.6em;
+  line-height: 1.8em;
   padding: 8px;
 }
 .insight-article-list {

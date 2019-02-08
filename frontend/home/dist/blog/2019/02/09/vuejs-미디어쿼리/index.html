@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.52759f0e.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.bd40b329.js" rel="preload" as="script"><link href="/js/chunk-vendors.708a92f7.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.52759f0e.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="vuejs-미디어쿼리 | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-6e6b6e67="" id="blog"><div data-v-6e6b6e67="" id="blog-contents"><article data-v-6e6b6e67=""><div data-v-6e6b6e67="" class="inner-title-container"><h1 data-v-6e6b6e67=""><a data-v-6e6b6e67="" href="http://wbluke.com/blog/2019/02/09/vuejs-미디어쿼리/" id="inner-title">[Vue.js] Vue.js에서 미디어쿼리 적용하기</a></h1><p data-v-6e6b6e67="" class="meta">2019 / 02 / 09</p></div><div data-v-6e6b6e67="" id="article-content"><h1 id="vue.js-vue.js에서-미디어쿼리-적용하기" style="display: none;">[Vue.js] Vue.js에서 미디어쿼리 적용하기</h1>
+<h3 id="이슈의-시작">이슈의 시작</h3>
+<hr>
+<p>얼마 전, 지금 보고 계시는 이 블로그를 CSS와 자바스크립트로 아름다움을 위해 뚝딱뚝딱 개발하던 도중 당황스러운 이슈가 생겼었습니다.<br>
+하루였는지 이틀이었는지 꽤나 긴 시간을 고민하고 질문한 끝에 블로그 탭의 글 목록에 예쁜 마우스 Hover 효과를 적용하는 데에 성공하였습니다. 마우스를 갖다 대면 밝은 색으로 드래그하는 듯한 효과가 생기는… <del>이것도 너무 어려웠어요</del></p>
+<p>Vue.js 초보자인 제게 크나큰 보상심리를 가져다 준 이 효과의 적용 성공을 마음껏 기뻐하며 한숨 돌리고 있을 때, 마침 모바일로 제 블로그를 방문하신 프로젝트 리더님께서,<br>
+‘어? 이거 모바일에서는 두번 탭을 해야지만 글에 들어가지네요. 왜그러지’</p>
+<p>…???</p>
+<p>개발 이슈의 세계는 하나를 해결하면 두세 개가 나오고, 그 두세 개에서 각각 또 두 세개씩 나오는 그런 세계인 것 같았습니다. 숨 돌릴 틈이 없었습니다. <del>익스포넨셜한 증가폭</del></p>
+<p>왜 디바이스는 종류가 많은 것인가…잠깐 이런 생각도 스쳐지나갔지만 마음을 다잡았습니다.<br>
+사실 이미 알고 있었던 이슈였는데 문제상황으로 인식한 게 아니라 원래 그런건줄 알았어요.<br>
+왜냐면 <del>제가 다닌 대학교 홈페이지도 모바일로 들어가면 읍읍</del> 그래서 그냥 모바일에서는 원래 그런건줄 알았습니다. <del>학교가 어디인지 About 탭에 적혀있는건 안비밀</del></p>
+<h3 id="반응형-웹responsive-web-design-그리고-미디어-쿼리">반응형 웹(Responsive Web Design), 그리고 미디어 쿼리</h3>
+<hr>
+<p>알아본 결과, 문제는 5분 전에 적용에 성공했던 그 CSS 효과에 있었습니다. 그 효과에는 마우스가 올라가면 적용되는 hover 속성과, hover된 이후의 상태를 추가해주는 가상 선택자인 hover:after 속성이 있었는데요.</p>
+<p>Mobile 환경 자체가 사실 Laptop, Desktop 환경이랑 달랐던 것이, <code class="hljs">마우스 오버</code>의 개념이었습니다.<br>
+모바일에서는 그냥 손가락으로 클릭을 하지 마우스를 갖다댄다는 개념이 없었던 것이지요…! <del>충격</del><br>
+그래서 제가 적용한 효과가 모바일에서는 처음 손가락으로 클릭 시 hover 효과가 적용되고, 그 다음에 한 번 더 클릭해야 아티클 링크로 들어가는 것으로 인식되는, 그런 구조였습니다.</p>
+<p>그래서 보통 모두들 적용하는 것이 디바이스 환경에 따라 다른 모습을 보여주는 <code class="hljs">반응형 웹</code> 방식입니다. 그리고 CSS에서는 <code class="hljs">미디어 쿼리</code>라는 것으로 처리를 해주고 있었습니다.<br>
+<a href="http://ko.learnlayout.com/media-queries.html">미디어 쿼리의 원래 모습</a>은 다음과 같습니다.</p>
+<pre class="css"><code class="hljs">@<span class="hljs-keyword">media</span> screen and (min-width:<span class="hljs-number">600px</span>) {
+  <span class="hljs-selector-tag">nav</span> {
+    <span class="hljs-attribute">float</span>: left;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>;
+  }
+  <span class="hljs-selector-tag">section</span> {
+    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">25%</span>;
+  }
+}
+@<span class="hljs-keyword">media</span> screen and (max-width:<span class="hljs-number">599px</span>) {
+  <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">li</span> {
+    <span class="hljs-attribute">display</span>: inline;
+  }
+}</code></pre>
+<p>말 그대로 <code class="hljs">max-width</code>와 <code class="hljs">min-width</code>에 따라서 디바이스 환경을 파악해 다른 CSS를 적용하는 방식입니다.<br>
+그래서 고대로 적용을 하려했는데, 아아 이곳은 Vue의 세계였습니다. <del>장렬히 실패</del></p>
+<h3 id="vue-mq">Vue-mq</h3>
+<hr>
+<p>Vue.js에서는 Vue-mq라는 이름으로 미디어쿼리를 제공해주고 있었습니다. 사용법도 크게 어렵지 않았습니다.</p>
+<p>먼저 npm이나 yarn으로 Vue-mq를 설치합니다.</p>
+<pre class="bash"><code class="hljs">npm install vue-mq</code></pre>
+<pre class="bash"><code class="hljs">yarn add vue-mq</code></pre>
+<p>그리고 저는 <code class="hljs css"><span class="hljs-selector-tag">main</span><span class="hljs-selector-class">.js</span></code>에 다음과 같이 적용해주었습니다.</p>
+<figure>
+<img src="http://cdn.wbluke.com/vue_mq.png" alt="Vue-mq 적용_line 4~13" width="400"><figcaption>Vue-mq 적용_line 4~13</figcaption>
+</figure>
+<p>import 해주고 breakpoints를 내 마음대로 설정해주면 되는데, 분기점으로 사용할 이름과 픽셀 경계선을 설정해주면 됩니다. 경계선이라는 것이 쉽게 말해서 위 코드대로라면 <code class="hljs">450 이하는 mobile</code>, <code class="hljs">900까지는 tablet</code>, <code class="hljs">1250까지는 laptop</code>, <code class="hljs">나머지는 desktop</code>으로 간주하겠다…! 이런 뜻입니다. 저 수치는 저도 인용글에서 가져왔습니다.</p>
+<p>그리고 적용이 필요한 해당 id나 class 태그에 가서 다음과 같이 하위 클래스로 “<span class="math inline">$mq"라 지정해주면 됩니다. ``` &lt;router-link :to="i.uri" class="nice-link" :class="$</span>mq”&gt;{{ i.title }} ```</p>
+<p>적용하는 style쪽에서는 <code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.nice-link</span><span class="hljs-selector-class">.laptop</span><span class="hljs-selector-pseudo">:hover</span></code>, <code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.nice-link</span><span class="hljs-selector-class">.desktop</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span></code> 같은 식으로 내가 설정한 경계선에 맞게 하위 클래스를 지정해주면 디바이스의 길이에 따라 효과를 달리 줄 수 있습니다.<br>
+저는 모바일 환경에서의 두 번 클릭 효과를 없애야 했기에, <code class="hljs">mobile</code>과 <code class="hljs">tablet</code>환경에서는 해당 밝은 드래그 효과가 나타나지 않도록 설정해두었습니다.</p>
+<p>크롬 개발자도구를 켜고 제 블로그의 가로 사이즈를 왔다갔다 해보시면 해당 태그의 클래스가 변하는 것을 관찰하실 수 있습니다.</p>
+<figure>
+<img src="http://cdn.wbluke.com/vue_mq.gif" alt="신기해" width="600"><figcaption>신기해</figcaption>
+</figure>
+<p><code class="hljs bash"><span class="hljs-variable">$mq</span></code>의 활용은 여러 방식으로도 가능합니다. 필요에 따라 상황에 맞게 사용하시면 될 것 같습니다. 위 내용 관련해서 도움을 받았던 링크는 <a href="https://www.npmjs.com/package/vue-mq">이곳</a>입니다.</p>
+<p>모바일 환경에서 해당 효과를 볼 수 없는 것은 살짝 아쉽게 되었지만, 그래도 삽질하면서 배운 것이 많았던 이슈였습니다. :)</p>
+</div></article><hr data-v-6e6b6e67=""></div></div></p></div><script src="/js/chunk-vendors.708a92f7.js"></script><script src="/js/app.bd40b329.js"></script></body></html>
