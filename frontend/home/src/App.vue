@@ -118,6 +118,13 @@ div#insight-article-content img {
   -webkit-box-shadow: none;
   box-shadow: none;
   margin-right: 5px;
+  width: 64px;
+}
+div#insight-article-content h5 {
+  font-weight: normal;
+}
+div#insight-article-content h5 a {
+  margin-right: 5px;
 }
 figure {
   text-align: center;

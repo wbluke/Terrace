@@ -11,6 +11,9 @@
       <hr>
     </div>
     <div v-else>
+      <div id="insight-info-message">
+        <span v-html="InsightInfoMessage"></span>
+      </div>
       <div class="insight-list-element" v-for="i in index" :key="i">
         <a v-bind:href="i.bookURL">
           <img class="insight-list-element-label" v-bind:src="'http://cdn.wbluke.com/label_'+ i.label + '.png'"/>
@@ -135,6 +138,8 @@ export default {
     articleHtmlSource : "",
     address : "",  // will have a permalink of the article
     domain : "http://wbluke.com/insight",
+    InsightInfoMessage: 
+    "라벨은 해당 도서를 나타내는 대표 색채입니다.<br>클릭하시면 네이버 북스로 이동합니다."
     }
   },
     watch: {
@@ -189,12 +194,25 @@ article {
   padding-bottom:1px;
 }
 
+div#insight-info-message {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 10px;
+  padding: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: left;
+  color: #a9a9a9;
+  font-size: 13px;
+}
 .insight-list-element {
   /* margin-top: 25px; */
   text-decoration: none;
   max-width: 380px;
   margin: auto;
-  padding: 12px;
+  padding: 10px;
+  /* background-color: #e9f1e9;
+  background-clip: content-box; */
 }
 .insight-list-element-label {
   display: inline;
@@ -203,7 +221,6 @@ article {
   -webkit-box-shadow: none;
   box-shadow: none;
   width: 64px;
-  height: 40px;
   text-align: left;
   /* margin-right: 50px; */
 }
@@ -215,5 +232,11 @@ article {
 }
 .insight-list-element-date {
   margin-left: 290px;
+}
+.seperate-line {
+  border: 0px;
+  height: 1px;
+  background: #dcdcdc;
+
 }
 </style>
