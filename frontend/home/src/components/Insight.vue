@@ -18,11 +18,11 @@
         <a v-bind:href="i.bookURL">
           <img class="insight-list-element-label" v-bind:src="'http://cdn.wbluke.com/label_'+ i.label + '.png'"/>
         </a>
-        <span class="insight-list-element-title">
+        <span class="insight-list-element-title" :class="$mq">
           <router-link :to="i.uri" class="nice-link" :class="$mq">{{ i.title }}</router-link>
         </span>
         <br>
-        <span class="insight-list-element-date">
+        <span class="insight-list-element-date" :class="$mq">
           {{ i.date }}
         </span>
         <hr class="seperate-line">
@@ -195,12 +195,11 @@ article {
 }
 
 div#insight-info-message {
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-bottom: 10px;
-  padding: 20px;
+  margin: auto;
+  max-width: 380px;
+  padding-left: 40px;
   padding-top: 0px;
-  padding-bottom: 0px;
+  padding-bottom: 10px;
   text-align: left;
   color: #a9a9a9;
   font-size: 13px;
@@ -210,12 +209,15 @@ div#insight-info-message {
   text-decoration: none;
   max-width: 380px;
   margin: auto;
-  padding: 10px;
+  /* padding: 10px; */
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   /* background-color: #e9f1e9;
   background-clip: content-box; */
 }
 .insight-list-element-label {
-  display: inline;
   text-align: left;
   vertical-align: middle;
   -webkit-box-shadow: none;
@@ -224,15 +226,35 @@ div#insight-info-message {
   text-align: left;
   /* margin-right: 50px; */
 }
-.insight-list-element-title {
-  display: inline;
+.insight-list-element-title.tablet , .insight-list-element-title.laptop, .insight-list-element-title.desktop {
   font-size: 16px;
-  margin-left: 154px;
+  margin-left: 10px;
   max-width: 250px;
+  padding-left: 120px;
+  width: 100%;
+  box-sizing: border-box;
 }
-.insight-list-element-date {
-  margin-left: 290px;
+.insight-list-element-date.tablet , .insight-list-element-date.laptop, .insight-list-element-date.desktop {
+  margin-left: 10px;
+  padding-left: 256px;
+  width: 100%;
+  box-sizing: border-box;
 }
+.insight-list-element-title.mobile {
+  font-size: 16px;
+  margin-left: 10px;
+  max-width: 250px;
+  padding-left: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.insight-list-element-date.mobile {
+  margin-left: 10px;
+  padding-left: 236px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .seperate-line {
   border: 0px;
   height: 1px;
