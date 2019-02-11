@@ -51,6 +51,7 @@ ___
 Vue.js에서는 Vue-mq라는 이름으로 미디어쿼리를 제공해주고 있었습니다. 사용법도 크게 어렵지 않았습니다.  
 
 먼저 npm이나 yarn으로 Vue-mq를 설치합니다.  
+
 ```bash
 npm install vue-mq
 ```
@@ -65,7 +66,8 @@ yarn add vue-mq
 import 해주고 breakpoints를 내 마음대로 설정해주면 되는데, 분기점으로 사용할 이름과 픽셀 경계선을 설정해주면 됩니다. 경계선이라는 것이 쉽게 말해서 위 코드대로라면 `450 이하는 mobile`, `900까지는 tablet`, `1250까지는 laptop`, `나머지는 desktop`으로 간주하겠다...! 이런 뜻입니다. 저 수치는 저도 인용글에서 가져왔습니다.  
 
 그리고 적용이 필요한 해당 id나 class 태그에 가서 다음과 같이 하위 클래스로 "$mq"라 지정해주면 됩니다.  
-```
+
+```bash
 <router-link :to="i.uri" class="nice-link" :class="$mq">{{ i.title }}</router-link>
 ```  
 

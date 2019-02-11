@@ -108,10 +108,15 @@ body {
 }
 img {
   max-width: 100%;
+  text-align: center;
   border-radius: 5px;
   -webkit-box-shadow: 3px 3px 7px 0px #ccc;  
   -moz-box-shadow:    3px 3px 7px 0px #ccc; 
   box-shadow:         3px 3px 7px 0px #ccc;
+}
+#article-content img{
+  display: block; 
+  margin: 0px auto;
 }
 div#insight-article-content img {
   vertical-align: middle;

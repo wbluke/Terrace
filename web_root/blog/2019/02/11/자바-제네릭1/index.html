@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.1143d613.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.66f5e9f2.js" rel="preload" as="script"><link href="/js/chunk-vendors.708a92f7.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.1143d613.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="자바-제네릭1 | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-2530c523="" id="blog"><div data-v-2530c523="" id="blog-contents"><article data-v-2530c523=""><div data-v-2530c523="" class="inner-title-container"><h1 data-v-2530c523=""><a data-v-2530c523="" href="http://wbluke.com/blog/2019/02/11/자바-제네릭1/" id="inner-title">[Java] 제네릭(Generic)</a></h1><p data-v-2530c523="" class="meta">2019 / 02 / 11</p></div><div data-v-2530c523="" id="article-content"><h1 id="java-제네릭generic" style="display: none;">[Java] 제네릭(Generic)</h1>
+<h3 id="제네릭-이전의-코드">제네릭 이전의 코드</h3>
+<hr>
+<p>제네릭(Generic)은 자바 컬렉션 프레임워크의 이해를 위한 필수 개념입니다. 이 아티클을 시작으로 자바 프로그래밍 언어의 중반 이후, 즉 컬렉션, 람다 표현식, 스트림 등의 개념들을 공부하고 정리할 계획입니다.</p>
+<p>제네릭의 필요성을 알아보기 위해 다음 소스코드를 살펴봅시다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apple</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"I am an apple."</span>;
+    }    
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Orange</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"I am an orange."</span>;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span> </span>{ <span class="hljs-comment">// 무엇이든 담을 수 있는 상자</span>
+    <span class="hljs-keyword">private</span> Object ob;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(Object o)</span> </span>{
+        ob = o;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> ob;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FruitAndBox2</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Box aBox = <span class="hljs-keyword">new</span> Box();
+        Box oBox = <span class="hljs-keyword">new</span> Box();
+
+        <span class="hljs-comment">// 사과(오렌지)를 담는다</span>
+        aBox.set(<span class="hljs-keyword">new</span> Apple());
+        oBox.set(<span class="hljs-keyword">new</span> Orange());
+
+        <span class="hljs-comment">// 상자에서 사과(오렌지)를 꺼낸다</span>
+        Apple ap = (Apple)aBox.get();
+        Orange og = (Orange)oBox.get();
+
+        System.out.println(ap);
+        System.out.println(og);
+    }
+}
+<span class="hljs-comment">/*
+I am an apple.
+I am an orange.
+*/</span></code></pre>
+<p>Box는 Object클래스를 담고 꺼낼 수 있는 말그대로 무엇이든 담을 수 있는 상자 같은 클래스입니다.<br>
+무엇이든 담을 수 있다는 것은 좋은 장점이지만, get()으로 물건을 꺼낼 때 형 변환을 해주어야 한다는 불편함이 생깁니다.</p>
+<p>또한, Object클래스를 사용하는 것이 치명적인 단점이 될 수도 있습니다. set()에서 의도한 객체를 집어넣는 것이 아니라 엉뚱한 값을 집어넣었을 경우, 상황에 따라서 에러 혹은 더 심하면 에러가 뜨지 않고 잘못된 경우를 찾기 어려운 상황이 벌어질 수도 있습니다.</p>
+<p>정리하면 다음과 같습니다.</p>
+<ul>
+<li>제네릭을 사용하지 않은 경우<br>
+</li>
+</ul>
+<pre class="markdown"><code class="hljs">불편함 : 상자에서 물건을 꺼낼 때 형 변환이 필요하다.  
+문제점 : 프로그래머가 실수를 해도 그 실수가 드러나지 않을 수도 있다.    </code></pre>
+<h3 id="제네릭의-적용">제네릭의 적용</h3>
+<hr>
+<p>제네릭을 Box 클래스에 적용해보겠습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">// ...생략</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-keyword">private</span> T ob;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T o)</span> </span>{
+        ob = o;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> ob;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FruitAndBox2_Generic</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Box&lt;Apple&gt; aBox = <span class="hljs-keyword">new</span> Box&lt;Apple&gt;();
+        Box&lt;Orange&gt; oBox = <span class="hljs-keyword">new</span> Box&lt;Orange&gt;();
+ 
+        aBox.set(<span class="hljs-keyword">new</span> Apple());
+        oBox.set(<span class="hljs-keyword">new</span> Orange());
+
+        Apple ap = aBox.get();
+        Orange og = oBox.get();
+
+        System.out.println(ap);
+        System.out.println(og);
+    }
+}</code></pre>
+<p>Object 클래스가 아닌 자료형에 의존적이지 않은 객체를 만들기 위해 T라는 단어로 대체합니다. 그리고 이는 제네릭임을 명시하기 위해 클래스 뒤에 <t>로 표시합니다.<br>
+이제 Box를 생성할 때 어떤 상자인지를 제네릭으로 설정하여 생성할 수 있습니다. Apple인 경우 Apple 혹은 Apple을 상속하는 모든 하위 객체가 사용할 수 있는 Box가 만들어집니다.</t></p>
+<p>다음으로 넘어가기 전에 혼동하기 쉬운 용어를 정리합니다.</p>
+<ul>
+<li>용어 정리<br>
+</li>
+</ul>
+<pre class="markdown"><code class="hljs">타입 매개변수(Type Parameter) : Box&lt;T&gt;에서 T  
+타입 인자(Type Argument) : Box&lt;Apple&gt;에서 Apple  
+매개변수화 타입(Parametered Type) : Box&lt;Apple&gt;  </code></pre>
+<h3 id="제네릭의-기본-문법_클래스">제네릭의 기본 문법_클래스</h3>
+<hr>
+<p>함수의 상황에 따라 둘 이상의 타입 매개변수를 정의할 수도 있습니다. 보통의 convention은 알파벳 대문자 한글자로 짓습니다.<br>
+보편적으로 자주 사용하는 타입 매개변수는 아래와 같습니다.</p>
+<ul>
+<li>타입 매개변수<br>
+</li>
+</ul>
+<pre class="markdown"><code class="hljs">E : Element  
+K : Key  
+N : Number  
+T : Type  
+V : Value   </code></pre>
+<p>타입 인자로는 기본 자료형을 사용할 수 없습니다. 해당 자료형의 Wrapper 클래스를 사용하여야 합니다.</p>
+<pre class="java"><code class="hljs">Box&lt;<span class="hljs-keyword">int</span>&gt; box = <span class="hljs-keyword">new</span> Box&lt;<span class="hljs-keyword">int</span>&gt;(); <span class="hljs-comment">// error</span>
+Box&lt;Integer&gt; box = <span class="hljs-keyword">new</span> Box&lt;Integer&gt;(); <span class="hljs-comment">// (O)</span></code></pre>
+<p>컴파일러는 프로그래머가 작성하는 문장에서 자료형의 이름을 추론하는 능력을 갖고 있습니다. 다음과 같은 코드에서 왼쪽을 보고 오른쪽의 빈 &lt;&gt;안에 자동으로 해당 타입 인자가 있다고 간주합니다. 통상 &lt;&gt;을 ‘다이아몬드 기호’라고 한다네요. 후에 복잡한 제네릭 문법을 사용할 때 꽤나 도움을 주는 방법입니다.</p>
+<pre class="java"><code class="hljs">Box&lt;Apple&gt; box = <span class="hljs-keyword">new</span> Box&lt;&gt;();</code></pre>
+<p>extends 키워드를 사용하여 제네릭 클래스의 타입 인자를 제한할 수 있습니다. 인스턴스 생성 시 Number 클래스를 상속하는 클래스의 인스턴스만 담고 싶다면 다음과 같이 사용합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Number</span>&gt; </span>{...}</code></pre>
+<p>위 방법의 또 다른 이점은 해당 제한한 클래스의 메소드를 불러서 정의할 수 있다는 것입니다. Number클래스의 intValue()를 예로 들면, 기존의 제네릭 클래스에서는 상자에 무엇이 들어올지 모르기 때문에 해당 인스턴스에서 intValue()를 호출할 수 없습니다. 그러나 extends Number로 제한을 걸면, T로 Number를 상속하는 클래스의 인스턴스가 들어올 것을 알고 있기 때문에 intValue()를 호출할 수 있게 됩니다.</p>
+<p>마찬가지로 인터페이스도 extends 키워드로 타입 인자 제한에 사용될 수 있습니다. 또 그 경우 위와 같이 인터페이스의 메소드를 호출할 수 있게 됩니다.<br>
+만약 상속 클래스와 인터페이스를 동시에 쓰고 싶다면 다음과 같이 사용합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Number</span> &amp; <span class="hljs-title">Interface</span>&gt; </span>{...}</code></pre>
+<p>이 경우에는 Number를 상속하면서 해당 Interface를 구현하는 클래스만이 타입 인자로 올 수 있습니다.</p>
+<h3 id="제네릭의-기본-문법_메소드">제네릭의 기본 문법_메소드</h3>
+<hr>
+<p>지금까지는 클래스에 대해서만 제네릭을 정의하였습니다. 제네릭은 클래스 뿐만 아니라 일부 메소드에서도 정의가 가능합니다. 제네릭 메소드는 static의 선언에 관계없이 정의가 가능합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Box&lt;T&gt; makeBox&lt;T o&gt; {...} <span class="hljs-comment">// error : Box&lt;T&gt;에서 T가 무엇인지 정의가 안되어 있다.</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; Box&lt;T&gt; makeBox&lt;T o&gt; {...} <span class="hljs-comment">// (O) : T가 타입 매개변수임을 알려줘야 한다. </span></code></pre>
+<p>다음은 제네릭 메소드의 정의와 호출에 관한 예제입니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-keyword">private</span> T ob;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T o)</span> </span>{
+        ob = o;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> ob;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BoxFactory</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Box&lt;T&gt; <span class="hljs-title">makeBox</span><span class="hljs-params">(T o)</span> </span>{
+        Box&lt;T&gt; box = <span class="hljs-keyword">new</span> Box&lt;T&gt;();
+        box.set(o);
+        <span class="hljs-keyword">return</span> box;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GenericMethodBoxMaker</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Box&lt;String&gt; sBox = BoxFactory.makeBox(<span class="hljs-string">"Sweet"</span>);
+        System.out.println(sBox.get());
+
+        Box&lt;Double&gt; dBox = BoxFactory.makeBox(<span class="hljs-number">7.59</span>);
+        System.out.println(dBox.get());
+    }
+}</code></pre>
+<p>제네릭 클래스는 인스턴스 생성 시 자료형이 결정되는 반면, 제네릭 메소드는 메소드 호출 시에 자료형이 결정됩니다.<br>
+위 예제의 makeBox()는 다음과 같이 호출되어야 합니다.</p>
+<pre class="java"><code class="hljs">Box&lt;String&gt; sBox = BoxFactory.&lt;String&gt;makeBox(<span class="hljs-string">"Sweet"</span>);
+Box&lt;Double&gt; dBox = BoxFactory.&lt;Double&gt;makeBox(<span class="hljs-number">7.59</span>); <span class="hljs-comment">// 7.59에 대한 오토 박싱이 진행</span></code></pre>
+<p>그러나 컴파일러에서는 자료형 선언을 생략해도, 전달된 인자의 타입을 보고 위 예제처럼 자료형을 자연스럽게 유추합니다. 동시에 오토 박싱까지 자동으로 진행해줍니다.</p>
+<p>그리고 다음과 같이 제네릭 메소드에서도 클래스에서처럼 extends 키워드로 타입 인자를 제한시킬 수 있습니다. 그로 인해 얻는 이점은 클래스 때와 같습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T extends Number&gt; Box&lt;T&gt; makeBox&lt;T o&gt; {...}</code></pre>
+<h3 id="제네릭-클래스의-상속">제네릭 클래스의 상속</h3>
+<hr>
+<p>제네릭 클래스도 상속이 가능합니다.<br>
+예를 들어 <code class="hljs">Box&lt;T&gt; ← SteelBox&lt;T&gt;</code> 의 상속 관계가 성립한다고 하면,<br>
+<code class="hljs">Box&lt;Integer&gt; ← SteelBox&lt;Integer&gt;</code> 등의 상속 관계가 성립합니다.<br>
+단, 주의할 점은 <code class="hljs javascript">Box&lt;<span class="hljs-built_in">Number</span>&gt; ← SteelBox&lt;Integer&gt;</code>의 관계는 성립하지 않습니다. 즉, 타입 인자끼리의 상속 관계는 제네릭 상속과 전혀 관련이 없습니다.</p>
+<h3 id="타겟-타입target-types">타겟 타입(Target Types)</h3>
+<hr>
+<p>위의 ’제네릭의 기본 문법_메소드’에서 정의된 제네릭 메소드는 인자로 받은 인스턴스의 타입을 통해 자동으로 T를 유추했습니다. 다음과 같이 말이죠.</p>
+<pre class="java"><code class="hljs">Box&lt;String&gt; sBox = BoxFactory.makeBox(<span class="hljs-string">"Sweet"</span>);
+Box&lt;Double&gt; dBox = BoxFactory.makeBox(<span class="hljs-number">7.59</span>);</code></pre>
+<p>그런데 자바 7버전부터 다음과 같이 메소드에 전달되는 인자가 없는 상황에도 자료형을 유추하는 것이 가능해졌습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">// ...생략</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EmptyBoxFactory</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Box&lt;T&gt; <span class="hljs-title">makeBox</span><span class="hljs-params">()</span> </span>{
+        Box&lt;T&gt; box = <span class="hljs-keyword">new</span> Box&lt;T&gt;();
+        <span class="hljs-keyword">return</span> box;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TargetTypes</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-comment">//Box&lt;Integer&gt; iBox = EmptyBoxFactory.&lt;Integer&gt;makeBox();</span>
+        Box&lt;Integer&gt; iBox = EmptyBoxFactory.makeBox(); <span class="hljs-comment">// 자바 7부터 가능</span>
+        iBox.set(<span class="hljs-number">25</span>);
+        System.out.println(iBox.get());
+    }
+}</code></pre>
+<p>이는 대입 연산자의 왼편에 있는 정보를 가지고 유추하는 것인데, 우리가 보기엔 당연해보일 수 있지만 컴파일러의 관점에서는 주목할 만한 일입니다. 이 때 T의 유추에 사용된 정보 <code class="hljs">Box&lt;Integer&gt;</code>를 <code class="hljs">타겟타입(Target Type)</code>이라고 합니다.</p>
+<h3 id="출처">출처</h3>
+<hr>
+<p><img src="http://cdn.wbluke.com/yoon_java_book.jpg" width="250"></p>
+<p>위 아티클은 <a href="https://book.naver.com/bookdb/book_detail.nhn?bid=12236206">윤성우의 열혈 자바 프로그래밍</a> 도서를 공부하고 기록을 남기기 위해 정리한 글입니다.</p>
+</div></article><hr data-v-2530c523=""></div></div></p></div><script src="/js/chunk-vendors.708a92f7.js"></script><script src="/js/app.66f5e9f2.js"></script></body></html>

@@ -45,7 +45,8 @@
 <img src="http://cdn.wbluke.com/vue_mq.png" alt="Vue-mq 적용_line 4~13" width="400" /><figcaption>Vue-mq 적용_line 4~13</figcaption>
 </figure>
 <p>import 해주고 breakpoints를 내 마음대로 설정해주면 되는데, 분기점으로 사용할 이름과 픽셀 경계선을 설정해주면 됩니다. 경계선이라는 것이 쉽게 말해서 위 코드대로라면 <code>450 이하는 mobile</code>, <code>900까지는 tablet</code>, <code>1250까지는 laptop</code>, <code>나머지는 desktop</code>으로 간주하겠다…! 이런 뜻입니다. 저 수치는 저도 인용글에서 가져왔습니다.</p>
-<p>그리고 적용이 필요한 해당 id나 class 태그에 가서 다음과 같이 하위 클래스로 “<span class="math inline">$mq"라 지정해주면 됩니다. ``` &lt;router-link :to="i.uri" class="nice-link" :class="$</span>mq”&gt;{{ i.title }}</router-link> ```</p>
+<p>그리고 적용이 필요한 해당 id나 class 태그에 가서 다음과 같이 하위 클래스로 “$mq”라 지정해주면 됩니다.</p>
+<pre class="bash"><code>&lt;router-link :to=&quot;i.uri&quot; class=&quot;nice-link&quot; :class=&quot;$mq&quot;&gt;{{ i.title }}&lt;/router-link&gt;</code></pre>
 <p>적용하는 style쪽에서는 <code>a.nice-link.laptop:hover</code>, <code>a.nice-link.desktop:hover::after</code> 같은 식으로 내가 설정한 경계선에 맞게 하위 클래스를 지정해주면 디바이스의 길이에 따라 효과를 달리 줄 수 있습니다.<br />
 저는 모바일 환경에서의 두 번 클릭 효과를 없애야 했기에, <code>mobile</code>과 <code>tablet</code>환경에서는 해당 밝은 드래그 효과가 나타나지 않도록 설정해두었습니다.</p>
 <p>크롬 개발자도구를 켜고 제 블로그의 가로 사이즈를 왔다갔다 해보시면 해당 태그의 클래스가 변하는 것을 관찰하실 수 있습니다.</p>
