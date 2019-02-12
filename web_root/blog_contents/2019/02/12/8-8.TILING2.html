@@ -1,0 +1,74 @@
+<h1 id="알고리즘-8-8.-tiling2-타일링">[알고리즘] 8-8. TILING2 (타일링)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/TILING2">Algospot Link : TILING2</a></p>
+<p><strong>문제</strong></p>
+<p>2xn 크기의 사각형을 2x1 크기의 사각형으로 빈틈없이 채우는 경우의 수를 구하는 프로그램을 작성하세요.</p>
+<p>경우의 수는 n이 커지면 아주 커질 수 있으므로, 1000000007으로 나눈 값을 대신 출력하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code>C (C &lt;= 50)</code>가 주어집니다. 그후 C줄에 각각 1개의 자연수로 <code>n(1 &lt;= n &lt;= 100)</code>이 주어집니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 한 줄에 경우의 수를 1000000007로 나눈 나머지를 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>3
+1
+5
+100</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>1
+8
+782204094</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li><p>동적 계획법 적용을 위해 부분문제만 잘 설정해주면 쉽게 풀 수 있는 문제입니다. 어떤 위치를 기준으로 남은 길이를 n이라 할 때, 첫 줄을 세로 2x1 짜리 타일로 채우고 나머지 n-1 길이를 재귀호출 한 경우와, 첫 두 줄을 가로 1x2 짜리 타일 2개로 채우고 나머지 n-2 길이를 재귀호출 한 경우를 더해주면 됩니다.</p></li>
+<li><p>살짝 조심할 것은 <del>사실 제가 실수한 거</del> 남은 길이가 0일 때도 개수를 0이 아니라 1을 반환해주어야 한다는 것입니다. 저만 착각할 것 같기도 하네요. ٩( ᐛ )و</p></li>
+<li><p>문제의 요구에 따라 큰 수로 나눈 나머지를 캐시에 저장하고 반환해야 함도 잊지 마시길 바랍니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH08_3/TILING2.java">Github Link</a></p>
+<pre class="java"><code>/* TILING2.java */
+
+import java.util.*;
+
+public class TILING2 {
+
+    private int n;
+    private int[] cache = new int[101];
+
+    public int countTiling(int remainingLen){
+
+        //memoization
+        if(cache[remainingLen] != -1) return cache[remainingLen];
+
+        //base case
+        if(remainingLen &lt;= 1) return cache[remainingLen] = 1;
+
+        return cache[remainingLen] = (countTiling(remainingLen - 1) + countTiling(remainingLen - 2)) % 1000000007;
+    }
+
+    public static void main(String[] args) {
+        TILING2 tiling2 = new TILING2();
+
+        Scanner scan = new Scanner(System.in);
+
+        int loop = scan.nextInt();
+
+        while(loop-- &gt; 0){
+            tiling2.n = scan.nextInt();
+
+            //cache init
+            Arrays.fill(tiling2.cache, -1);
+
+            System.out.println(tiling2.countTiling(tiling2.n));
+        }
+    }
+}
+</code></pre>
+</details>
