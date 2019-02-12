@@ -1,0 +1,156 @@
+<h1 id="알고리즘-8-7.-quantize-양자화">[알고리즘] 8-7. QUANTIZE (양자화)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/QUANTIZE">Algospot Link : QUANTIZE</a></p>
+<p><strong>문제</strong></p>
+<p>Quantization (양자화) 과정은, 더 넓은 범위를 갖는 값들을 작은 범위를 갖는 값들로 근사해 표현함으로써 자료를 손실 압축하는 과정을 말한다. 예를 들어 16비트 JPG 파일을 4컬러 GIF 파일로 변환하는 것은 RGB 색 공간의 색들을 4컬러 중의 하나로 양자화하는 것이고, 키가 161, 164, 170, 178 인 학생 넷을 ‘<code>160대 둘, 170대 둘</code>’ 이라고 축약해 표현하는 것 또한 양자화라고 할 수 있다.</p>
+<p>1000 이하의 자연수들로 구성된 수열을 최대 S종류 의 값만을 사용하도록 양자화하고 싶다. 이 때 양자화된 숫자는 원래 수열에 없는 숫자일 수도 있다. 양자화를 하는 방법은 여러 가지가 있다. 수열 <code>1 2 3 4 5 6 7 8 9 10</code> 을 2개의 숫자만을 써서 표현하려면, <code>3 3 3 3 3 7 7 7 7 7</code> 과 같이 할 수도 있고, <code>1 1 1 1 1 10 10 10 10 10</code> 으로 할 수도 있다. 우리는 이 중, 각 숫자별 오차 제곱의 합을 최소화하는 양자화 결과를 알고 싶다.</p>
+<p>예를 들어, 수열 <code>1 2 3 4 5</code> 를 <code>1 1 3 3 3</code> 으로 양자화하면 오차 제곱의 합은 <code>0+1+0+1+4=6</code> 이 되고, <code>2 2 2 4 4</code> 로 양자화하면 오차 제곱의 합은 <code>1+0+1+0+1=3</code> 이 된다.</p>
+<p>수열과 S 가 주어질 때, 가능한 오차 제곱의 합의 최소값을 구하는 프로그램을 작성하시오.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code>C (1 &lt;= C &lt;= 50)</code> 가 주어진다. 각 테스트 케이스의 첫 줄에는 수열의 길이 <code>N (1 &lt;= N &lt;= 100)</code>, 사용할 숫자의 수 <code>S (1 &lt;= S &lt;= 10)</code> 이 주어진다. 그 다음 줄에 N개의 정수로 수열의 숫자들이 주어진다. 수열의 모든 수는 1000 이하의 자연수이다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다, 주어진 수열을 최대 S 개의 수로 양자화할 때 오차 제곱의 합의 최소값을 출력한다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>2
+10 3
+3 3 3 1 2  3 2 2 2 1
+9 3
+1 744 755 4 897 902 890 6 777</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>0
+651</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li><p>주어진 문제를 그대로 재귀호출하는 것은 생각만 해도 답이 없는 방법입니다. 그런데 동적 계획법을 적용한다 해도 이 문제는 경우의 수가 너무 많아집니다. 조절해 주어야 할 변수가 남은 길이, 양자화할 수의 개수, 어떤 수들을 같은 수로 양자화할지 정하는 문제 등으로 너무 많기 때문입니다.</p></li>
+<li>여기서 한 가지 아이디어를 적용해야 합니다. 최적해를 따지려고 보면, 다음과 같은 사실을 알 수 있습니다.<br />
+</li>
+</ul>
+<pre class="markdown"><code>주어진 수열을 정렬하면, 같은 수로 양자화되는 수는 항상 인접해 있다!</code></pre>
+<ul>
+<li>어차피 우리는 오차 제곱의 합을 구할 것이기 때문에 수열의 순서는 아무 상관이 없습니다. 따라서 위와 같은 사실을 적용하여 주어진 수열을 정렬해놓고 동적 계획법을 적용하면 시간 안에 풀어낼 수 있습니다.</li>
+</ul>
+<pre class="java"><code>public int quantize(int start, int parts){
+    //base case
+    if(start == n) return 0;
+
+    if(parts == 0) return INF;
+
+    //memoization
+    if(cache[start][parts] != -1) return cache[start][parts];
+
+    int ret = INF;
+
+    for(int partSize = 1; start + partSize &lt;= n; partSize++){
+        ret = Math.min(ret, minError(start, start + partSize) + quantize(start + partSize, parts - 1));
+    }
+    cache[start][parts] = ret;
+    return ret;
+}</code></pre>
+<ul>
+<li><p>첫 묶음의 시작 인덱스를 start, 첫 묶음의 크기를 partSize, 그리고 남은 양자화 수, 즉 남은 수들을 그룹으로 묶을 그룹의 개수를 parts라고 잡아줍니다. Base Case는 수열의 끝에 다다랐을 때(start == n), 혹은 남은 양자화 수가 다 떨어졌을 때(parts == 0) 입니다.</p></li>
+<li><p>부분 문제를 살펴보면, 각 조각에서는 현재 ret값과 재귀호출한 결과값 중 최소값을 비교해서 잡아줍니다. 이 때 재귀호출 부분은, 현재 잡아준 묶음의 오차 제곱의 합을 구하는 <code>minError()</code>메소드와 나머지 부분을 재귀호출하는 부분으로 나누어집니다. 각 메소드의 인자는 반복문 혹은 구현부의 정의에 따라 +1, -1 등을 하면서 달라질 수 있으니 주의해야합니다. 저도 책이랑은 살짝 다르게 접근했네요.</p></li>
+</ul>
+<pre class="java"><code>public int minError(int start, int end){
+    int sum = 0;
+    int sqSum = 0;
+
+    for(int i=start; i&lt;end; i++){
+        sum += quanArr[i];
+        sqSum += quanArr[i] * quanArr[i];
+    }
+    int avg = (int)(0.5 + (double)sum / (end - start));
+
+    return sqSum + avg * avg * (end - start) - 2 * avg * sum;
+}</code></pre>
+<ul>
+<li><p>최소 오차 제곱의 합은 사실 통계에서 배우는 분산과 관련이 있습니다. 그리고 계산 과정을 생각했을 때, 최소값을 구하게 해주는 기준값은 모든 숫자들의 평균이 되어야 함을 알 수 있습니다. 평균에서 각 숫자를 뺐을 때 오차값이 가장 작을테니까요.</p></li>
+<li><p>위 코드에서 sum은 해당 묶음 숫자들의 합을, sqSum은 해당 묶음 숫자들의 제곱의 합을 의미합니다. 그리고 정수값인 평균을 구할 때는 반올림을 해주기 위해 0.5를 더해서 구해줍니다. int로 변환하는 과정에서 버림 연산이 일어나기 때문입니다. 그리고 구한 값들을 이용해서 오차 제곱의 합을 계산하여 반환해주면 해당 그룹의 계산값을 이 메소드를 통해 구해낼 수 있습니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH08_3/QUANTIZE.java">Github Link</a></p>
+<pre class="java"><code>/* QUANTIZE.java */
+
+import java.util.*;
+
+import static java.util.Arrays.sort;
+
+public class QUANTIZE {
+
+    private int[] quanArr;
+    private int n, s;
+    private int[][] cache = new int[100][11];
+    private static final int INF = 987654321;
+
+    public int minError(int start, int end){
+        int sum = 0;
+        int sqSum = 0;
+
+        for(int i=start; i&lt;end; i++){
+            sum += quanArr[i];
+            sqSum += quanArr[i] * quanArr[i];
+        }
+        int avg = (int)(0.5 + (double)sum / (end - start));
+
+        return sqSum + avg * avg * (end - start) - 2 * avg * sum;
+    }
+
+    public int quantize(int start, int parts){
+        //base case
+        if(start == n) return 0;
+
+        if(parts == 0) return INF;
+
+        //memoization
+        if(cache[start][parts] != -1) return cache[start][parts];
+
+        int ret = INF;
+
+        for(int partSize = 1; start + partSize &lt;= n; partSize++){
+            ret = Math.min(ret, minError(start, start + partSize) + quantize(start + partSize, parts - 1));
+        }
+        cache[start][parts] = ret;
+        return ret;
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        QUANTIZE qt = new QUANTIZE();
+
+        int loop = scan.nextInt();
+
+        while(loop-- &gt; 0){
+            qt.n = scan.nextInt();
+            qt.s = scan.nextInt();
+            qt.quanArr = new int[qt.n];
+            for (int i = 0; i &lt; qt.n; i++) {
+                qt.quanArr[i] = scan.nextInt();
+            }
+
+            //cache init
+            for(int[] arr : qt.cache){
+                Arrays.fill(arr, -1);
+            }
+
+            sort(qt.quanArr);
+
+            System.out.println(qt.quantize(0, qt.s));
+        }
+    }
+}</code></pre>
+</details>
+<h3 id="문법">문법</h3>
+<hr />
+<ul>
+<li>이차원 배열의 초기화</li>
+</ul>
+<pre class="java"><code>for(int[] arr : cache){
+    Arrays.fill(arr, -1);
+}</code></pre>
