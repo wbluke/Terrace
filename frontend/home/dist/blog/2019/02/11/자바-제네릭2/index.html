@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.cb7c8fa1.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.18480a58.js" rel="preload" as="script"><link href="/js/chunk-vendors.708a92f7.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.cb7c8fa1.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="자바-제네릭2 | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-d5e93276="" id="blog"><div data-v-d5e93276="" id="blog-contents"><article data-v-d5e93276=""><div data-v-d5e93276="" class="inner-title-container"><h1 data-v-d5e93276=""><a data-v-d5e93276="" href="http://wbluke.com/blog/2019/02/11/자바-제네릭2/" id="inner-title">[Java] 제네릭2(Generic)</a></h1><p data-v-d5e93276="" class="meta">2019 / 02 / 11</p></div><div data-v-d5e93276="" id="article-content"><h1 id="java-제네릭2generic" style="display: none;">[Java] 제네릭2(Generic)</h1>
+<h3 id="와일드카드wildcard">와일드카드(Wildcard)</h3>
+<hr>
+<p>제네릭에서 어렵다고 알려진 와일드카드입니다. 와일드카드 자체는 편리하지만 그 의미를 정확히 알고 적용하는 것이 중요한 듯 싶습니다.</p>
+<p>다음과 같은 제네릭 메소드를 살펴봅시다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">peekBox</span><span class="hljs-params">(Box&lt;T&gt; box)</span></span>{ <span class="hljs-comment">// box의 내용물을 확인하는 제네릭 메소드</span>
+    System.out.println(box); <span class="hljs-comment">// toString()이 오버라이딩 되어있는 상태</span>
+}</code></pre>
+<p>이 메소드는 사실 <code class="hljs">Box&lt;Integer&gt;</code>나 <code class="hljs javascript">Box&lt;<span class="hljs-built_in">String</span>&gt;</code>을 인자로 받기 위함이니 타입 인자를 <code class="hljs">Box&lt;T&gt;</code> 대신 <code class="hljs javascript">Box&lt;<span class="hljs-built_in">Object</span>&gt;</code>로 선언해도 될까요? 절대 안됩니다. 상속 관계에서 설명했듯이 <code class="hljs javascript">Box&lt;<span class="hljs-built_in">Object</span>&gt;</code>와 <code class="hljs">Box&lt;Integer&gt;</code> 등은 상속관계를 형성하지 않습니다. 여기서 와일드카드를 사용해볼 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">peekBox</span><span class="hljs-params">(Box&lt;?&gt; box)</span></span>{ <span class="hljs-comment">// 와일드카드 기반 메소드 정의</span>
+    System.out.println(box); <span class="hljs-comment">// toString()이 오버라이딩 되어있는 상태</span>
+}</code></pre>
+<p>와일드카드를 사용하면 <code class="hljs">&lt;T&gt;</code>를 두번 사용해야하는 번거로움이 줄고 코드가 간결해집니다. 지금은 별거 아닌 것 같지만, 제네릭 부분 코드가 복잡해질수록 와일드카드를 사용하는 것이 좋습니다.</p>
+<h3 id="와일드카드의-상한과-하한의-제한-bounded-wildcards">와일드카드의 상한과 하한의 제한 : Bounded Wildcards</h3>
+<hr>
+<p>방금 예를 들었던 peekBox()로 와일드카드의 상한 제한(Upper-Bounded)과 하한 제한(Lower-Bounded)을 설명하려 합니다.</p>
+<p>위 메소드의 인자로 <code class="hljs">Box&lt;T&gt;</code>의 T가 Number 혹은 Number의 하위 클래스인 제네릭 타입의 인스턴스만 전달되도록 제한할 때 다음과 같이 ’상한 제한 와일드카드’를 사용합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">peekBox</span><span class="hljs-params">(Box&lt;? extends Number&gt; box)</span></span>{
+    System.out.println(box); 
+}</code></pre>
+<p>그리고 반대 개념으로 <code class="hljs">Box&lt;T&gt;</code>의 T가 Integer 혹은 Integer가 상속하는 제네릭 타입의 인스턴스만 전달되도록 제한할 때 다음과 같이 ’하한 제한 와일드카드’를 사용합니다. 즉 <code class="hljs">Box&lt;Integer&gt;</code>, <code class="hljs javascript">Box&lt;<span class="hljs-built_in">Number</span>&gt;</code>, <code class="hljs javascript">Box&lt;<span class="hljs-built_in">Object</span>&gt;</code>만 올 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">peekBox</span><span class="hljs-params">(Box&lt;? <span class="hljs-keyword">super</span> Integer&gt; box)</span></span>{
+    System.out.println(box); 
+}</code></pre>
+<h3 id="와일드카드의-상한-제한과-하한-제한의-의미">와일드카드의 상한 제한과 하한 제한의 의미</h3>
+<hr>
+<p>가장 어려운 내용인 듯 합니다. 이해를 한번 했는데도 아직 5% 모자란 느낌…ㅎ<br>
+하지만 완벽한 이해보다는 마지막에 정리하는 두 내용을 기억하고 있는 것이 핵심입니다.</p>
+<p>다음 예제를 봅시다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-keyword">private</span> T ob;     
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T o)</span> </span>{ ob = o; }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> ob; }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Toy</span> </span>{
+    <span class="hljs-meta">@Override</span> 
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{ 
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"I am a Toy"</span>;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BoxHandler</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">outBox</span><span class="hljs-params">(Box&lt;Toy&gt; box)</span> </span>{
+        Toy t = box.get();    <span class="hljs-comment">// 상자에서 꺼내기 </span>
+        System.out.println(t);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inBox</span><span class="hljs-params">(Box&lt;Toy&gt; box, Toy n)</span> </span>{
+        box.set(n);    <span class="hljs-comment">// 상자에 넣기</span>
+    } 
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BoundedWildcardBase</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Box&lt;Toy&gt; box = <span class="hljs-keyword">new</span> Box&lt;&gt;();
+        BoxHandler.inBox(box, <span class="hljs-keyword">new</span> Toy());
+        BoxHandler.outBox(box); 
+    }
+}</code></pre>
+<p>핵심적으로 봐야할 부분은 outBox()와 inBox()입니다. 함수를 구현할 때 가장 중점적으로 고려할 사항은 <code class="hljs">필요한 만큼만 기능을 허용하여, 코드의 오류가 컴파일 과정에서 최대한 발견되도록 한다.</code> 입니다. 위 두 함수는 아직 부족한 부분이 존재합니다.</p>
+<p>outBox()를 정의할 당시의 프로그래머의 생각은 ’상자에서 내용물을 꺼내는 기능의 메소드를 구현하자.’였을 것입니다. 그런데 매개변수 box를 대상으로는 다음과 같이 get은 물론 set의 호출도 가능합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">outBox</span><span class="hljs-params">(Box&lt;Toy&gt; box)</span> </span>{
+    box.get();          <span class="hljs-comment">// 꺼내는 것 가능! </span>
+    box.set(<span class="hljs-keyword">new</span> Toy()); <span class="hljs-comment">// 넣는 것 가능!</span>
+}</code></pre>
+<p>상자에 무엇인가를 넣는 행위는 프로그래머의 의도와 아주 다른 상황이지만 컴파일 과정에서 발견되지 않는 오류입니다. 여기서 다음과 같이 상한 제한을 걸면 상자에서 꺼내는 것은 가능하지만 넣는 것은 불가능해집니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">outBox</span><span class="hljs-params">(Box&lt;? extends Toy&gt; box)</span> </span>{
+    box.get();          <span class="hljs-comment">// 꺼내는 것 가능! </span>
+    box.set(<span class="hljs-keyword">new</span> Toy()); <span class="hljs-comment">// 넣는 것 Error!</span>
+}</code></pre>
+<p>넣는 것이 불가능해지는 이유는 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs">outBox 메소드의 매개변수로 Toy 인스턴스를 저장할 수 있는 상자만(Box&lt;T&gt; 인스턴스만) 
+전달된다는 사실을 보장할 수 없다.</code></pre>
+<p>만약 Toy 클래스를 상속 받는 Robot 클래스가 있다고 가정했을 때, 인자로 전달된 <code class="hljs">Box&lt;Robot&gt;</code>에는 Toy를 담을 수 없게 되기 때문입니다.</p>
+<p>따라서 제네릭 와일드카드의 상한 제한의 의미를 간단하게 정리해보면 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs">box가 참조하는 인스턴스를 대상으로 저장하는(전달하는) 기능의 메소드 호출은 불가능하다.</code></pre>
+<p>반대로 하한 제한은 꺼내는 작업을 제한합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inBox</span><span class="hljs-params">(Box&lt;Toy&gt; box, Toy n)</span> </span>{
+    box.set(n);             <span class="hljs-comment">// 넣는 것 가능!</span>
+    Toy myToy = box.get();  <span class="hljs-comment">// 꺼내는 것 가능!</span>
+} </code></pre>
+<p>inBox()에서 프로그래머의 의도대로 꺼내는 작업을 제한하려면 다음과 같이 와일드카드를 사용합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inBox</span><span class="hljs-params">(Box&lt;? <span class="hljs-keyword">super</span> Toy&gt; box, Toy n)</span> </span>{
+    box.set(n);             <span class="hljs-comment">// 넣는 것 가능!</span>
+    Toy myToy = box.get();  <span class="hljs-comment">// 꺼내는 것 Error!</span>
+} </code></pre>
+<p>꺼내는 것이 불가능해지는 이유는 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs">inBox 메소드에서 상자에서 꺼낸 myToy의 타입이 Toy라는 사실을 보장할 수 없다.</code></pre>
+<p>만약 Toy 클래스가 Plastic 클래스를 상속 받는다고 가정했을 때, 인자로 전달된 <code class="hljs">Box&lt;Plastic&gt;</code> 타입은 Toy에 넣을 수 없게 되기 때문입니다.</p>
+<p>따라서 제네릭 와일드카드의 하한 제한의 의미를 간단하게 정리해보면 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs">box가 참조하는 인스턴스를 대상으로 꺼내는(반환하는) 기능의 메소드 호출은 불가능하다.</code></pre>
+<h3 id="와일드카드의-제한_정리">와일드카드의 제한_정리</h3>
+<hr>
+<p>핵심적인 사실 두 가지를 정리합니다.</p>
+<pre class="markdown"><code class="hljs">매개변수 선언 : Box&lt;? extends Toy&gt; box
+<span class="hljs-code">    → box가 참조하는 인스턴스를 대상으로 꺼내는 작업만 허용하겠다는 의미!</span>
+매개변수 선언 : Box&lt;? super Toy&gt; box
+<span class="hljs-code">    → box가 참조하는 인스턴스를 대상으로 넣는 작업만 허용하겠다는 의미!</span></code></pre>
+<p>위 사실을 바탕으로 다음과 같은 복사 기능 메소드도 생각해 볼 수 있습니다. 실제로 Collection 프레임워크에서 비슷한 메소드를 볼 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">moveBox</span><span class="hljs-params">(Box&lt;? <span class="hljs-keyword">super</span> Toy&gt; to, Box&lt;? extends Toy&gt; from)</span></span>{
+    to.set(from.get());
+    <span class="hljs-comment">// from.set(to.get()); =&gt; error! 프로그래머의 실수 방지</span>
+}</code></pre>
+<h3 id="제한된-와일드카드의-선언을-갖는-제네릭-메소드">제한된 와일드카드의 선언을 갖는 제네릭 메소드</h3>
+<hr>
+<p>제네릭 메소드를 오버로딩 해야하는 상황에서는 컴파일러의 <code class="hljs">Type eraser</code> 때문에 오버로딩이 불가능해지는 상황이 생깁니다. 컴파일러 과정에서 제네릭 등장 이전의 다른 함수들과의 호환성 문제로 인해 <code class="hljs">Box&lt;? extends Toy&gt; box</code> 등을 <code class="hljs">Box box</code>로 변경시키기 때문에, 이름이 같아져서 오버로딩을 허용하지 않습니다. 오버로딩이 필요한 상황에서는, 다음과 같은 메소드 정의로 대신합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">outBox</span><span class="hljs-params">(Box&lt;? extends T&gt; box)</span> </span>{...}</code></pre>
+<p><code class="hljs">&lt;? extends T&gt;</code>가 보인다면 바로 오버로딩 때문입니다.</p>
+<h3 id="제네릭-인터페이스">제네릭 인터페이스</h3>
+<hr>
+<p>지금까지 정의했던 클래스와 메소드 제네릭 외에도 인터페이스 제네릭이 정의가 가능합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Getable</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Getable</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-keyword">private</span> T ob;     
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T o)</span> </span>{ ob = o; }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{ 
+        <span class="hljs-keyword">return</span> ob; 
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Toy</span> </span>{
+    <span class="hljs-meta">@Override</span> 
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{ 
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"I am a Toy"</span>;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GetableGenericInterface</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Box&lt;Toy&gt; box = <span class="hljs-keyword">new</span> Box&lt;&gt;();
+        box.set(<span class="hljs-keyword">new</span> Toy());
+    
+        Getable&lt;Toy&gt; gt = box;
+        System.out.println(gt.get());        
+    }
+}</code></pre>
+<p><code class="hljs">Getable&lt;T&gt;</code> 형식으로 정의해주면 됩니다. 다만 관련 인자 참조 시 메인 메소드에서처럼 T는 같은 자료형으로 동일하게 받아주어야 합니다.</p>
+<p>지금까지 두 아티클에 걸쳐서 제네릭을 정리해보았습니다. 다음은 컬렉션 프레임워크입니다.</p>
+<h3 id="출처">출처</h3>
+<hr>
+<p><img src="http://cdn.wbluke.com/yoon_java_book.jpg" width="250"></p>
+<p>위 아티클은 <a href="https://book.naver.com/bookdb/book_detail.nhn?bid=12236206">윤성우의 열혈 자바 프로그래밍</a> 도서를 공부하고 게인 기록을 남기기 위해 정리한 글입니다.<br>
+<a href="https://cafe.naver.com/cstudyjava">저자 분의 네이버 카페</a>에서 해당 도서 정보 및 저자 직강을 보실 수 있습니다.</p>
+</div></article><hr data-v-d5e93276=""></div></div></p></div><script src="/js/chunk-vendors.708a92f7.js"></script><script src="/js/app.18480a58.js"></script></body></html>
