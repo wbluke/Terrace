@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.2ad29d68.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.b8edd235.js" rel="preload" as="script"><link href="/js/chunk-vendors.708a92f7.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.2ad29d68.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="8-9.TRIPATHCNT | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"></head><body><noscript><strong>We're sorry but home doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-210f1d5a="" id="blog"><div data-v-210f1d5a="" id="blog-contents"><article data-v-210f1d5a=""><div data-v-210f1d5a="" class="inner-title-container"><h1 data-v-210f1d5a=""><a data-v-210f1d5a="" href="http://wbluke.com/blog/2019/02/13/8-9.TRIPATHCNT/" id="inner-title">[알고리즘] 8-9. TRIPATHCNT (삼각형 위의 최대 경로 수 세기)</a></h1><p data-v-210f1d5a="" class="meta">2019 / 02 / 13</p></div><div data-v-210f1d5a="" id="article-content"><h1 id="알고리즘-8-9.-tripathcnt-삼각형-위의-최대-경로-수-세기" style="display: none;">[알고리즘] 8-9. TRIPATHCNT (삼각형 위의 최대 경로 수 세기)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/TRIPATHCNT">Algospot Link : TRIPATHCNT</a></p>
+<p><strong>문제</strong></p>
+<pre><code class="hljs">9
+5 7
+1 3 2
+3 5 5 6</code></pre>
+<p>위 형태와 같이 삼각형 모양으로 배치된 자연수들이 있습니다. 맨 위의 숫자에서 시작해, 한 번에 한 칸씩 아래로 내려가 맨 아래 줄로 내려가는 경로를 만들려고 합니다. 경로는 아래 줄로 내려갈 때마다 바로 아래 숫자, 혹은 오른쪽 아래 숫자로 내려갈 수 있습니다.</p>
+<p>이 때 숫자의 합이 가장 큰 경로는 하나가 아니라 여러 개일 수 있습니다. 예를 들어 위 삼각형에서는 <code class="hljs">{9, 7, 2, 6}</code>과 <code class="hljs">{9, 7, 3, 5}</code>의 합이 모두 최대인 24이고, <code class="hljs">{9, 7, 3, 5}</code>는 두 번 등장하거든요.</p>
+<p>삼각형이 주어질 때 최대 경로의 수를 세는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code class="hljs">C(C &lt;= 50)</code>가 주어집니다. 각 테스트 케이스의 첫 줄에는 삼각형의 크기 <code class="hljs">n(2 &lt;= n &lt;= 100)</code>이 주어지고, 그 후 n줄에는 각 1개 ~ n개의 숫자로 삼각형 각 가로줄에 있는 숫자가 왼쪽부터 주어집니다. 각 숫자는 1 이상 100000 이하의 자연수입니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 한 줄에 최대 경로의 수를 출력합니다. 경로의 수는 230 이하라고 가정해도 좋습니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">2
+4
+1
+1 1 
+1 1 1 
+1 1 1 1 
+4
+9
+5 7
+1 3 2
+3 5 5 6</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">8
+3</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li><p>얼마 전에 동적 계획법으로 풀었던 <a href="https://wbluke.com/blog/2019/01/12/8-3.TRIANGLEPATH/">삼각형 위의 최대 경로</a> 문제의 확장판입니다. 그 문제에서는 삼각형에서 최대값만 딱 구하면 되는 문제였는데, 지금은 그 최대값을 가지는 경로의 수를 요구하고 있습니다.</p></li>
+<li><p>처음에는 한 함수 내에서 어떻게 끌고가면 되지 않을까 해서 이리저리 고민했었는데, 결국 최대값을 구하는 동적 계획법과 그 개수를 세는 동적 계획법이 따로 적용되어야 한다는 사실을 깨달았습니다. 그래서 함수를 둘로 나누고, 캐시 배열도 각각 잡아주었습니다.</p></li>
+<li><p>maxTriPath()에서는 저번 문제처럼 최대값을 구해줍니다. 조금 다른 것은 해당 캐시인 maxPathCache를 동적 계획법에서 이용하는 것으로 그치지 않고, count를 할 함수에서 이 캐시를 사용한다는 것입니다. main함수에서 먼저 이 함수를 호출해 각 조각에서의 최대값을 maxPathCache가 들고 있도록 만들어줍니다.</p></li>
+<li><p>실제로 count를 할 countMaxTriPath()에서는 maxPathCache가 각 부분의 최대값을 들고 있다고 가정합니다. 최대 경로의 counting은 어떻게 해주어야 할까요?</p></li>
+<li><p>한 조각에서는, 두 하위 조각에서 각각 최대값을 들고올 수 있습니다. 그리고 우리는 동적 계획법을 적용중이기 때문에, 각 하위 조각이 cache에 최대 경로의 count 수를 들고 있다고 생각할 수 있습니다. 그럼 이 때 최대값을 비교하여 경우를 나누어줍니다. 왼쪽과 오른쪽이 같은 최대값을 들고 있으면, 모든 경로가 최대 경로이기 때문에 현재 cache에다가 왼쪽 count, 오른쪽 count를 더해서 저장하고 반환해줍니다. 만약 어느 한 쪽이 크다면, 그 경로만 최대 경로가 되기 때문에 해당 count만 현재 cache에 저장하고 반환해주면 됩니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH08_3/TRIPATHCNT.java">Github Link</a></p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">/* TRIPATHCNT.java */</span>
+
+<span class="hljs-keyword">import</span> java.util.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TRIPATHCNT</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] numTriangle;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] maxPathCache;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] cache;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> n;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxTriPath</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>{
+        <span class="hljs-keyword">if</span> (row &gt;= n) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-comment">// memoization</span>
+        <span class="hljs-keyword">if</span> (maxPathCache[row][col] != -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> maxPathCache[row][col];
+
+        <span class="hljs-keyword">int</span> ret = numTriangle[row][col];
+        ret += Math.max(maxTriPath(row + <span class="hljs-number">1</span>, col), maxTriPath(row + <span class="hljs-number">1</span>, col + <span class="hljs-number">1</span>));
+
+        maxPathCache[row][col] = ret;
+
+        <span class="hljs-keyword">return</span> ret;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countMaxTriPath</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>{
+
+        <span class="hljs-keyword">if</span> (row == n - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+
+        <span class="hljs-comment">// memoization</span>
+        <span class="hljs-keyword">if</span> (cache[row][col] != -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> cache[row][col];
+
+        <span class="hljs-keyword">int</span> leftPath = maxPathCache[row + <span class="hljs-number">1</span>][col];
+        <span class="hljs-keyword">int</span> rightPath = maxPathCache[row + <span class="hljs-number">1</span>][col + <span class="hljs-number">1</span>];
+
+        <span class="hljs-keyword">int</span> ret = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">int</span> leftCount = countMaxTriPath(row + <span class="hljs-number">1</span>, col);
+        <span class="hljs-keyword">int</span> rightCount = countMaxTriPath(row + <span class="hljs-number">1</span>, col + <span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">if</span> (leftPath == rightPath) {
+            ret = leftCount + rightCount;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (leftPath &gt; rightPath) {
+            ret = leftCount;
+        }<span class="hljs-keyword">else</span> {
+            ret = rightCount;
+        }
+
+        cache[row][col] = ret;
+
+        <span class="hljs-keyword">return</span> ret;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        TRIPATHCNT tripathcnt = <span class="hljs-keyword">new</span> TRIPATHCNT();
+        Scanner scan = <span class="hljs-keyword">new</span> Scanner(System.in);
+
+        tripathcnt.numTriangle = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];
+        tripathcnt.maxPathCache = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];
+        tripathcnt.cache = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];
+
+        <span class="hljs-keyword">int</span> loop = scan.nextInt();
+        <span class="hljs-keyword">while</span>(loop-- &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-comment">// arr init</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] arr : tripathcnt.numTriangle) {
+                Arrays.fill(arr, -<span class="hljs-number">1</span>);
+            }
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] arr : tripathcnt.maxPathCache) {
+                Arrays.fill(arr, -<span class="hljs-number">1</span>);
+            }
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] arr : tripathcnt.cache) {
+                Arrays.fill(arr, -<span class="hljs-number">1</span>);
+            }
+
+            tripathcnt.n = scan.nextInt();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; tripathcnt.n; i++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= i; j++) {
+                    tripathcnt.numTriangle[i][j] = scan.nextInt();
+                }
+            }
+            tripathcnt.maxTriPath(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+            System.out.println(tripathcnt.countMaxTriPath(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>));
+        }
+
+    }
+}
+</code></pre>
+</details>
+</div></article><hr data-v-210f1d5a=""></div></div></p></div><script src="/js/chunk-vendors.708a92f7.js"></script><script src="/js/app.b8edd235.js"></script></body></html>
