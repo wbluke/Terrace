@@ -1,0 +1,82 @@
+<h1 id="알고리즘-8-11.-asymtiling-비대칭-타일링">[알고리즘] 8-11. ASYMTILING (비대칭 타일링)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/ASYMTILING">Algospot Link : ASYMTILING</a></p>
+<p><strong>문제</strong><br />
+<img src="https://cdn.wbluke.com/algospot_8_ASYMTILING_1.png" width="500" /></p>
+<p>그림과 같이 <code>2 * n</code> 크기의 직사각형을 <code>2 * 1</code> 크기의 타일로 채우려고 합니다. 타일들은 서로 겹쳐서는 안 되고, 90도로 회전해서 쓸 수 있습니다. 단 이 타일링 방법은 좌우 대칭이어서는 안 됩니다. 위 그림은 <code>2 * 5</code> 크기의 직사각형을 채우는 비대칭 타일링 방법 6가지를 보여줍니다. 다음의 2가지는 좌우대칭이기 때문에 세지 않습니다.</p>
+<p><img src="https://cdn.wbluke.com/algospot_8_ASYMTILING_2.png" width="330" /></p>
+<p>n 이 주어질 때 가능한 비대칭 타일링 방법의 수를 계산하는 프로그램을 작성하세요. 방법의 수는 매우 클 수 있으므로, 1,000,000,007 로 나눈 나머지를 출력합니다.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code>C (1 &lt;= C &lt;= 50)</code> 가 주어집니다. 그 후 각 줄에 사각형의 너비 <code>n (1 &lt;= n &lt;= 100)</code> 이 주어집니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 한 줄에 비대칭 타일링 방법의 수를 1,000,000,007 로 나눈 나머지를 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>3
+2
+4
+92</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>0
+2
+913227494</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li><p>전에 풀었던 <a href="https://wbluke.com/blog/2019/02/12/8-8.TILING2/">TILING2</a> 문제의 확장판 문제입니다. 이번엔 완전탐색이 아니라 비대칭 타일들만 세어주어야 하는데요. 잘 생각해보면 전체 경우에서 대칭 타일들을 잘 제해주면 된다는 것을 알 수 있습니다.</p></li>
+<li><p>타일링이 대칭인 경우는 세 가지입니다. 먼저 n이 홀수일 경우, 가운데에 <code>2 * 1</code> 짜리 블럭이 세로로 채워지고 나머지가 대칭인 경우가 있습니다. 그리고 n이 짝수인 경우는 두 가지가 있는데, 절반을 나누는 선을 기준으로 대칭인 경우, 가운데에 <code>1 * 2</code> 짜리 블럭이 가로로 두 개가 쌓이고 나머지가 대칭인 경우입니다. 따라서 n이 홀수인지 짝수인지에 따라 나누어서 생각해주면 됩니다.</p></li>
+<li><p>예전에 구현했던 tiling()을 사용해서 대칭 타일링을 걷어내는 asymmetric()을 구현합니다. 그리고 문제의 요구대로 1,000,000,007로 나눈 나머지를 출력하기 위해 MOD로 상수 처리를 해줍니다. 메소드를 구현할 때 주의할 점은, 빼는 연산을 할 때 MOD를 한 번 더해준 뒤에 <code>% MOD</code> 처리를 해야한다는 것입니다. 예를 들어서, 100으로 나눈 나머지로 연산을 한다고 할 때, 1과 99의 차를 MOD 연산한다고 하면 기대하는 값은 2지만 실제로는 -98이 나와버리기 때문입니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH08_3/ASYMTILING.java">Github Link</a></p>
+<pre class="java"><code>/* ASYMTILING.java */
+
+import java.util.*;
+
+public class ASYMTILING {
+    private int n;
+    private int[] cache;
+    private static final int MOD = 1000000007;
+
+    public int asymmetric(int length) {
+        if (length % 2 == 1) return (tiling(length) - tiling(length / 2) + MOD) % MOD;
+        int ret = tiling(length);
+        ret = (ret - tiling(length / 2) + MOD ) % MOD;
+        ret = (ret - tiling(length / 2 - 1) + MOD) % MOD;
+        return ret;
+    }
+
+    public int tiling(int length) {
+        // base case
+        if (length &lt;= 1) return 1;
+
+        // memoization
+        if (cache[length] != -1) return cache[length];
+
+        return cache[length] = (tiling(length - 1) + tiling(length - 2)) % MOD;
+    }
+
+    public static void main(String[] args) {
+        ASYMTILING asymtiling = new ASYMTILING();
+        Scanner scan = new Scanner(System.in);
+        asymtiling.cache = new int[101];
+
+        int loop = scan.nextInt();
+        while (loop-- &gt; 0) {
+            asymtiling.n = scan.nextInt();
+
+            //cache init
+            Arrays.fill(asymtiling.cache, -1);
+
+            System.out.println(asymtiling.asymmetric(asymtiling.n));
+        }
+
+    }
+}</code></pre>
+</details>
