@@ -1,0 +1,87 @@
+<h1 id="알고리즘-8-10.-snail-달팽이">[알고리즘] 8-10. SNAIL (달팽이)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/SNAIL">Algospot Link : SNAIL</a></p>
+<p><strong>문제</strong></p>
+<p>깊이가 n 미터인 우물의 맨 밑바닥에 달팽이가 있습니다. 이 달팽이는 우물의 맨 위까지 기어올라가고 싶어하는데, 달팽이의 움직임은 그 날의 날씨에 좌우됩니다. 만약 비가 내리면 달팽이는 하루에 2미터를 기어올라갈 수 있지만, 날이 맑으면 1미터밖에 올라가지 못합니다.</p>
+<p>여름 장마가 찾아와, 앞으로 m 일간 각 날짜에 비가 올 확률이 정확히 75%일 전망입니다. m 일 안에 달팽이가 우물 끝까지 올라갈 확률을 계산하는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code>C(1≤C≤50)</code> 가 주어집니다. 그 후 각 줄에 우물의 깊이 <code>n(1≤n≤1000)</code>과 장마 기간의 길이 <code>m(1≤m≤1000)</code> 이 주어집니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 한 줄에 m일 안에 달팽이가 우물을 탈출할 수 있을 확률을 출력합니다.<br />
+10^(-7) 이하의 상대/절대 오차가 있는 답은 정답으로 인정됩니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>4
+5 4
+5 3
+4 2
+3 2</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>0.9960937500
+0.8437500000
+0.5625000000
+0.9375000000</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<ul>
+<li>간단한 동적 계획법 문제입니다. 부분 문제를 다음과 같이 만들어줍니다.<br />
+</li>
+</ul>
+<pre class="markdown"><code>double finishClimbing(int days, int climbed)
+-&gt; 달팽이가 &#39;days&#39;일 동안 &#39;climbed&#39;높이 만큼 올라갈 확률</code></pre>
+<ul>
+<li><p>cache로 동적 계획법을 적용하고, 0.75의 확률인 비가 오는 날에는 climbed가 2 증가하고, 0.25의 확률인 비가 오지 않는 날에는 climbed가 1 증가하도록 재귀 호출해주면 됩니다. days도 물론 1 증가시켜서 호출해야겠죠.</p></li>
+<li><p>주의할 점은 cache배열은 cache[MAX_DAY][MAX_DAY * 2]로 잡아주어야 한다는 것입니다. 비가 연속으로 MAX_DAY만큼 와버리면 달팽이가 계속 2씩 갈테니까요.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH08_3/SNAIL.java">Github Link</a></p>
+<pre class="java"><code>/* SNAIL.java */
+
+import java.util.*;
+
+public class SNAIL {
+    private int depth;
+    private int rainyDays;
+    private double[][] cache;
+
+    public double finishClimbing(int days, int climbed) {
+        if (days == rainyDays) {
+            if (climbed &gt;= depth) return 1;
+            return 0;
+        }
+
+        // memoization
+        if (cache[days][climbed] != -1) return cache[days][climbed];
+
+        return cache[days][climbed] = 0.25 * finishClimbing(days + 1, climbed + 1) + 0.75 * finishClimbing(days + 1, climbed + 2);
+    }
+
+    public static void main(String[] args) {
+        SNAIL snail = new SNAIL();
+        Scanner scan = new Scanner(System.in);
+
+        snail.cache = new double[1000][2000];
+
+        int loop = scan.nextInt();
+        while(loop-- &gt; 0) {
+            //cache init
+            for (double[] arr : snail.cache) {
+                Arrays.fill(arr, -1);
+            }
+
+            snail.depth = scan.nextInt();
+            snail.rainyDays = scan.nextInt();
+
+            System.out.println(snail.finishClimbing(0, 0));
+
+        }
+    }
+}
+</code></pre>
+</details>
