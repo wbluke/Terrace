@@ -4,7 +4,7 @@
       <article>
         <div class="inner-title-container">
           <h1><a :href="address" id="insight-inner-title">{{ title }}</a></h1>
-          <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
+          <p class="meta">{{ year }}. {{ month }}. {{ day }}.</p>
         </div>
         <div id="insight-article-content" v-html="articleHtmlSource"></div>
       </article>
@@ -128,7 +128,7 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index:
-[{"title":"[브랜딩/경영] 배민다움","uri":"/insight/2019/02/07/배민다움/","date":"2019.02.07","label":"BaeMinDaum","bookURL":"https://book.naver.com/bookdb/book_detail.nhn?bid=11211590"}]
+[{"title":"[브랜딩/경영] 배민다움","uri":"/insight/2019/02/07/배민다움/","date":"2019.02.07.","label":"BaeMinDaum","bookURL":"https://book.naver.com/bookdb/book_detail.nhn?bid=11211590"}]
 // __INSERTION_POSITION_END__ // DONT CHANGE!!
 ,
     year : this.$route.params.year,

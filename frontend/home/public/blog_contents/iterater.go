@@ -128,6 +128,8 @@ func GetArticleMetadata(htmlPaths []string) []ArticleMetadata {
 
 		// Get date
 		date := r.FindString(htmlPath)
+		date = strings.Replace(date, "/", ".", 2)
+		date += "."
 
 		metadata = append(metadata, ArticleMetadata{
 			Title: string(htmlSource[from:to]),
