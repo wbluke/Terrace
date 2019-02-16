@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.408a12d0.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.4c6f659c.js" rel="preload" as="script"><link href="/js/chunk-vendors.708a92f7.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.408a12d0.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="자바_컬렉션_프레임워크 | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"></head><body><noscript></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-13a9dbde="" id="blog"><div data-v-13a9dbde="" id="blog-contents"><article data-v-13a9dbde=""><div data-v-13a9dbde="" class="inner-title-container"><h1 data-v-13a9dbde=""><a data-v-13a9dbde="" href="http://wbluke.com/blog/2019/02/16/자바_컬렉션_프레임워크/" id="inner-title">[Java] 컬렉션 프레임워크 (Collection Framework)</a></h1><p data-v-13a9dbde="" class="meta">2019. 02. 16. </p></div><div data-v-13a9dbde="" id="article-content"><h1 id="java-컬렉션-프레임워크-collection-framework" style="display: none;">[Java] 컬렉션 프레임워크 (Collection Framework)</h1>
+<h3 id="컬렉션-프레임워크">컬렉션 프레임워크</h3>
+<hr>
+<p><code class="hljs">프레임워크(Framework)</code>라는 용어는 분야마다 조금씩 다른 정의를 가질 수 있습니다. 자바에서는 프레임워크를 <code class="hljs">잘 정의된 구조의 클래스들</code> 정도로 이해하면 좋습니다. 하지만 이것이 전부라면 컬렉션을 <code class="hljs">프레임워크</code>가 아니라 <code class="hljs">라이브러리</code>라고 불렀을 것입니다.</p>
+<p>컬렉션 프레임워크는 자료구조에 대한, 그리고 관련 알고리즘에 대한 프레임워크입니다. 리스트나 스택, 큐, 맵, 해쉬 등의 자료구조를 이미 제네릭 기반의 클래스와 메소드로 구현해 놓은 것입니다. 따라서 컬렉션 프레임워크를 사용하면 데이터를 효율적으로 저장하고 관리하면서 사용할 수 있습니다.</p>
+<h3 id="liste-인터페이스를-구현하는-컬렉션-클래스들"><code class="hljs">List&lt;E&gt;</code> 인터페이스를 구현하는 컬렉션 클래스들</h3>
+<hr>
+<p><code class="hljs">List&lt;E&gt;</code> 인터페이스를 구현하는 대표적인 컬렉션 클래스들은 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">- </span>ArrayList&lt;E&gt; : 배열 기반 자료구조를 이용하여 인스턴스 저장
+<span class="hljs-bullet">- </span>LinkedList&lt;E&gt; : 리스트 기반 자료구조를 이용하여 인스턴스 저장</code></pre>
+<p>그리고 <code class="hljs">List&lt;E&gt;</code>인터페이스를 구현하는 컬렉션 클래스들이 갖는 공통적인 특성은 다음 두 가지입니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">1. </span>인스턴스의 저장 순서를 유지한다.  
+<span class="hljs-bullet">2. </span>동일한 인스턴스의 중복 저장을 허용한다.  </code></pre>
+<h4 id="arrayliste-vs.-linkedliste"><code class="hljs">ArrayList&lt;E&gt;</code> VS. <code class="hljs">LinkedList&lt;E&gt;</code></h4>
+<p>각 컬렉션 클래스의 생성은 다음과 같이 하면 됩니다. 제네릭은 상황에 맞게 적용하시면 됩니다. <code class="hljs">List&lt;E&gt;</code>를 참조형으로 선언한 이유는 코드에 유연성을 주기 위함입니다. 주로 <code class="hljs">List&lt;E&gt;</code>에 선언된 메소드들을 호출하고, 간단하게 다른 컬렉션으로 교체가 가능하다는 장점이 있습니다.</p>
+<pre class="java"><code class="hljs">List&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+List&lt;String&gt; list = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();</code></pre>
+<p>그리고 기본적인 인스턴스 저장, 참조, 삭제 메소드는 다음과 같습니다.</p>
+<pre class="java"><code class="hljs">list.add(<span class="hljs-string">"Toy"</span>);
+list.get(idx);      <span class="hljs-comment">// index로 참조 </span>
+list.remove(idx);   <span class="hljs-comment">// index로 삭제</span></code></pre>
+<p><code class="hljs">ArrayList&lt;E&gt;</code>와 <code class="hljs">LinkedList&lt;E&gt;</code>는 각각 장단점이 존재합니다. 상황에 맞게 사용하면 됩니다. 각 장단은 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-code">`ArrayList&lt;E&gt;`</span>
+<span class="hljs-bullet">- </span>장점 : 저장된 인스턴스의 참조가 빠르다.  
+<span class="hljs-bullet">- </span>단점 : 저장 공간을 늘리거나, 인스턴스를 삭제하는 데에 시간이 많이 걸릴 수 있다.  
+<span class="hljs-code">`LinkedList&lt;E&gt;`</span>
+<span class="hljs-bullet">- </span>장점 : 저장 공간을 늘리거나, 인스턴스를 삭제하는 과정이 단순하다.  
+<span class="hljs-bullet">- </span>단점 : 저장된 인스턴스의 참조 방식이 복잡하다.  </code></pre>
+<h4 id="순차적-접근">순차적 접근</h4>
+<p>컬렉션 클래스를 사용하는데 있어서 중요한 작업 중 하나는 <code class="hljs">저장된 인스턴스들의 순차적 접근</code>입니다.<br>
+이는 for-each 문법이나, iterator로 접근할 수 있는데, 이는 <code class="hljs">Iterable&lt;T&gt;</code>인터페이스를 구현하는 클래스에서 사용할 수 있습니다. <code class="hljs">Collection&lt;E&gt;</code>가 위 인터페이스를 구현하고 있기 때문에, 하위의 모든 클래스들은 for-each와 iterator를 사용할 수 있습니다.</p>
+<p>연결리스트에는 특별하게도 <code class="hljs">양방향 반복자</code>라는 것이 존재합니다. 말그대로 반대 방향으로도 참조, 순회가 가능한 반복자입니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> ListIterator&lt;E&gt; <span class="hljs-title">listIterator</span><span class="hljs-params">()</span> <span class="hljs-comment">// Iterator&lt;E&gt; 상속</span></span></code></pre>
+<pre class="java"><code class="hljs"><span class="hljs-function">E <span class="hljs-title">next</span><span class="hljs-params">()</span>                <span class="hljs-comment">// 다음 인스턴스의 참조값 반환</span>
+<span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span>       <span class="hljs-comment">// next 메소드 호출 시 참조 값 반환 가능 여부 확인</span>
+<span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span>           <span class="hljs-comment">// next 메소드 호출을 통해 반환했던 인스턴스 삭제</span>
+E <span class="hljs-title">previous</span><span class="hljs-params">()</span>            <span class="hljs-comment">// next 메소드와 기능은 같고 방향만 반대</span>
+<span class="hljs-keyword">boolean</span> <span class="hljs-title">hasPrevious</span><span class="hljs-params">()</span>   <span class="hljs-comment">// hasNext 메소드와 기능은 같고 방향만 반대</span>
+<span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span>           <span class="hljs-comment">// 인스턴스의 추가 </span>
+<span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(E e)</span>           <span class="hljs-comment">// 인스턴스의 변경</span></span></code></pre>
+<h4 id="다른-컬렉션을-받는-컬렉션-생성자">다른 컬렉션을 받는 컬렉션 생성자</h4>
+<p>그리고 대다수 컬렉션 클래스들은 다른 컬렉션 인스턴스를 인자로 전달받는 생성자를 가지고 있어서, 다른 컬렉션 인스턴스에 저장된 데이터를 복사해서 새로운 컬렉션 인스턴스를 생성할 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ArrayList</span><span class="hljs-params">(Collection&lt;? extends E&gt; c)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-title">LinkedList</span><span class="hljs-params">(Collection&lt;? extends E&gt; c)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-title">HashSet</span><span class="hljs-params">(Collection&lt;? extends E&gt; c)</span></span></code></pre>
+<p><code class="hljs">&lt;? extends E&gt;</code>의 의미는 <a href="https://wbluke.com/blog/2019/02/11/%EC%9E%90%EB%B0%94-%EC%A0%9C%EB%84%A4%EB%A6%AD2/">제네릭 문법</a>을 공부하면서 살펴보았는데, 의미를 정리하면 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs">public ArrayList(Collection&lt;? extends E&gt; c)
+<span class="hljs-bullet">- </span>Collection&lt;E&gt;를 구현한 인스턴스를 인자로 전달받는다.
+<span class="hljs-bullet">- </span>E는 인스턴스 생성 과정에서 결정된다.  
+<span class="hljs-bullet">- </span>매개변수 c로 전달된 컬렉션 인스턴스에서는 참조만(꺼내기만) 가능하다.  </code></pre>
+<h4 id="오토-박싱-오토-언박싱">오토 박싱, 오토 언박싱</h4>
+<p>원래는 컬렉션 인스턴스도 기본 자료형의 값은 저장하지 못하지만, 래퍼 클래스의 도움으로 자연스러운 저장과 참조가 가능합니다. 다음과 같이 오토 박싱과 오토 언박싱이 진행됩니다.</p>
+<pre class="java"><code class="hljs">LinkedList&lt;Integer&gt; list = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+list.add(<span class="hljs-number">10</span>); list.add(<span class="hljs-number">20</span>); list.add(<span class="hljs-number">30</span>); <span class="hljs-comment">// 오토 박싱</span>
+<span class="hljs-keyword">int</span> n = list.get(<span class="hljs-number">0</span>); <span class="hljs-comment">// 오토 언박싱</span></code></pre>
+<h3 id="sete-인터페이스를-구현하는-컬렉션-클래스들"><code class="hljs javascript"><span class="hljs-built_in">Set</span>&lt;E&gt;</code> 인터페이스를 구현하는 컬렉션 클래스들</h3>
+<hr>
+<p><code class="hljs javascript"><span class="hljs-built_in">Set</span>&lt;E&gt;</code>인터페이스를 구현하는 제네릭 클래스의 공통적인 특성은 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">1. </span>인스턴스의 저장 순서가 유지되지 않는다.  
+<span class="hljs-bullet">2. </span>동일한 인스턴스의 중복 저장을 허용하지 않는다.  </code></pre>
+<h4 id="hashsete"><code class="hljs">HashSet&lt;E&gt;</code></h4>
+<p><code class="hljs javascript"><span class="hljs-built_in">Set</span>&lt;E&gt;</code>를 구현하는 대표 클래스입니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">import</span> java.util.HashSet;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Num</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Num</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+        num = n;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> String.valueOf(num);
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HashSetEqualityOne</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{    
+        HashSet&lt;Num&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        set.add(<span class="hljs-keyword">new</span> Num(<span class="hljs-number">7799</span>));
+        set.add(<span class="hljs-keyword">new</span> Num(<span class="hljs-number">9955</span>));
+        set.add(<span class="hljs-keyword">new</span> Num(<span class="hljs-number">7799</span>));
+
+        System.out.println(<span class="hljs-string">"인스턴스 수 : "</span> + set.size());
+
+        <span class="hljs-keyword">for</span>(Num n : set)
+            System.out.print(n.toString() + <span class="hljs-string">'\t'</span>);
+
+        System.out.println();
+    }
+}
+<span class="hljs-comment">/*
+인스턴스 수 : 3
+7799 7799 9955
+*/</span></code></pre>
+<p>그런데 위 예제에서는 이상한 점이 발견됩니다. set에는 같은 인스턴스를 허용하지 않는다고 했는데, 같아보이는 데이터가 중복으로 출력되는 결과를 보입니다. 이는 인스턴스의 중복을 결정하는 기준이 우리의 생각과 다름을 보여줍니다. <code class="hljs">HashSet&lt;E&gt;</code>이 판단하는 동일 인스턴스의 기준은, <code class="hljs javascript"><span class="hljs-built_in">Object</span></code>클래스에 정의되어 있는 다음 두 메소드에 의해 결정됩니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object obj)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span></span></code></pre>
+<p><code class="hljs">HashSet&lt;E&gt;</code>를 잘 이용하기 위해서는 해쉬 알고리즘에 대한 이해가 필요합니다. 여러 개의 정수가 주어질 때, <code class="hljs">num % 3</code>은 수를 그룹으로 나누는 기준이 될 수 있습니다. 예를 들어 정수 5의 존재 여부를 확인하기 위해서는 다음의 과정을 거치면 됩니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">1. </span>정수 5의 해쉬 값을 결정하여 탐색 부류를 지정 (나머지가 2인 수들의 그룹)
+<span class="hljs-bullet">2. </span>선택된 부류 내에 5가 존재하는지 확인</code></pre>
+<p>그리고 위의 두 단계를 거쳐서 인스턴스의 동일 여부를 판단하는 클래스가 <code class="hljs">HashSet&lt;E&gt;</code>입니다. 다음과 같이 탐색 과정을 거칩니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">1. </span><span class="hljs-code">`Object`</span>클래스에 정의된 hashCode()의 반환 값을 기준으로 부류 결정
+<span class="hljs-bullet">2. </span>선택된 부류 내에서 equals()를 호출하여 동등 비교</code></pre>
+<p>인스턴스가 다르면 hashCode()는 인스턴스의 주솟값을 기반으로 만들어지기 때문에 다른 값을 반환하고, equals()는 false를 반환합니다. 따라서 위의 예제에서는 7799가 서로 다른 인스턴스로 간주가 되었던 것입니다. 따라서 값을 기준으로 동등 여부를 따지려면 메소드를 오버라이딩 해야합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">import</span> java.util.HashSet;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Num</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Num</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+        num = n;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> String.valueOf(num);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> num % <span class="hljs-number">3</span>;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object obj)</span> </span>{
+        <span class="hljs-keyword">if</span>(num == ((Num)obj).num)
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }    
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HashSetEqualityTwo</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{    
+        HashSet&lt;Num&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        set.add(<span class="hljs-keyword">new</span> Num(<span class="hljs-number">7799</span>));
+        set.add(<span class="hljs-keyword">new</span> Num(<span class="hljs-number">9955</span>));
+        set.add(<span class="hljs-keyword">new</span> Num(<span class="hljs-number">7799</span>));
+
+        System.out.println(<span class="hljs-string">"인스턴스의 수 : "</span> + set.size());
+
+        <span class="hljs-keyword">for</span>(Num n : set)
+            System.out.print(n.toString() + <span class="hljs-string">'\t'</span>);
+
+        System.out.println();
+    }
+}
+<span class="hljs-comment">/*
+인스턴스 수 : 2
+7799 9955
+*/</span></code></pre>
+<p>만약 둘 이상의 값을 지니는 클래스의 경우는 HashCode()를 오버라이딩하기가 상당히 번거로울 수 있습니다. 이 때는 자바에서 제공하는 다음 메소드를 사용해서 오버라이딩합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hash</span><span class="hljs-params">(Object...values)</span>
+<span class="hljs-comment">// java.util.Objects에 정의된 메소드, 전달된 인자 기반의 해쉬 값 반환 </span></span></code></pre>
+<pre class="java"><code class="hljs"><span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> Objects.hash(val1, val2, ...)
+}</code></pre>
+<h4 id="treesete"><code class="hljs">TreeSet&lt;E&gt;</code></h4>
+<p>트리 자료구조를 기반으로 한 클래스입니다. 이 클래스는 정렬된 상태를 유지하면서 인스턴스를 저장합니다. 인스턴스의 참조 순서는 오름차순을 기준으로 합니다. 그런데 다음과 같은 클래스는 <code class="hljs">오름차순</code>이라는 것이 어떻게 적용될까요?</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>{
+        <span class="hljs-keyword">this</span>.name = name;
+        <span class="hljs-keyword">this</span>.age = age;
+    }
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> name + <span class="hljs-string">" : "</span> + age; }</code></pre>
+<p>수의 경우는 크고 작음이 존재하지만, 위 클래스의 경우는 프로그래머가 기준을 정해주어야 합니다. 따라서 다음과 같은 인터페이스를 구현해서 크고 작음의 기준을 정해주어야 합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">T</span>&gt;
+// 이 인터페이스에 위치한 유일한 추상 메소드 <span class="hljs-title">int</span> <span class="hljs-title">compareTo</span>(<span class="hljs-title">T</span> <span class="hljs-title">o</span>)</span></code></pre>
+<p><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(T o)</span></span></code>의 정의 방법은 다음과 같습니다. 자바가 정한 약속입니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">1. </span>인자로 전달된 o가 작다면 양의 정수 반환
+<span class="hljs-bullet">2. </span>인자로 전달된 o가 크다면 음의 정수 반환
+<span class="hljs-bullet">3. </span>인자로 전달된 o와 같다면 0 반환</code></pre>
+<p>그런데 이 때 일시적으로 다른 기준을 적용하여 사용해야 할 경우가 있습니다. 이런 경우에는 <code class="hljs">Comparator&lt;T&gt;</code> 인터페이스 내에 있는 <code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(T o1, T o2)</span></span></code>를 구현하여 새로운 기준을 제시할 수 있습니다.<br>
+그리고 이 인터페이스를 구현한 클래스의 인스턴스는 <code class="hljs">TreeSet&lt;E&gt;</code>의 생성자에 전달될 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TreeSet</span><span class="hljs-params">(Comparator&lt;? <span class="hljs-keyword">super</span> E&gt; comparator)</span></span></code></pre>
+<p>이렇게 생성된 TreeSet은 전달된 comparator를 기준으로 정렬을 진행합니다.<br>
+<code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(T o1, T o2)</span></span></code>의 정의 방법은 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">1. </span>o1이 o2보다 크다면 양의 정수 반환
+<span class="hljs-bullet">2. </span>o1이 o2보다 작다면 음의 정수 반환
+<span class="hljs-bullet">3. </span>o1이 o2와 같다면 0 반환</code></pre>
+<p>위 모든 내용을 구현한 예제는 다음과 같습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">import</span> java.util.TreeSet;
+<span class="hljs-keyword">import</span> java.util.Iterator;
+<span class="hljs-keyword">import</span> java.util.Comparator;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">Person</span>&gt; </span>{
+    String name;
+    <span class="hljs-keyword">int</span> age;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>{
+        <span class="hljs-keyword">this</span>.name = name;
+        <span class="hljs-keyword">this</span>.age = age;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> name + <span class="hljs-string">" : "</span> + age; }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(Person p)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.age - p.age; <span class="hljs-comment">// 나이가 적은 분을 앞에 세우는 연산</span>
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PersonComparator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Comparator</span>&lt;<span class="hljs-title">Person</span>&gt; </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(Person p1, Person p2)</span> </span>{
+        <span class="hljs-keyword">return</span> p2.age - p1.age; <span class="hljs-comment">// 나이가 많은 분을 앞에 세우는 연산</span>
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComparatorPerson</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        TreeSet&lt;Person&gt; tree = <span class="hljs-keyword">new</span> TreeSet&lt;&gt;(<span class="hljs-keyword">new</span> PersonComparator());
+        tree.add(<span class="hljs-keyword">new</span> Person(<span class="hljs-string">"YOON"</span>, <span class="hljs-number">37</span>));
+        tree.add(<span class="hljs-keyword">new</span> Person(<span class="hljs-string">"HONG"</span>, <span class="hljs-number">53</span>));
+        tree.add(<span class="hljs-keyword">new</span> Person(<span class="hljs-string">"PARK"</span>, <span class="hljs-number">22</span>));
+    
+        <span class="hljs-keyword">for</span>(Person p : tree)
+            System.out.println(p);
+    }
+}
+<span class="hljs-comment">/*
+HONG : 53
+YOON : 37
+PARK : 22
+*/</span></code></pre>
+<h4 id="중복된-인스턴스를-삭제하려면">중복된 인스턴스를 삭제하려면</h4>
+<p><code class="hljs">List&lt;E&gt;</code>를 구현하는 컬렉션 클래스는 인스턴스의 중복 삽입을 허용합니다. 그런데 만약 저장된 인스턴스 중 중복 삽입된 인스턴스들을 하나만 남기고 모두 지워야한다면 어떻게 해야할까요? 이 때 <code class="hljs">HashSet&lt;E&gt;</code>를 이용한 컬렉션의 생성자를 사용하여 해결할 수 있습니다.</p>
+<pre class="java"><code class="hljs">List&lt;String&gt; lst = Arrays.asList(<span class="hljs-string">"Box"</span>, <span class="hljs-string">"Toy"</span>, <span class="hljs-string">"Box"</span>, <span class="hljs-string">"Toy"</span>);
+ArrayList&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(lst);
+
+HashSet&lt;String&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(list); <span class="hljs-comment">// 중복 제거</span>
+list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(set);   <span class="hljs-comment">// 원래대로 복구</span></code></pre>
+<h3 id="queuee-인터페이스를-구현하는-컬렉션-클래스들"><code class="hljs">Queue&lt;E&gt;</code> 인터페이스를 구현하는 컬렉션 클래스들</h3>
+<hr>
+<p>스택(Stack)은 LIFO(Last-In-First-Out) 구조, 큐(Queue)는 FIFO(First-In-First-Out) 구조입니다. <code class="hljs">Queue&lt;E&gt;</code> 인터페이스에서 주로 사용하는 세 가지 메소드는 다음과 같습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">offer</span><span class="hljs-params">(E e)</span> <span class="hljs-comment">// 넣기. 공간이 부족하면 false 반환</span>
+E <span class="hljs-title">poll</span><span class="hljs-params">()</span> <span class="hljs-comment">// 꺼내기, 꺼낼 대상 없으면 null 반환</span>
+E <span class="hljs-title">peak</span><span class="hljs-params">()</span> <span class="hljs-comment">// 확인하기, 확인할 대상 없으면 null 반환</span></span></code></pre>
+<p>스택을 기반으로 하는 <code class="hljs">Stack&lt;E&gt;</code> 인터페이스도 존재합니다만, 이는 성능의 저하로 사용을 추천하지 않습니다. 대신 큐로도 이용할 수 있고, 스택으로도 이용할 수 있는 <code class="hljs">Deque&lt;E&gt;</code>의 사용을 권장합니다. 덱은 한쪽 방향으로만 넣고 꺼내는 큐와 달리 양쪽 방향 모두 넣고 꺼내는 작업이 가능합니다. 메소드는 다음과 같습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">// 앞으로</span>
+<span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">offerFirst</span><span class="hljs-params">(E e)</span> 
+E <span class="hljs-title">pollFirst</span><span class="hljs-params">()</span> 
+E <span class="hljs-title">peakFirst</span><span class="hljs-params">()</span>
+<span class="hljs-comment">// 뒤로 </span>
+<span class="hljs-keyword">boolean</span> <span class="hljs-title">offerLast</span><span class="hljs-params">(E e)</span> 
+E <span class="hljs-title">pollLast</span><span class="hljs-params">()</span> 
+E <span class="hljs-title">peakLast</span><span class="hljs-params">()</span> </span></code></pre>
+<h3 id="mapk-v-인터페이스를-구현하는-컬렉션-클래스들"><code class="hljs javascript"><span class="hljs-built_in">Map</span>&lt;K, V&gt;</code> 인터페이스를 구현하는 컬렉션 클래스들</h3>
+<hr>
+<p><code class="hljs javascript"><span class="hljs-built_in">Map</span>&lt;K, V&gt;</code> 인터페이스는 Key-Value 형식으로 데이터를 저장합니다. Key를 통해 해당 Value를 찾을 수 있도록 합니다. 따라서 Key는 중복이 불가하고, Value는 Key가 다르다면 같은 값을 가질 수 있습니다.<br>
+이를 구현하는 대표 클래스로 <code class="hljs">HashMap&lt;K, V&gt;</code>과 <code class="hljs">TreeMap&lt;K, V&gt;</code>이 있는데, 둘의 차이점은 이름에서 보다시피 정렬의 유무입니다. <code class="hljs">TreeMap&lt;K, V&gt;</code>는 Key를 기준으로 데이터를 정렬합니다.</p>
+<h4 id="hashmapk-v의-순차적-접근"><code class="hljs">HashMap&lt;K, V&gt;</code>의 순차적 접근</h4>
+<p><code class="hljs">HashMap&lt;K, V&gt;</code>는 <code class="hljs">Iterable&lt;T&gt;</code>인터페이스를 상속하지 않습니다. 따라서 for-each문이나 반복자를 사용할 수 없습니다. 대신 다음과 같이 존재하는 모든 key set을 얻어서 접근이 가능합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> Set&lt;K&gt; <span class="hljs-title">keySet</span><span class="hljs-params">()</span></span></code></pre>
+<p>순차적 접근의 예제는 다음과 같습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Iterator;
+<span class="hljs-keyword">import</span> java.util.Set;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HashMapIteration</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        HashMap&lt;Integer, String&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        
+        map.put(<span class="hljs-number">45</span>, <span class="hljs-string">"Brown"</span>);
+        map.put(<span class="hljs-number">37</span>, <span class="hljs-string">"James"</span>);
+        map.put(<span class="hljs-number">23</span>, <span class="hljs-string">"Martin"</span>);
+
+        <span class="hljs-comment">// 모든 key값 얻기</span>
+        Set&lt;Integer&gt; ks = map.keySet();
+
+        <span class="hljs-comment">// 전체 key 출력</span>
+        <span class="hljs-keyword">for</span>(Integer n : ks)
+            System.out.print(n.toString() + <span class="hljs-string">'\t'</span>);
+        System.out.println();
+
+        <span class="hljs-comment">// 전체 value 출력 (for-each)</span>
+        <span class="hljs-keyword">for</span>(Integer n : ks)
+            System.out.print(map.get(n).toString() + <span class="hljs-string">'\t'</span>);
+        System.out.println();
+
+        <span class="hljs-comment">// 전체 value 출력 (iterator)</span>
+        <span class="hljs-keyword">for</span>(Iterator&lt;Integer&gt; itr = ks.iterator(); itr.hasNext(); )
+            System.out.print(map.get(itr.next()) + <span class="hljs-string">'\t'</span>);
+        System.out.println();
+    }
+}</code></pre>
+<p><code class="hljs">TreeMap&lt;k, V&gt;</code>도 앞의 예제와 비슷하게 사용됩니다. 데이터는 Key를 기준으로 정렬됩니다. 만약 정렬 기준을 설정해야 한다면 TreeSet 부분에서 보았던 <code class="hljs">Comparator&lt;T&gt;</code> 인터페이스를 기반으로 TreeMap의 기준을 설정해주면 됩니다.</p>
+<h3 id="출처">출처</h3>
+<hr>
+<p><img src="http://cdn.wbluke.com/yoon_java_book.jpg" width="250"></p>
+<p>위 아티클은 <a href="https://book.naver.com/bookdb/book_detail.nhn?bid=12236206">윤성우의 열혈 자바 프로그래밍</a> 도서를 공부하고 개인 기록을 남기기 위해 정리한 글입니다. 저자 분의 허락을 맡고 작성하고 있습니다.<br>
+<a href="https://cafe.naver.com/cstudyjava">저자 분의 네이버 카페</a>에서 해당 도서 정보 및 저자 직강을 보실 수 있습니다.</p>
+</div></article><hr data-v-13a9dbde=""></div></div></p></div><script src="/js/chunk-vendors.708a92f7.js"></script><script src="/js/app.4c6f659c.js"></script></body></html>
