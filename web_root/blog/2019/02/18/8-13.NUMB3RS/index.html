@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.e22c151b.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.4f692a97.js" rel="preload" as="script"><link href="/js/chunk-vendors.319ec894.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.e22c151b.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="8-13.NUMB3RS | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "wbluke-com";
+var disqus_title      = "8-13.NUMB3RS";
+var disqus_identifier = "/2019/02/18/8-13.NUMB3RS/";
+var disqus_url        = "http://wbluke.com/blog/2019/02/18/8-13.NUMB3RS/";
+</script><script type="text/javascript" async="" src="//wbluke-com.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.d49f53e192b9080ef8880a7c9b24f1c3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.725e5c32c7072b4c17f23bf9fff6ac9a.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.93e299d038e6d9593032ea0df19325b7.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><noscript></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-1bdfce20="" id="blog"><div data-v-1bdfce20="" id="blog-contents"><article data-v-1bdfce20=""><div data-v-1bdfce20="" class="inner-title-container"><h1 data-v-1bdfce20=""><a data-v-1bdfce20="" href="http://wbluke.com/blog/2019/02/18/8-13.NUMB3RS/" id="inner-title">[알고리즘] 8-13. NUMB3RS (두니발 박사의 탈옥)</a></h1><p data-v-1bdfce20="" class="meta">2019. 02. 18. </p></div><div data-v-1bdfce20="" id="article-content"><h1 id="알고리즘-8-13.-numb3rs-두니발-박사의-탈옥" style="display: none;">[알고리즘] 8-13. NUMB3RS (두니발 박사의 탈옥)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/NUMB3RS">Algospot Link : NUMB3RS</a></p>
+<p><strong>문제</strong><br>
+위험한 살인마 두니발 박사가 감옥에서 탈출했습니다. 수배지를 붙이고 군경이 24시간 그를 추적하고 있지만 용의주도한 두니발 박사는 쉽사리 잡히지 않았습니다. d일이 지난 후에야 경찰은 프로그래밍의 천재인 찰리 교수)를 찾아왔습니다. 찰리 교수는 두니발 박사가 감옥에 남겨둔 노트를 분석해 다음과 같은 가설을 세웠습니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">* </span>두니발 박사는 검문을 피해 산길로만 이동한다.  
+<span class="hljs-bullet">* </span>두니발 박사는 교도소를 탈출한 당일, 교도소와 인접한 마을 하나로 도망쳐 은신한다.
+<span class="hljs-bullet">* </span>두니발 박사는 수색을 피하기 위해 그 후 매일 인접한 마을로 움직여 은신한다.</code></pre>
+<p><img src="http://algospot.com/media/judge-attachments/298903b8a37b6938ae6915ce1cab80fd/dunibal.png"></p>
+<p>이 가설을 검증하기 위해 교도소로부터 산길로 연결된 n 개 마을들의 지도를 위 그림과 같이 구했습니다. 두니발 박사가 이 가설에 맞춰 행동하고, 움직일 수 있는 마을이 여러 개 있을 경우 그 중의 하나를 임의로 선택한다고 합시다. d 일 후에 두니발 교수가 각 마을에 있을 확률을 계산하는 프로그램을 작성하세요.</p>
+<p>예를 들어 위 지도에서 3번 마을에 교도소가 있다고 합시다. 탈옥 직후 두니발 교수는 0번, 1번, 2번, 4번, 5번 중의 한 도시를 임의로 골라 도망칩니다. 따라서 1일 후에 두니발 교수가 0번 마을에 숨어 있을 확률은 1/5이고, 2일 후에 1번 마을에 숨어 있을 확률은 1/15입니다.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code class="hljs">c (1 &lt;= c &lt;= 50)</code> 가 주어집니다. 그 후 각 줄에 지도에 포함된 마을의 수 <code class="hljs">n (2 &lt;= n &lt;= 50)</code> 과 탈출 후 지금까지 지난 일수 <code class="hljs">d (1 &lt;= d &lt;= 100)</code>, 그리고 교도소가 있는 마을의 번호 <code class="hljs">p (0 &lt;= p &lt; n)</code> 가 주어집니다. 마을은 0번부터 n-1 번까지 순서대로 번호가 매겨져 있습니다. 그 후 n 줄에는 각각 n 개의 정수로 행렬 A 가 주어집니다. i 번 행의 j 번 숫자 A[i][j] 가 1인 경우 i 번 마을에서 j 번 마을을 잇는 산길이 있다는 것을 의미하며, 0인 경우 길이 없다는 것을 의미합니다. 그 다음 줄에 확률을 계산할 마을의 수 <code class="hljs">t (1 &lt;= t &lt;= n)</code> 가 주어지고, 그 다음 줄에 t 개의 정수로 확률을 계산할 마을의 번호 <code class="hljs">q (0 &lt;= q &lt; n)</code> 가 주어집니다.</p>
+<p>한 마을에서 다른 마을로 길이 있으면 반대 방향으로도 항상 있으며, 한 마을에서 자기 자신으로 연결되는 길은 없다고 가정해도 좋습니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 t 개의 실수로 각 마을에 두니발 박사가 숨어 있을 확률을 출력합니다. <code class="hljs">10^(-7)</code> 이하의 절대/상대 오차가 있는 경우 정답으로 처리됩니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">2
+5 2 0
+0 1 1 1 0
+1 0 0 0 1
+1 0 0 0 0
+1 0 0 0 0
+0 1 0 0 0
+3
+0 2 4
+8 2 3
+0 1 1 1 0 0 0 0
+1 0 0 1 0 0 0 0
+1 0 0 1 0 0 0 0
+1 1 1 0 1 1 0 0
+0 0 0 1 0 0 1 1
+0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0
+0 0 0 0 1 1 0 0
+4
+3 1 2 6</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre class="markdown"><code class="hljs">0.83333333 0.00000000 0.16666667
+0.43333333 0.06666667 0.06666667 0.06666667</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<p>정리하기 전에, 잠깐 여담으로 문제에 대해 얘기하자면, 왜 문제 아이디가 NUMB3RS고 제목은 두니발 박사의 탈옥인지 전혀 감이 안와서 알고스팟에 있는 링크를 찾아봤는데요.<br>
+두니발 박사는 <a href="https://ko.wikipedia.org/wiki/%ED%95%9C%EB%8B%88%EB%B0%9C_%EB%A0%89%ED%84%B0">한니발</a>의 패러디였고(…) <a href="https://ko.wikipedia.org/wiki/%EB%84%98%EB%B2%84%EC%8A%A4_(%EB%93%9C%EB%9D%BC%EB%A7%88)">NUMB3RS</a>는 드라마 제목이었네요. 찰리 박사는 드라마에 나오는 천재 수학자랍니다.</p>
+<ul>
+<li><p>난이도 ’중’에 입력도 무지하게 많고 생각할 변수도 많아서 겁먹었었는데, 한 번에 풀어서 개인적으로 매우 뿌듯한 문제였습니다. 수학과 전공 수업이었던 그래프론 시간에 했던 것들이 직관에 상당한 도움을 주었습니다. 못 푸는 날만 있는게 아니라 이런 날도 있어야 하지 않겠습니까.</p></li>
+<li>먼저 들어오는 입력이 많아서, 제 코드 기준으로 변수들을 먼저 정리해 보겠습니다.<br>
+</li>
+</ul>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">int</span>[][] villageArr : 입력으로 주어지는 마을들의 연결 정보를 담고 있는 이차원 행렬
+<span class="hljs-keyword">int</span>[] roadsOnVillage : 한 마을에 연결된 길의 개수 (그래프 이론에서의 <span class="hljs-string">'차수'</span>)
+<span class="hljs-keyword">int</span> prison : 감옥이 있는 마을 번호
+<span class="hljs-keyword">int</span> villages : 주어지는 마을의 총 개수
+<span class="hljs-keyword">int</span> village : 마을 번호
+<span class="hljs-keyword">int</span> target : 확률을 구할 문제에서 요구하는 마을 번호</code></pre>
+<ul>
+<li><p>차례로 main 함수에서 입력들을 받아서 변수에 저장해줍니다. 그리고 클래스 내부에서 전역으로 필요한 것들만 속성으로 올려서 저장했습니다. 그리고 roadsOnVillage는 한 마을에 연결된 길의 개수인데, 그래프 이론에서는 ’차수’라고 부릅니다. 주어진 행렬 기준으로는 한 행의 총합이 되기 때문에, 행렬을 입력받으면서 같이 구해줍니다.</p></li>
+<li><p>동적 계획법을 적용할 probCatchDunibal()은 현재 지난 날짜 days와 두니발 박사가 있을 확률을 구할 마을 번호를 인수로 받습니다. 예시 케이스를 놓고 분석을 해보면, 해당 마을을 기준으로 어디서 두니발 박사가 왔을지를 따져주면 됩니다.</p></li>
+<li><p>현재 위치의 마을을 k번 마을이라고 합시다. 그리고 우리가 구하려는 n번째 날 k번 마을에 두니발 박사가 있을 확률을 P(n, k)라고 합시다. k번 마을에 연결된 마을 하나를 m번 마을(Vm이라 하겠습니다)이라 하면, 이 m번 마을 Vm에 대해서 각각 그 곳에서 두니발 박사가 왔을 확률을 구해 더해주면 됩니다.</p></li>
+<li>두니발 박사가 전날 Vm 마을에 있을 확률은 P(n-1, Vm)입니다. 그리고 Vm 마을에서 현재의 k번 마을을 선택할 확률은, 1/(Vm의 차수)가 됩니다. 따라서 점화식은 다음과 같이 세울 수 있습니다. 합을 구한다는 것은 k번 마을에 직접 연결된 마을만을 기준으로 합니다.<br>
+</li>
+</ul>
+<pre class="markdown"><code class="hljs">P(n, k) = ( 1/(Vm의 차수) * P(n-1, Vm) )의 합</code></pre>
+<ul>
+<li>기저 사례는 지난 날짜 days가 1일 경우, village가 prison과 직접 연결되어 있을 경우는 1/(prison의 차수)를 반환해주고, 나머지는 연결되있지 않아서 이동할 수 없었을 것이므로 0을 반환해주면 됩니다.</li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH08_3/NUMB3RS.java">Github Link</a></p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">/* NUMB3RS.java */</span>
+
+<span class="hljs-keyword">import</span> java.util.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NUMB3RS</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] villageArr;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span>[][] cache;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] roadsOnVillage;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> prison; <span class="hljs-comment">// position of prison</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> villages; <span class="hljs-comment">// num of villages</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">probCatchDunibal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> days, <span class="hljs-keyword">int</span> village)</span> </span>{
+        <span class="hljs-comment">// base case</span>
+        <span class="hljs-keyword">if</span> (days == <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">if</span> (villageArr[prison][village] == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span> / roadsOnVillage[prison];
+        }
+
+        <span class="hljs-comment">// memoization</span>
+        <span class="hljs-keyword">if</span> (cache[days][village] != -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> cache[days][village];
+
+        <span class="hljs-keyword">double</span> ret = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; villages; i++) {
+            <span class="hljs-keyword">if</span> (villageArr[village][i] == <span class="hljs-number">1</span>)
+                ret += (<span class="hljs-number">1.0</span> / roadsOnVillage[i]) * probCatchDunibal(days - <span class="hljs-number">1</span>, i);
+        }
+
+        <span class="hljs-keyword">return</span> cache[days][village] = ret;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        NUMB3RS numb3RS = <span class="hljs-keyword">new</span> NUMB3RS();
+        Scanner scan = <span class="hljs-keyword">new</span> Scanner(System.in);
+
+        numb3RS.villageArr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">51</span>][<span class="hljs-number">51</span>];
+        numb3RS.cache = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[<span class="hljs-number">101</span>][<span class="hljs-number">51</span>];
+        numb3RS.roadsOnVillage = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">51</span>];
+
+        <span class="hljs-keyword">int</span> loop = scan.nextInt();
+        <span class="hljs-keyword">while</span>(loop-- &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-comment">// cache init</span>
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">double</span>[] arr : numb3RS.cache) {
+                Arrays.fill(arr, -<span class="hljs-number">1</span>);
+            }
+            Arrays.fill(numb3RS.roadsOnVillage, <span class="hljs-number">0</span>);
+
+            numb3RS.villages = scan.nextInt();
+            <span class="hljs-keyword">int</span> days = scan.nextInt();
+            numb3RS.prison = scan.nextInt();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numb3RS.villages; i++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; numb3RS.villages; j++) {
+                    <span class="hljs-keyword">int</span> temp = scan.nextInt();
+                    numb3RS.villageArr[i][j] = temp;
+                    numb3RS.roadsOnVillage[i] += temp;
+                }
+            }
+
+            <span class="hljs-keyword">int</span> targets = scan.nextInt();
+            <span class="hljs-keyword">int</span>[] target = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[targets];
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; targets; i++) {
+                target[i] = scan.nextInt();
+            }
+
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> village : target) {
+                System.out.println(numb3RS.probCatchDunibal(days, village));
+            }
+        }
+    }
+}</code></pre>
+</details>
+</div></article><hr data-v-1bdfce20=""><div data-v-1bdfce20="" id="disqus_thread"><iframe id="dsq-app3877" name="dsq-app3877" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=wbluke-com&amp;t_i=%2F2019%2F02%2F18%2F8-13.NUMB3RS%2F&amp;t_u=http%3A%2F%2Fwbluke.com%2Fblog%2F2019%2F02%2F18%2F8-13.NUMB3RS%2F&amp;t_e=8-13.NUMB3RS&amp;t_d=%0A%20%20%20%20%20%20%20%20Luke's%20Note%0A%20%20%20%20%20%20&amp;t_t=8-13.NUMB3RS&amp;s_o=default&amp;d_m=0#version=430cc1570574ced916b1b6f1da691e29" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div></div></p></div><script src="/js/chunk-vendors.319ec894.js"></script><script src="/js/app.4f692a97.js"></script><iframe style="display: none;"></iframe></body></html>
