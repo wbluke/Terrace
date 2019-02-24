@@ -201,7 +201,7 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index:
-[{"title":"[브랜딩/경영] 배민다움","uri":"/insight/2019/02/07/배민다움/","date":"2019.02.07.","label":"BaeMinDaum","bookURL":"https://book.naver.com/bookdb/book_detail.nhn?bid=11211590"}]
+[{"title":"[경제/경영] 거의 모든 IT의 역사","uri":"/insight/2019/02/24/거의_모든_IT의_역사/","date":"2019.02.24.","label":"HistoryOfIT","bookURL":"https://book.naver.com/bookdb/book_detail.nhn?bid=6423780"},{"title":"[브랜딩/경영] 배민다움","uri":"/insight/2019/02/07/배민다움/","date":"2019.02.07.","label":"BaeMinDaum","bookURL":"https://book.naver.com/bookdb/book_detail.nhn?bid=11211590"}]
 // __INSERTION_POSITION_END__ // DONT CHANGE!!
 ,
     year : this.$route.params.year,
@@ -294,8 +294,10 @@ div#insight-info-message {
   text-align: left;
   vertical-align: middle;
   -webkit-box-shadow: none;
+  border-radius: 0;
   box-shadow: none;
-  width: 64px;
+  width: 52px;
+  height: 18px;
   text-align: left;
   /* margin-right: 50px; */
 }
@@ -303,27 +305,33 @@ div#insight-info-message {
   font-size: 16px;
   margin-left: 10px;
   max-width: 250px;
-  padding-left: 120px;
+  /* padding-left: 120px; */
+  float: right;
+  text-align: right;
   width: 100%;
   box-sizing: border-box;
 }
 .insight-list-element-date.tablet , .insight-list-element-date.laptop, .insight-list-element-date.desktop {
   margin-left: 10px;
-  padding-left: 256px;
+  padding-left: 293px;
   width: 100%;
+  /* float: right; */
+  text-align: right;
   box-sizing: border-box;
 }
 .insight-list-element-title.mobile {
   font-size: 16px;
   margin-left: 10px;
   max-width: 250px;
-  padding-left: 100px;
+  /* padding-left: 100px; */
+  float: right;
+  text-align: right;
   width: 100%;
   box-sizing: border-box;
 }
 .insight-list-element-date.mobile {
   margin-left: 10px;
-  padding-left: 236px;
+  padding-left: 256px;
   width: 100%;
   box-sizing: border-box;
 }
