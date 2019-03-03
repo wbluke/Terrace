@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.af5bc781.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.b0cb70d4.js" rel="preload" as="script"><link href="/js/chunk-vendors.319ec894.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.af5bc781.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="18-1.JOSEPHUS | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "wbluke-com";
+var disqus_title      = "18-1.JOSEPHUS";
+var disqus_identifier = "/2019/03/03/18-1.JOSEPHUS/";
+var disqus_url        = "http://wbluke.com/blog/2019/03/03/18-1.JOSEPHUS/";
+</script><script type="text/javascript" async="" src="//wbluke-com.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.5ba6e9cd2303dd1f62b0ffa27f19e09d.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.505b628fe4a369d7faa766dd8c23b076.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.cc9b481c9f61ae3665ad4c9ae9e9840f.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><noscript></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-80e6dc7e="" id="blog"><div data-v-80e6dc7e="" id="blog-contents"><article data-v-80e6dc7e=""><div data-v-80e6dc7e="" class="inner-title-container"><h1 data-v-80e6dc7e=""><a data-v-80e6dc7e="" href="http://wbluke.com/blog/2019/03/03/18-1.JOSEPHUS/" id="inner-title">[알고리즘] 18-1. JOSEPHUS (조세푸스 문제)</a></h1><p data-v-80e6dc7e="" class="meta">2019. 03. 03. </p></div><div data-v-80e6dc7e="" id="article-content"><h1 id="알고리즘-18-1.-josephus-조세푸스-문제" style="display: none;">[알고리즘] 18-1. JOSEPHUS (조세푸스 문제)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/JOSEPHUS">Algospot Link : JOSEPHUS</a></p>
+<p><strong>문제</strong></p>
+<p>1세기에 살던 역사학자 조세푸스는 로마와의 전쟁에서 패해 <code class="hljs">N - 1</code>명의 동료 병사들과 함께 출구가 없는 동굴에 포위당했다고 합니다. 동료 병사들은 로마에 항복하느니 차라리 자살하자고 결의했고, 포위당한 N명의 사람들이 모두 원형으로 둘러선 뒤 순서대로 자살하기로 했습니다. 한 사람이 자살하면, 다음에는 그 사람으로부터 시계 방향으로 K번째 살아 있는 사람이 자살하는 것입니다.</p>
+<p>조세푸스의 책에 따르면 조세푸스와 다른 병사 하나만이 살아남았을 때 이들은 마음을 바꿔 로마에 항복해서 살아남았다고 합니다. 마지막 두 명 중 하나가 되기 위해서는 조세푸스는 첫 번째 병사로부터 몇 자리 떨어진 곳에 있어야 했을까요?</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 번째 줄에는 테스트 케이스의 개수 <code class="hljs">C (C≤50)</code>가 주어집니다. 각 테스트 케이스는 두 개의 정수 <code class="hljs">N</code>, <code class="hljs">K</code>로 주어집니다<code class="hljs">(3≤N≤1000, 1≤K≤1000)</code>.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스에 두 개의 정수로, 마지막 살아남는 두 사람의 번호를 오름차순으로 출력합니다. 첫 번째로 자살하는 병사의 번호가 1이며, 다른 사람들의 번호는 첫 번째 병사에서부터 시계 방향으로 정해집니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">2
+6 3
+40 3</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">3 5
+11 26</code></pre>
+<p><strong>노트</strong></p>
+<p>첫 번째 예제에서는 1번, 4번, 2번, 6번이 순서대로 죽고 3번과 5번만이 남습니다.</p>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<p>길고 길었던 동적 계획법 8장이 끝나고 <a href="https://wbluke.com/blog/2018/12/18/Algorithm-Problem-Solving-Strategies/">입문자를 위한 커리큘럼</a>에 따라 <code class="hljs">18장 선형자료구조</code>로 넘어왔습니다.<br>
+이번 장은 프로그래밍 언어에서나 자료구조에서 흔히 접할 수 있는 선형 자료구조, 배열이나 연결 리스트에 대해서 다룹니다. 내용이 많지는 않고, 각 자료구조에 대한 참조, 삽입, 삭제 등의 접근성 차이(시간 복잡도) 등에 대해서 알아볼 수 있습니다. 관련 문제는 이번 아티클에서 풀 조세푸스 문제입니다.</p>
+<ul>
+<li><p>데이터를 순차적으로 참조하면서 action을 취한다는 점에 있어서 선형 자료구조를 사용하면 풀 수 있는 문제입니다. 다만 자료구조의 끝에 갔을 때, 즉 병사의 번호가 맨 끝 번호까지 갔을 때 다시 남아있는 사람 중 가장 번호가 빠른 사람에게 포인터가 넘어가야 한다는 것이 신경써줄 부분입니다.<br>
+각 번호에서 취해줄 action을 잘 선택해준다면 어렵지 않게 접근할 수 있습니다.</p></li>
+<li><p>저는 자바에서 주로 사용하는 ArrayList로 접근하였습니다. 환형(Circular)으로 순회하는 방법도 두 가지가 있을텐데, 아래 제 코드처럼 직접 인덱스로 접근하는 방법과, iterator를 이용하는 방법이 있습니다. iterator를 사용할 경우에는 현재 iter가 맨 마지막 사람을 가리키고 있는지 아닌지 알아보기 위해 hasNext()가 False인지 체크하여, 첫 원소로 되돌아가도록 다시 iterator를 받아와주면 될 것 같습니다.</p></li>
+<li><p>병사가 한 명씩 자살할 때마다 인덱스 값을 잘 계산해줍니다. k를 order라 할 때, 결과적으로 (order - 1)번씩 건너뛰게 됩니다. 저는 인덱스의 변화 과정을 중시하여 1을 빼준 뒤에 order만큼 더해주었습니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH18/JOSEPHUS.java">Github Link</a></p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">/* JOSEPHUS.java */</span>
+
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.Scanner;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JOSEPHUS</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> ArrayList&lt;Integer&gt; <span class="hljs-title">toSurvive</span><span class="hljs-params">(ArrayList&lt;Integer&gt; list, <span class="hljs-keyword">int</span> order)</span> </span>{
+        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span>(list.size() &gt; <span class="hljs-number">2</span>) {
+            <span class="hljs-keyword">if</span> (count % order == <span class="hljs-number">0</span>) list.remove(i--);
+            i++;
+            count++;
+            <span class="hljs-keyword">if</span> (i == list.size()) i = <span class="hljs-number">0</span>;
+        }
+
+        <span class="hljs-keyword">return</span> list;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        JOSEPHUS josephus = <span class="hljs-keyword">new</span> JOSEPHUS();
+        Scanner scan = <span class="hljs-keyword">new</span> Scanner(System.in);
+
+        <span class="hljs-keyword">int</span> loop = scan.nextInt();
+        <span class="hljs-keyword">while</span> (loop-- &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">int</span> soldiers = scan.nextInt();
+            <span class="hljs-keyword">int</span> order = scan.nextInt();
+
+            ArrayList&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+            <span class="hljs-comment">// list setting</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; soldiers; i++) {
+                list.add(i + <span class="hljs-number">1</span>);
+            }
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> survivor : josephus.toSurvive(list, order)) {
+                System.out.print(survivor + <span class="hljs-string">" "</span>);
+            }
+            System.out.println();
+        }
+
+    }
+}</code></pre>
+</details>
+</div></article><hr data-v-80e6dc7e=""><div data-v-80e6dc7e="" id="disqus_thread"><iframe id="dsq-app8720" name="dsq-app8720" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=wbluke-com&amp;t_i=%2F2019%2F03%2F03%2F18-1.JOSEPHUS%2F&amp;t_u=http%3A%2F%2Fwbluke.com%2Fblog%2F2019%2F03%2F03%2F18-1.JOSEPHUS%2F&amp;t_e=18-1.JOSEPHUS&amp;t_d=%0A%20%20%20%20%20%20%20%20Luke's%20Note%0A%20%20%20%20%20%20&amp;t_t=18-1.JOSEPHUS&amp;s_o=default&amp;d_m=0#version=1a104dbd58e8322771ec614533d7cf2f" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div></div></p></div><script src="/js/chunk-vendors.319ec894.js"></script><script src="/js/app.b0cb70d4.js"></script><iframe style="display: none;"></iframe></body></html>
