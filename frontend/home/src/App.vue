@@ -236,9 +236,13 @@ figcaption {
 @import url('https://fonts.googleapis.com/css?family=PT+Mono');
 code.hljs{
   display: inline;
-  background-color: #F0F0F0;
+  background-color: #F0F0EF; /* F3F3EC */
   box-shadow: none;
   padding: 1px;
+}
+
+details code.hljs{
+  background-color: #EEECE5; /* F3F3EC */
 }
 
 
