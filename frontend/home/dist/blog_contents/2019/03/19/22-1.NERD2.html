@@ -1,0 +1,146 @@
+<h1 id="알고리즘-22-1.-nerd2-너드인가-너드가-아닌가-2">[알고리즘] 22-1. NERD2 (너드인가, 너드가 아닌가? 2)</h1>
+<h3 id="문제">문제</h3>
+<hr />
+<details>
+<p><summary>문제 보기</summary></p>
+<p><a href="https://algospot.com/judge/problem/read/NERD2">Algospot Link : NERD2</a></p>
+<p><strong>문제</strong></p>
+<p>대 성황이었던 지난 알고스팟 연간 모의고사 이후 프로그래밍 대회의 열기는 날로 뜨거워져 올해는 10만명이 넘는 사람들이 참가 신청을 할 것으로 예상되고 있습니다. 그러나 채점관을 할 자원 봉사자는 예년과 똑같이 5명뿐이라, 이 사람들을 대회에 다 참가시킬 수는 없습니다. 따라서 올해에도 참가 신청을 한 사람 중 진정한 프로그래밍 너드들만을 대회에 참가할 수 있도록 받아 주기로 했습니다.</p>
+<p>종만의 새로운 이론에 따르면, 어떤 사람의 너드 지수는 다음 두 가지 값에 의해 결정됩니다.</p>
+<pre class="markdown"><code>- 알고스팟 온라인 채점 시스템에서 푼 문제의 수 p
+- 밤 새면서 지금까지 끓여먹은 라면 그릇 수 q</code></pre>
+<p>이 이론에 따르면 어떤 참가 신청자 a 의 문제 수 p<sub>a</sub> 와 그릇 수 q<sub>a</sub> 를 다른 참가 신청자 b 의 문제 수 p<sub>b</sub> 와 그릇 수 q<sub>b</sub> 에 각각 비교했을 때, p<sub>a</sub> &lt; p<sub>b</sub>, q<sub>a</sub> &lt; q<sub>b</sub> 라면 참가 신청자 a 는 너드일 가능성이 없습니다. 조직위는 너드일 가능성이 있는 사람들만을 대회에 받아주기로 했습니다.</p>
+<p>한 사람의 참가 가능 여부는 다른 사람들에 의해 결정되기 때문에, 대회에 참가할 수 있는 사람의 수는 새로운 사람이 참가 신청을 할 때마다 계속 바뀝니다. 예를 들어 다음과 같은 4명의 사람들이 순서대로 참가 신청을 했다고 합시다.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">참가자</th>
+<th style="text-align: left;">종만</th>
+<th style="text-align: left;">재훈</th>
+<th style="text-align: left;">효승</th>
+<th style="text-align: left;">광규</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">문제 수</td>
+<td style="text-align: left;">72</td>
+<td style="text-align: left;">57</td>
+<td style="text-align: left;">74</td>
+<td style="text-align: left;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">라면 그릇 수</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">67</td>
+<td style="text-align: left;">55</td>
+<td style="text-align: left;">60</td>
+</tr>
+</tbody>
+</table>
+<p>종만과 재훈이 순서대로 대회 참가 신청을 하면 대회에 참가할 수 있는 사람의 수는 각각 1, 2 로 늘어나지만, 효승이는 문제 수도 라면 그릇 수도 종만보다 많으므로 효승이 참가 신청을 한 시점에서 종만은 더 이상 대회에 참가할 수 없습니다. 따라서 이 네 명이 참가 신청을 할 때마다 참가 가능자의 수는 1, 2, 2, 3으로 변합니다.</p>
+<p>이렇게 각 사람이 참가 신청을 할 때마다 대회에 참가할 수 있는 사람들의 수가 어떻게 변하는지 계산하는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code>C (1 &lt;= C &lt;= 50)</code> 가 주어집니다. 각 테스트 케이스의 첫 줄에는 참가 신청한 사람들의 수 <code>N (1 &lt;= N &lt;= 50000)</code> 이 주어집니다. 그 후 N 줄에 각 2개의 정수로 각 사람의 문제 수 p<sub>i</sub> 와 라면 그릇 수 q<sub>i</sub> 가 참가 신청한 순서대로 주어집니다 <code>(0 &lt;= pi,qi &lt;= 100000)</code> . 두 사람의 문제 수나 라면 그릇 수가 같은 경우는 없다고 가정해도 좋습니다.<br />
+입력의 양이 많으므로 가능한 빠른 입력 함수를 사용하는 것이 좋습니다.</p>
+<p><strong>출력</strong></p>
+<p>각 사람이 참가 신청을 할 때마다 대회 참가 자격이 되는 사람의 수를 계산한 뒤, 각 테스트 케이스마다 그 합을 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code>2
+4
+72 50
+57 67
+74 55
+64 60
+5
+1 5
+2 4
+3 3
+4 2
+5 1</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code>8
+15</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr />
+<p>22장은 21장 트리에 이어 이진 검색 트리(Binary Search Tree)에 대해 다룹니다. 트리는 단순히 계층 구조로 표현하는 것 외에도 다양한 용도로 사용되는데, 그 중 자주 쓰이는 것이 검색 트리(Search Tree)입니다. 검색 트리는 입력의 순서에 따라 데이터를 배치하는 리스트와 스택, 큐 등의 자료구조들과는 달리 자료들을 일정한 순서에 따라 정렬하여 배치합니다. 이를 통해 원소의 추가, 삭제 연산과 해당 원소가 있는지 검색하는 기능들을 빠르게 사용할 수 있습니다. 검색 트리 중 가장 흔하게 사용되는 것이 바로 이진 검색 트리입니다.</p>
+<ul>
+<li>주어진 입력들의 크기를 비교해야겠다는 것은 알겠는데, 입력이 두 종류입니다. 이럴 때 2차원 평면에 나타내보면 의외로 생각보다 수월하게 풀이의 인사이트를 얻을 수 있습니다.</li>
+</ul>
+<p><img src="http://cdn.wbluke.com/algorithm_NERD2.png" /></p>
+<ul>
+<li><p>예제의 점들을 좌표평면 상에 찍어보면, 위 그림과 같이 계단식으로 모양을 형성한다는 것을 알 수 있습니다. 다시 말해서, <code>주어진 점들을 정렬하겠다!</code>고 한다면 참가자들이 푼 문제의 수 p(x축)가 증가할수록 참가자들이 밤 새면서 지금까지 끓여먹은 라면 그릇 수 q(y축)가 감소하고 있다는 것을 알 수 있습니다. 그리고 위 그림의 X점과 같이 어떤 다른 점에 의해서 p와 q의 값이 둘 다 작다면, 즉 회색 영역 안에 들어가 있다면 Nerd로 판정받을 수 없다는 것도 알 수 있습니다. 책에서는 이 상태를 <code>지배당한다</code>라고 표현했는데, 저도 같은 표현을 쓰도록 하겠습니다.</p></li>
+<li><p>그럼 이제 우리가 해야 할 일을 두 가지로 정리할 수 있습니다. 어떤 점이 추가로 들어왔을 때, 해당 점이 다른 점들에 의해 지배당하는지, 만약 그렇지 않다면 이 점이 지배하는 다른 점들이 있는지를 체크해주면 됩니다.</p></li>
+<li><p>한 점이 두 개의 값을 가지고 있으므로 TreeMap&lt;Integer, Integer&gt;으로 BST를 사용하겠습니다. 주어진 입력이 많으므로 Scanner보다 훨씬 빠른 BufferedReader를 사용합니다. 그리고 readLine() 한 줄로 받은 입력을 StringTokenizer로 가공해줍니다.</p></li>
+<li><p>입력으로 주어진 점이 기존의 점들에 의해 지배받는지를 isDominated()로 체크합니다. 손으로 몇 개 그려보면, 이 점이 지배를 받는지 아닌지는 그 점의 바로 오른쪽에 있는 점이 해당 점을 지배하고 있는지만 체크해보면 된다는 것을 알 수 있습니다. 계단식으로 점들이 나열되어 있기 때문이죠. 따라서 TreeMap에서 제공하는 ceilingKey() 메소드를 사용하면, 해당 Key를 기준으로 더 큰 Key를 가지는 점들 중 가장 작은 점의 Key를 얻을 수 있습니다. 해당 점이 지배당한다면, 그냥 무시해주면 됩니다.</p></li>
+<li><p>isDominated()에서 살아남은 점을 가지고 이제는 이 점이 기존의 다른 점들을 지배하지 않는지 checkNerds()에서 체크합니다. 여기서는 isDominated()에서와 반대로 해당 Key보다 더 작은 Key를 가지는 점들 중 가장 큰 점의 Key를 반환시켜주는 floorKey()를 반복적으로 사용하여 하나하나 체크해봅니다. 지배당하는 점이 있으면 더 이상 Nerd가 아니게되므로 제거해버리고, 계단식 정렬의 구조 상 맨 왼쪽까지 가거나 지배당하지 않는 점이 나오면 멈춰주면 됩니다.</p></li>
+<li><p>한 점을 검사하는 과정이 끝날 때마다 문제에서 요구하는 답인 해당 단계의 점들의 개수를 더해주는 것을 잊지마세요. isDominated()에서 점이 통과하지 못하더라도 그냥 지나치지 말고 더해주어야 합니다. <del><em>네 제가 까먹었습니다</em></del></p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr />
+<details>
+<p><summary>코드 보기</summary></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH22/NERD2.java">Github Link</a></p>
+<pre class="java"><code>/* NERD2.java */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+
+public class NERD2 {
+
+    private TreeMap&lt;Integer, Integer&gt; nerds = new TreeMap&lt;&gt;();
+    private int numOfNerds = 0;
+
+    // check (x, y) is dominated by other points
+    public boolean isDominated(int x, int y) {
+        Integer key = nerds.ceilingKey(x);
+        if (key != null &amp;&amp; y &lt; nerds.get(key))
+            return true;
+        else
+            return false;
+    }
+
+    public void checkNerds(int x, int y) {
+        if (isDominated(x, y)) {
+            numOfNerds += nerds.size();
+            return;
+        }
+
+        Integer key = nerds.floorKey(x);
+        while (key != null) {
+            if (nerds.get(key) &lt; y) {
+                nerds.remove(key);
+            }else {
+                break;
+            }
+            key = nerds.floorKey(key);
+        }
+
+        nerds.put(x, y);
+        numOfNerds += nerds.size();
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int loop = Integer.parseInt(br.readLine());
+        while (loop-- &gt; 0) {
+            NERD2 nerd2 = new NERD2();
+            int applicants = Integer.parseInt(br.readLine());
+
+            for (int i = 0; i &lt; applicants; i++) {
+                StringTokenizer stk = new StringTokenizer(br.readLine());
+                nerd2.checkNerds(Integer.parseInt(stk.nextToken()), Integer.parseInt(stk.nextToken()));
+            }
+
+            System.out.println(nerd2.numOfNerds);
+        }
+
+        br.close();
+    }
+}</code></pre>
+</details>
