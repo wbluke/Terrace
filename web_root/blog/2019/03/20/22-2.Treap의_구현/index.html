@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.4121a211.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.904ac315.js" rel="preload" as="script"><link href="/js/chunk-vendors.319ec894.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.4121a211.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="22-2.Treap의_구현 | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "wbluke-com";
+var disqus_title      = "22-2.Treap의_구현";
+var disqus_identifier = "/2019/03/20/22-2.Treap의_구현/";
+var disqus_url        = "http://wbluke.com/blog/2019/03/20/22-2.Treap의_구현/";
+</script><script type="text/javascript" async="" src="//wbluke-com.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.9974049bf7b0591e5d4f055cb67f3ee3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.880980e048a2432334f13013030456ac.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.7ca5005d1897180d07d928e89d2628be.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><noscript></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-14d57e6a="" id="blog"><div data-v-14d57e6a="" id="blog-contents"><article data-v-14d57e6a=""><div data-v-14d57e6a="" class="inner-title-container"><h1 data-v-14d57e6a=""><a data-v-14d57e6a="" href="http://wbluke.com/blog/2019/03/20/22-2.Treap의_구현/" id="inner-title">[알고리즘] 22-2. Treap을 직접 구현하기</a></h1><p data-v-14d57e6a="" class="meta">2019. 03. 20. </p></div><div data-v-14d57e6a="" id="article-content"><h1 id="알고리즘-22-2.-treap을-직접-구현하기" style="display: none;">[알고리즘] 22-2. Treap을 직접 구현하기</h1>
+<h3 id="treap">Treap?</h3>
+<hr>
+<p>다음 알고리즘 아티클의 문제인 INSERTION을 해결하기 위해서는 이 Treap이라는 자료구조의 직접 구현이 필요합니다. Treap은 Tree와 Heap의 합성어인데, Treap이 결국 Tree이기도 하고 Heap이기도 하기 때문에 붙여진 이름입니다.</p>
+<p>이미 라이브러리에 성능 좋은 트리가 구현되어 있는데, 왜 이런 자료구조를 구현해야 할까요? 표준 라이브러리의 이진 검색 트리는 대부분 X보다 작은 원소의 수를 계산하거나 k번째 원소를 찾는 연산을 지원하지 않습니다. 따라서 이런 연산이 꼭 필요할 경우에는 직접 BST를 구현할 수 밖에 없습니다. 다만 단순한 BST의 경우, 노드가 한 쪽으로 쏠릴 수 있는 가능성이 있어 특정 형태의 입력에 대해 연결리스트처럼 되어버릴 수 있기 때문에, 어느 정도 균형 잡힌 BST를 구현해야만 합니다. 이럴 때 다소 간단하게 구현할 수 있는 BST가 바로 트립입니다.</p>
+<p>트립은 균형잡힌 트리를 구현하기 위해서 각 노드에 우선순위를 부여합니다. 이는 Heap의 특성이기도 한데요, 트립에서는 이 우선순위를 랜덤값으로 부여합니다. 랜덤으로 우선순위가 결정되기 때문에 이 트리 높이의 기대치는 항상 일정합니다. 아주 운이 나쁘게 균형이 안잡힐 수도 있지만 그 확률은 매우 낮습니다.</p>
+<p>트립의 특성을 다시 정리해보면 다음과 같습니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">- </span>BST의 조건 : 
+<span class="hljs-code">    모든 노드에 대해 왼쪽 서브트리에 있는 노드들의 원소는 해당 노드의 원소보다 작고, </span>
+<span class="hljs-code">    오른쪽 서브트리에 있는 노드들의 원소는 해당 노드의 원소보다 크다.   </span>
+<span class="hljs-bullet">- </span>Heap의 조건 : 
+<span class="hljs-code">    모든 노드의 우선순위는 각자의 자식 노드보다 크거나 같다.  </span></code></pre>
+<h3 id="treap-구현하기">Treap 구현하기</h3>
+<hr>
+<h4 id="treapnode">TreapNode</h4>
+<p>먼저 트립의 노드를 구현합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreapNode</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> key;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> priority;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> size;
+    <span class="hljs-keyword">private</span> TreapNode left, right;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TreapNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">this</span>.key = key;
+        priority = Math.random();
+        size = <span class="hljs-number">1</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setLeft</span><span class="hljs-params">(TreapNode newNode)</span> </span>{
+        left = newNode;
+        calcSize();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setRight</span><span class="hljs-params">(TreapNode newNode)</span> </span>{
+        right = newNode;
+        calcSize();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">calcSize</span><span class="hljs-params">()</span> </span>{
+        size = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span>) size += left.size;
+        <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span>) size += right.size;
+    }
+}</code></pre>
+<p>노드에서 주목할 것은 key 이외에도 우선순위를 나타내는 priority가 존재하며, 해당 노드를 root로 한 자손 노드들의 개수인 size를 들고 있다는 점입니다. 이 size를 모든 노드가 각자 갖고 있으면, 우리가 필요한 연산인 X보다 작은 원소의 수를 계산하거나 k번째 원소를 찾는 연산을 쉽게 구현할 수 있습니다. size의 조정은 왼쪽 서브트리나 오른쪽 서브트리가 갱신될 때마다 자동으로 수행됩니다.</p>
+<h4 id="노드의-추가와-쪼개기-연산">노드의 추가와 쪼개기 연산</h4>
+<p>이제 주어진 root 트립에 새 노드인 node를 추가하는 연산을 구현해 봅시다. 먼저 root와 node의 우선순위를 비교합니다. 만약 root가 node보다 우선순위가 높다면 node는 root의 아래로 들어가면 되겠지요. 왼쪽으로 갈지 오른쪽으로 갈지는 각 서브트리와의 key값을 비교해 결정하면 됩니다.</p>
+<p>문제는 root보다 node의 우선순위가 클 경우입니다. 이 때는 node가 root를 밀어내고 새로운 root가 되며, 기존 root의 자손들은 모두 node의 자손들이 되어야 합니다. 따라서 기존 트리를 node의 key를 기준으로 둘로 나눠야 하는데, 이를 구현한 메소드가 바로 split()입니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pair</span>&lt;<span class="hljs-title">L</span>, <span class="hljs-title">R</span>&gt; </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> L left;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> R right;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Pair</span><span class="hljs-params">(L left, R right)</span> </span>{
+        <span class="hljs-keyword">this</span>.left = left;
+        <span class="hljs-keyword">this</span>.right = right;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> L <span class="hljs-title">getLeft</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> left;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> R <span class="hljs-title">getRight</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> right;
+    }
+}
+
+<span class="hljs-comment">// split root tree to two subTrees by key</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Pair&lt;TreapNode, TreapNode&gt; <span class="hljs-title">split</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(<span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+
+    <span class="hljs-comment">// split right subTree if root is less than key</span>
+    <span class="hljs-keyword">if</span> (root.key &lt; key) {
+        Pair&lt;TreapNode, TreapNode&gt; rs = split(root.right, key);
+        root.setRight(rs.getLeft());
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(root, rs.getRight());
+    }
+
+    <span class="hljs-comment">// split left subTree if root is greater than or equal to key</span>
+    Pair&lt;TreapNode, TreapNode&gt; rs = split(root.left, key);
+    root.setLeft(rs.getRight());
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(rs.getLeft(), root);
+}</code></pre>
+<p>쪼개서 나온 두 개의 트립을 반환받아야 하는데, 제가 사용하는 언어인 java에서는 마땅한 <code class="hljs">pair&lt;object, object&gt;</code> 가 없기 때문에 임의로 pair 클래스를 구현하여 사용했습니다. cpp에는 pair가 존재합니다.</p>
+<p>root의 key가 node의 key보다 작은 경우와 큰 경우로 나뉠텐데, 한 쪽만 생각해보면 다른 쪽은 반대로 하면 되어서 똑같습니다.<br>
+작은 경우를 생각해봅시다. 기존 root의 왼쪽 서브트리들은 모두 node의 key보다 작은 원소들을 가지고 있습니다. 그러므로 우리는 root의 오른쪽 서브트리만 node의 key 기준으로 쪼개서 재구성해주면 됩니다. (그림을 그려서 이해하면 말로 하는 것보다 조금 더 쉽습니다.)</p>
+<p>구현한 split()을 사용하여 새 노드를 추가하는 insert()를 구현할 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">// return root after inserting new node</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">insert</span><span class="hljs-params">(TreapNode root, TreapNode node)</span> </span>{
+    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> node;
+
+    <span class="hljs-keyword">if</span> (root.priority &lt; node.priority) {
+        Pair&lt;TreapNode, TreapNode&gt; splitted = split(root, node.key);
+        node.setLeft(splitted.getLeft());
+        node.setRight(splitted.getRight());
+        <span class="hljs-keyword">return</span> node;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.key &lt; root.key) {
+        root.setLeft(insert(root.left, node));
+    } <span class="hljs-keyword">else</span> {
+        root.setRight(insert(root.right, node));
+    }
+    <span class="hljs-keyword">return</span> root;
+}</code></pre>
+<h4 id="노드의-삭제와-합치기-연산">노드의 삭제와 합치기 연산</h4>
+<p>두 트리를 합치는 merge()와 노드를 삭제하는 erase()를 구현합니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">// merge two Treaps when max(a) &lt; min(b)</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">merge</span><span class="hljs-params">(TreapNode a, TreapNode b)</span> </span>{
+    <span class="hljs-keyword">if</span> (a == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> b;
+    <span class="hljs-keyword">if</span> (b == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> a;
+    <span class="hljs-keyword">if</span> (a.priority &lt; b.priority) {
+        b.setLeft(merge(a, b.left));
+        <span class="hljs-keyword">return</span> b;
+    }
+    a.setRight(merge(a.right, b));
+    <span class="hljs-keyword">return</span> a;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">erase</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> root;
+
+    <span class="hljs-keyword">if</span> (root.key == key) {
+        TreapNode ret = merge(root.left, root.right);
+        root = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// will be erased by Garbage Collector later</span>
+        <span class="hljs-keyword">return</span> ret;
+    }
+    <span class="hljs-keyword">if</span> (key &lt; root.key) {
+        root.setLeft(erase(root.left, key));
+    } <span class="hljs-keyword">else</span> {
+        root.setRight(erase(root.right, key));
+    }
+    <span class="hljs-keyword">return</span> root;
+}</code></pre>
+<p>merge()에서는 들어온 두 트리가 null인지 먼저 확인하고 시작하기 때문에, 자손이 한 쪽만 있는 경우 혹은 자손이 없는 경우를 모두 처리할 수 있습니다. erase()는 타겟 노드를 제거한 후 제거된 기존의 트리를 그대로 반환하도록 구현합니다.</p>
+<h4 id="k번째-원소-찾기">k번째 원소 찾기</h4>
+<p>각 노드마다 가지고 있는 size를 이용하여 k번째 원소를 찾을 수 있습니다. root를 기준으로 각 서브트리의 크기를 알고 있으면 k번째 노드가 어디 있는지 알 수 있습니다. 왼쪽 서브트리의 크기를 l이라 하면, 다음과 같이 경우를 나눌 수 있지요.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">- </span>k &lt;= l : k번째 노드는 왼쪽 서브트리에 있습니다.
+- k = l+1 : k번째 노드는 root입니다.
+- k &gt; l+1 : k번째 노드는 오른쪽 서브트리에서 (k-l-1)번째 노드가 됩니다. </code></pre>
+<p>따라서 다음과 같이 kth() 메소드를 구현할 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">// return kth node</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">kth</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> k)</span> </span>{
+    <span class="hljs-keyword">int</span> leftSize = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) leftSize = root.left.size;
+    <span class="hljs-keyword">if</span> (k &lt;= leftSize) <span class="hljs-keyword">return</span> kth(root.left, k);
+    <span class="hljs-keyword">if</span> (k == leftSize + <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> root;
+    <span class="hljs-keyword">return</span> kth(root.right, k - leftSize - <span class="hljs-number">1</span>);
+}</code></pre>
+<h4 id="x보다-작은-원소-세기">X보다 작은 원소 세기</h4>
+<p>또 다른 유용한 연산으로 특정 범위 [a, b)가 주어질 때 이 범위 안에 들어가는 원소의 숫자를 계산하는 연산이 있습니다. 이는 주어진 원소 X보다 작은 원소들의 수를 반환하는 countLessThan()을 구현하면 계산해낼 수 있습니다. countLessThan(b) - countLessThan(a)로 계산하면 되니까요.<br>
+먼저 root의 원소와 X를 비교합니다. 만약 root의 원소가 X와 같거나 그보다 크다면 root의 오른쪽 서브트리의 모든 원소들은 X보다 큰 원소들임을 알 수 있습니다. 따라서 왼쪽 서브트리에서 재귀호출을 통해 해결해주면 됩니다.<br>
+만약 반대로 root의 원소가 X보다 작다면 root의 왼쪽 서브트리의 원소들은 모두 답에 들어가고, 오른쪽 서브트리에서 해당하는 원소들을 재귀적으로 세서 답에 더해주면 된다는 것을 알 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countLessThan</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">if</span> (key &lt;= root.key) <span class="hljs-keyword">return</span> countLessThan(root.left, key);
+    <span class="hljs-keyword">int</span> ls = (root.left != <span class="hljs-keyword">null</span> ? root.left.size : <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">return</span> ls + <span class="hljs-number">1</span> + countLessThan(root.right, key);
+}</code></pre>
+<h3 id="정리">정리</h3>
+<hr>
+<p>이렇게 해서 특정 기능이 필요할 때 구현해야하는 Treap이라는 자료구조에 대하여 알아보았습니다. 다음 아티클에서 해당 자료구조를 사용하여 문제를 해결해보도록 하겠습니다. 아래에 합친 소스코드를 첨부합니다.</p>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>Treap 한눈에 보기</summary><p></p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">/* Treap.java */</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pair</span>&lt;<span class="hljs-title">L</span>, <span class="hljs-title">R</span>&gt; </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> L left;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> R right;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Pair</span><span class="hljs-params">(L left, R right)</span> </span>{
+        <span class="hljs-keyword">this</span>.left = left;
+        <span class="hljs-keyword">this</span>.right = right;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> L <span class="hljs-title">getLeft</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> left;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> R <span class="hljs-title">getRight</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> right;
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreapNode</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> key;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> priority;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> size;
+    <span class="hljs-keyword">private</span> TreapNode left, right;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TreapNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">this</span>.key = key;
+        priority = Math.random();
+        size = <span class="hljs-number">1</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setLeft</span><span class="hljs-params">(TreapNode newNode)</span> </span>{
+        left = newNode;
+        calcSize();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setRight</span><span class="hljs-params">(TreapNode newNode)</span> </span>{
+        right = newNode;
+        calcSize();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">calcSize</span><span class="hljs-params">()</span> </span>{
+        size = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span>) size += left.size;
+        <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span>) size += right.size;
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Treap</span> </span>{
+
+    <span class="hljs-comment">// split root tree to two subTrees by key</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Pair&lt;TreapNode, TreapNode&gt; <span class="hljs-title">split</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(<span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+
+        <span class="hljs-comment">// split right subTree if root is less than key</span>
+        <span class="hljs-keyword">if</span> (root.key &lt; key) {
+            Pair&lt;TreapNode, TreapNode&gt; rs = split(root.right, key);
+            root.setRight(rs.getLeft());
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(root, rs.getRight());
+        }
+
+        <span class="hljs-comment">// split left subTree if root is greater than or equal to key</span>
+        Pair&lt;TreapNode, TreapNode&gt; rs = split(root.left, key);
+        root.setLeft(rs.getRight());
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(rs.getLeft(), root);
+    }
+
+    <span class="hljs-comment">// return root after inserting new node</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">insert</span><span class="hljs-params">(TreapNode root, TreapNode node)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> node;
+
+        <span class="hljs-keyword">if</span> (root.priority &lt; node.priority) {
+            Pair&lt;TreapNode, TreapNode&gt; splitted = split(root, node.key);
+            node.setLeft(splitted.getLeft());
+            node.setRight(splitted.getRight());
+            <span class="hljs-keyword">return</span> node;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.key &lt; root.key) {
+            root.setLeft(insert(root.left, node));
+        } <span class="hljs-keyword">else</span> {
+            root.setRight(insert(root.right, node));
+        }
+        <span class="hljs-keyword">return</span> root;
+    }
+
+    <span class="hljs-comment">// merge two Treaps when max(a) &lt; min(b)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">merge</span><span class="hljs-params">(TreapNode a, TreapNode b)</span> </span>{
+        <span class="hljs-keyword">if</span> (a == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> b;
+        <span class="hljs-keyword">if</span> (b == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> a;
+        <span class="hljs-keyword">if</span> (a.priority &lt; b.priority) {
+            b.setLeft(merge(a, b.left));
+            <span class="hljs-keyword">return</span> b;
+        }
+        a.setRight(merge(a.right, b));
+        <span class="hljs-keyword">return</span> a;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">erase</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> root;
+
+        <span class="hljs-keyword">if</span> (root.key == key) {
+            TreapNode ret = merge(root.left, root.right);
+            root = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// will be erased by Garbage Collector later</span>
+            <span class="hljs-keyword">return</span> ret;
+        }
+        <span class="hljs-keyword">if</span> (key &lt; root.key) {
+            root.setLeft(erase(root.left, key));
+        } <span class="hljs-keyword">else</span> {
+            root.setRight(erase(root.right, key));
+        }
+        <span class="hljs-keyword">return</span> root;
+    }
+
+    <span class="hljs-comment">// return kth node</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">kth</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> k)</span> </span>{
+        <span class="hljs-keyword">int</span> leftSize = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) leftSize = root.left.size;
+        <span class="hljs-keyword">if</span> (k &lt;= leftSize) <span class="hljs-keyword">return</span> kth(root.left, k);
+        <span class="hljs-keyword">if</span> (k == leftSize + <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> root;
+        <span class="hljs-keyword">return</span> kth(root.right, k - leftSize - <span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countLessThan</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (key &lt;= root.key) <span class="hljs-keyword">return</span> countLessThan(root.left, key);
+        <span class="hljs-keyword">int</span> ls = (root.left != <span class="hljs-keyword">null</span> ? root.left.size : <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">return</span> ls + <span class="hljs-number">1</span> + countLessThan(root.right, key);
+    }
+}
+</code></pre>
+</details>
+</div></article><hr data-v-14d57e6a=""><div data-v-14d57e6a="" id="disqus_thread"><iframe id="dsq-app4492" name="dsq-app4492" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=wbluke-com&amp;t_i=%2F2019%2F03%2F20%2F22-2.Treap%EC%9D%98_%EA%B5%AC%ED%98%84%2F&amp;t_u=http%3A%2F%2Fwbluke.com%2Fblog%2F2019%2F03%2F20%2F22-2.Treap%EC%9D%98_%EA%B5%AC%ED%98%84%2F&amp;t_e=22-2.Treap%EC%9D%98_%EA%B5%AC%ED%98%84&amp;t_d=%0A%20%20%20%20%20%20%20%20Luke's%20Note%0A%20%20%20%20%20%20&amp;t_t=22-2.Treap%EC%9D%98_%EA%B5%AC%ED%98%84&amp;s_o=default&amp;d_m=0#version=581fc4aed87cb2aed2487d2df585658d" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div></div></p></div><script src="/js/chunk-vendors.319ec894.js"></script><script src="/js/app.904ac315.js"></script><iframe style="display: none;"></iframe></body></html>
