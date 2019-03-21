@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.aae187ab.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.8fad31b9.js" rel="preload" as="script"><link href="/js/chunk-vendors.319ec894.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.aae187ab.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="22-3.INSERTION | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "wbluke-com";
+var disqus_title      = "22-3.INSERTION";
+var disqus_identifier = "/2019/03/21/22-3.INSERTION/";
+var disqus_url        = "http://wbluke.com/blog/2019/03/21/22-3.INSERTION/";
+</script><script type="text/javascript" async="" src="//wbluke-com.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.9974049bf7b0591e5d4f055cb67f3ee3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.880980e048a2432334f13013030456ac.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.7ca5005d1897180d07d928e89d2628be.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><noscript></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-4bb85cb8="" id="blog"><div data-v-4bb85cb8="" id="blog-contents"><article data-v-4bb85cb8=""><div data-v-4bb85cb8="" class="inner-title-container"><h1 data-v-4bb85cb8=""><a data-v-4bb85cb8="" href="http://wbluke.com/blog/2019/03/21/22-3.INSERTION/" id="inner-title">[알고리즘] 22-3. INSERTION (삽입 정렬 뒤집기)</a></h1><p data-v-4bb85cb8="" class="meta">2019. 03. 21. </p></div><div data-v-4bb85cb8="" id="article-content"><h1 id="알고리즘-22-3.-insertion-삽입-정렬-뒤집기" style="display: none;">[알고리즘] 22-3. INSERTION (삽입 정렬 뒤집기)</h1>
+<h3 id="문제">문제</h3>
+<hr>
+<details>
+<p></p><summary>문제 보기</summary><p></p>
+<p><a href="https://algospot.com/judge/problem/read/INSERTION">Algospot Link : INSERTION</a></p>
+<p><strong>문제</strong></p>
+<p>유명한 정렬 알고리즘인 삽입 정렬은 정렬된 부분 배열을 유지하며 이 배열에 새 원소를 삽입해 나가는 식으로 동작합니다. 주어진 정수 배열 A를 정렬하는 삽입 정렬의 구현은 다음과 같습니다.</p>
+<pre class="cpp"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insertionSort</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; A)</span> </span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; A.size(); ++i) {
+    <span class="hljs-comment">// A[0..i-1] 에 A[i] 를 끼워넣는다</span>
+    <span class="hljs-keyword">int</span> j = i;
+    <span class="hljs-keyword">while</span>(j &gt; <span class="hljs-number">0</span> &amp;&amp; A[j<span class="hljs-number">-1</span>] &gt; A[j]) {
+      <span class="hljs-comment">// 불변식 a: A[j+1..i] 의 모든 원소는 A[j] 보다 크다.</span>
+      <span class="hljs-comment">// 불변식 b: A[0..i] 구간은 A[j] 를 제외하면 정렬되어 있다.</span>
+      swap(A[j<span class="hljs-number">-1</span>], A[j]);
+      --j;
+    }
+  }
+}</code></pre>
+<p>삽입 정렬은 <code class="hljs css"><span class="hljs-selector-tag">A</span><span class="hljs-selector-attr">[0..i-1]</span></code> 이 정렬된 배열일 때, <code class="hljs css"><span class="hljs-selector-tag">A</span><span class="hljs-selector-attr">[i]</span></code> 를 적절한 위치를 만날 때까지 왼쪽으로 한칸씩 움직입니다. 예를 들어 <code class="hljs">A={5,1,4,3,2}</code> 의 삽입 정렬은 다음과 같이 이루어집니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">5 1 4 3 2</td>
+<td style="text-align: left;">초기 상태</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1 5 4 3 2</td>
+<td style="text-align: left;">1을 왼쪽으로 1칸 옮김</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1 4 5 3 2</td>
+<td style="text-align: left;">4를 왼쪽으로 1칸 옮김</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1 3 4 5 2</td>
+<td style="text-align: left;">3을 왼쪽으로 2칸 옮김</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1 2 3 4 5</td>
+<td style="text-align: left;">2를 왼쪽으로 3칸 옮김</td>
+</tr>
+</tbody>
+</table>
+<p>1부터 N까지의 자연수가 한 번씩 포함된 길이 N 인 수열 A[] 를 삽입 정렬했습니다. 원래 수열은 알 수 없지만, 그 과정에서 각 원소가 왼쪽으로 몇 칸이나 이동했는지를 알고 있습니다. 예를 들어, 위 예제에서 각 위치에 있는 값들이 움직인 칸수를 표현하면 <code class="hljs">{0,1,1,2,3}</code> 이 됩니다. 이 때 원래 수열을 찾아내는 프로그램을 작성하세요.</p>
+<p><strong>입력</strong></p>
+<p>입력의 첫 줄에는 테스트 케이스의 수 <code class="hljs">C (1 &lt;= C &lt;= 50)</code> 가 주어집니다. 각 테스트 케이스의 첫 줄에는 원 배열의 길이 <code class="hljs">N (1 &lt;= N &lt;= 50000)</code> 이 주어집니다. 그 다음 줄에 N 개의 정수로 A의 각 위치에 있던 값들이 움직인 칸수가 주어집니다. A 는 1부터 N 까지의 정수를 한 번씩 포함합니다.</p>
+<p>입력의 양이 많으므로 가능한 빠른 입력 함수를 사용하는 것이 좋습니다.</p>
+<p><strong>출력</strong></p>
+<p>각 테스트 케이스마다 재구성한 A[] 를 한 줄에 출력합니다.</p>
+<p><strong>예제 입력</strong></p>
+<pre><code class="hljs">2
+5
+0 1 1 2 3
+4
+0 1 2 3</code></pre>
+<p><strong>예제 출력</strong></p>
+<pre><code class="hljs">5 1 4 3 2
+4 3 2 1</code></pre>
+</details>
+<h3 id="정리">정리</h3>
+<hr>
+<ul>
+<li><p>손으로 예제를 풀다보면, 주어진 배열을 뒤에서부터 접근해야 한다는 것을 알 수 있습니다. 예제에서 마지막 숫자인 A[4]는 3칸 왼쪽으로 움직입니다. 이는 1부터 5까지의 숫자 중 A[4]보다 큰 숫자가 3개 있다는 뜻입니다. 따라서 해당 자리에 들어갈 숫자는 2가 됩니다.<br>
+이제 왼쪽으로 한 칸 가서 생각해보면, A[3]은 이미 자리를 찾은 2를 빼고 나머지 숫자 네 개 중 A[3]보다 큰 숫자가 몇 개인지를 의미합니다. 이런 식으로 뒤쪽에서부터 하나씩 수를 찾을 수 있다는 것을 깨달으면, 이제 우리에게 필요한 기능은 어떤 수의 묶음이 있을 때 k번째 원소가 무엇인지 찾는 것임을 알 수 있습니다.</p></li>
+<li><p>어떤 원소들 중에서 k번째 원소를 찾는 기능은 보통의 라이브러리에 있는 Tree 구조에는 없는 기능이기 때문에, <a href="https://wbluke.com/blog/2019/03/20/22-2.Treap%EC%9D%98_%EA%B5%AC%ED%98%84/">저번 아티클에서 알아본 Treap</a>을 구현하여 이 문제를 해결해 봅시다.</p></li>
+<li><p>먼저 주어지는 입력이 많으므로 Scanner 대신 BufferedReader로 입력을 처리해줍니다. 전체 코드가 길지만 거의 Treap을 구현한 메소드들이고, 실제 문제 해결을 위한 메소드는 맨 밑에 solve() 하나이니 참고하시기 바랍니다.<br>
+먼저 숫자 1부터 n까지의 key들을 가지는 Treap을 생성해줍니다. 그리고 위에서 설명한 그대로, 입력으로 주어진 배열을 뒤에서부터 하나씩 읽고 kth() 메소드로 해당 노드를 찾은 후에, 답이 될 배열에 넣어줍니다. 넣어준 노드는 다음 단계를 위해 기존 Treap에서 제거해줍니다.</p></li>
+</ul>
+<h3 id="코드">코드</h3>
+<hr>
+<details>
+<p></p><summary>코드 보기</summary><p></p>
+<p><a href="https://github.com/wbluke/Algorithm_PS/blob/master/src/CH22/INSERTION.java">Github Link</a></p>
+<pre class="java"><code class="hljs"><span class="hljs-comment">/* INSERTION.java */</span>
+
+<span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.InputStreamReader;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">INSERTION</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] shifted = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">50000</span>];
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> n;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] A = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">50000</span>];
+
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreapNode</span> </span>{
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> key;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> priority;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> size;
+        <span class="hljs-keyword">private</span> TreapNode left, right;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TreapNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>{
+            <span class="hljs-keyword">this</span>.key = key;
+            priority = Math.random();
+            size = <span class="hljs-number">1</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setLeft</span><span class="hljs-params">(TreapNode newNode)</span> </span>{
+            left = newNode;
+            calcSize();
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setRight</span><span class="hljs-params">(TreapNode newNode)</span> </span>{
+            right = newNode;
+            calcSize();
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">calcSize</span><span class="hljs-params">()</span> </span>{
+            size = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span>) size += left.size;
+            <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span>) size += right.size;
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pair</span>&lt;<span class="hljs-title">L</span>, <span class="hljs-title">R</span>&gt; </span>{
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> L left;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> R right;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Pair</span><span class="hljs-params">(L left, R right)</span> </span>{
+            <span class="hljs-keyword">this</span>.left = left;
+            <span class="hljs-keyword">this</span>.right = right;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> L <span class="hljs-title">getLeft</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> left;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> R <span class="hljs-title">getRight</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> right;
+        }
+    }
+
+    <span class="hljs-comment">// split root tree to two subTrees by key</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Pair&lt;TreapNode, TreapNode&gt; <span class="hljs-title">split</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(<span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+
+        <span class="hljs-comment">// split right subTree if root is less than key</span>
+        <span class="hljs-keyword">if</span> (root.key &lt; key) {
+            Pair&lt;TreapNode, TreapNode&gt; rs = split(root.right, key);
+            root.setRight(rs.getLeft());
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(root, rs.getRight());
+        }
+
+        <span class="hljs-comment">// split left subTree if root is greater than or equal to key</span>
+        Pair&lt;TreapNode, TreapNode&gt; rs = split(root.left, key);
+        root.setLeft(rs.getRight());
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Pair(rs.getLeft(), root);
+    }
+
+    <span class="hljs-comment">// return root after inserting new node</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">insert</span><span class="hljs-params">(TreapNode root, TreapNode node)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> node;
+
+        <span class="hljs-keyword">if</span> (root.priority &lt; node.priority) {
+            Pair&lt;TreapNode, TreapNode&gt; splitted = split(root, node.key);
+            node.setLeft(splitted.getLeft());
+            node.setRight(splitted.getRight());
+            <span class="hljs-keyword">return</span> node;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.key &lt; root.key) {
+            root.setLeft(insert(root.left, node));
+        } <span class="hljs-keyword">else</span> {
+            root.setRight(insert(root.right, node));
+        }
+        <span class="hljs-keyword">return</span> root;
+    }
+
+    <span class="hljs-comment">// merge two Treaps when max(a) &lt; min(b)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">merge</span><span class="hljs-params">(TreapNode a, TreapNode b)</span> </span>{
+        <span class="hljs-keyword">if</span> (a == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> b;
+        <span class="hljs-keyword">if</span> (b == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> a;
+        <span class="hljs-keyword">if</span> (a.priority &lt; b.priority) {
+            b.setLeft(merge(a, b.left));
+            <span class="hljs-keyword">return</span> b;
+        }
+        a.setRight(merge(a.right, b));
+        <span class="hljs-keyword">return</span> a;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">erase</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> root;
+
+        <span class="hljs-keyword">if</span> (root.key == key) {
+            TreapNode ret = merge(root.left, root.right);
+            root = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// will be erased by Garbage Collector later</span>
+            <span class="hljs-keyword">return</span> ret;
+        }
+        <span class="hljs-keyword">if</span> (key &lt; root.key) {
+            root.setLeft(erase(root.left, key));
+        } <span class="hljs-keyword">else</span> {
+            root.setRight(erase(root.right, key));
+        }
+        <span class="hljs-keyword">return</span> root;
+    }
+
+    <span class="hljs-comment">// return kth node</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreapNode <span class="hljs-title">kth</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> k)</span> </span>{
+        <span class="hljs-keyword">int</span> leftSize = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) leftSize = root.left.size;
+        <span class="hljs-keyword">if</span> (k &lt;= leftSize) <span class="hljs-keyword">return</span> kth(root.left, k);
+        <span class="hljs-keyword">if</span> (k == leftSize + <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> root;
+        <span class="hljs-keyword">return</span> kth(root.right, k - leftSize - <span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">countLessThan</span><span class="hljs-params">(TreapNode root, <span class="hljs-keyword">int</span> key)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (key &lt;= root.key) <span class="hljs-keyword">return</span> countLessThan(root.left, key);
+        <span class="hljs-keyword">int</span> ls = (root.left != <span class="hljs-keyword">null</span> ? root.left.size : <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">return</span> ls + <span class="hljs-number">1</span> + countLessThan(root.right, key);
+    }
+
+    <span class="hljs-comment">// =======================================================================</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">// make new Treap</span>
+        TreapNode candidates = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            candidates = insert(candidates, <span class="hljs-keyword">new</span> TreapNode(i + <span class="hljs-number">1</span>));
+        }
+
+        <span class="hljs-comment">// fill A[] from behind</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> ; i--) {
+
+            <span class="hljs-keyword">int</span> larger = shifted[i];
+            TreapNode k = kth(candidates, i + <span class="hljs-number">1</span> - larger);
+            A[i] = k.key;
+            candidates = erase(candidates, k.key);
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>{
+        BufferedReader br = <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> InputStreamReader(System.in));
+
+        <span class="hljs-keyword">int</span> loop = Integer.parseInt(br.readLine());
+        <span class="hljs-keyword">while</span> (loop-- &gt; <span class="hljs-number">0</span>) {
+            INSERTION insertion = <span class="hljs-keyword">new</span> INSERTION();
+
+            insertion.n = Integer.parseInt(br.readLine());
+            String[] input = br.readLine().split(<span class="hljs-string">" "</span>);
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; insertion.n; i++) {
+                insertion.shifted[i] = Integer.parseInt(input[i]);
+            }
+
+            insertion.solve();
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; insertion.n; i++) {
+                System.out.print(insertion.A[i] + <span class="hljs-string">" "</span>);
+            }
+            System.out.println();
+        }
+    }
+}
+</code></pre>
+</details>
+</div></article><hr data-v-4bb85cb8=""><div data-v-4bb85cb8="" id="disqus_thread"><iframe id="dsq-app7784" name="dsq-app7784" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=wbluke-com&amp;t_i=%2F2019%2F03%2F21%2F22-3.INSERTION%2F&amp;t_u=http%3A%2F%2Fwbluke.com%2Fblog%2F2019%2F03%2F21%2F22-3.INSERTION%2F&amp;t_e=22-3.INSERTION&amp;t_d=%0A%20%20%20%20%20%20%20%20Luke's%20Note%0A%20%20%20%20%20%20&amp;t_t=22-3.INSERTION&amp;s_o=default&amp;d_m=0#version=581fc4aed87cb2aed2487d2df585658d" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div></div></p></div><script src="/js/chunk-vendors.319ec894.js"></script><script src="/js/app.8fad31b9.js"></script><iframe style="display: none;"></iframe></body></html>

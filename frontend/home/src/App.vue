@@ -143,6 +143,14 @@ figcaption {
   box-shadow:         none;
 }
 
+table, th, td { 
+  border: 2px solid ; 
+  padding-left: 10px;
+  padding-right: 10px;
+}
+table { border-collapse: collapse; margin: auto;}
+table .header th { text-align: center; }
+
 
 
 /* MENU PEN STYLES ========== */
