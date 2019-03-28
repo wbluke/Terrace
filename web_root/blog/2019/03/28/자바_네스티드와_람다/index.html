@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title> | Luke's Note</title><link href="/css/app.0566501c.css" rel="preload" as="style"><link href="/css/chunk-vendors.bad0137f.css" rel="preload" as="style"><link href="/js/app.0cad233c.js" rel="preload" as="script"><link href="/js/chunk-vendors.319ec894.js" rel="preload" as="script"><link href="/css/chunk-vendors.bad0137f.css" rel="stylesheet"><link href="/css/app.0566501c.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://wbluke.com/img/about.f9a09115.jpeg" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="자바_네스티드와_람다 | Luke's Note" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🦊" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "wbluke-com";
+var disqus_title      = "자바_네스티드와_람다";
+var disqus_identifier = "/2019/03/28/자바_네스티드와_람다/";
+var disqus_url        = "http://wbluke.com/blog/2019/03/28/자바_네스티드와_람다/";
+</script><script type="text/javascript" async="" src="//wbluke-com.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.9974049bf7b0591e5d4f055cb67f3ee3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.880980e048a2432334f13013030456ac.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.4180262f1aa52e0f0340aac9fc52a8d8.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><noscript></noscript><div id="app"><div id="site-title"><a href="/" class="page_title router-link-active"><h1><img id="site-logo" src="/img/favicon.4eb5b8a7.png" width="24" height="24">
+        Luke's Note
+      </h1></a></div><div class="menu effect"><ul><li><a href="/" class="router-link-active">About</a></li><li><a href="/blog/" class="router-link-active">Blog</a></li><li><a href="/insight/" class="">Insight</a></li></ul></div><p><div data-v-cf1c6508="" id="blog"><div data-v-cf1c6508="" id="blog-contents"><article data-v-cf1c6508=""><div data-v-cf1c6508="" class="inner-title-container"><h1 data-v-cf1c6508=""><a data-v-cf1c6508="" href="http://wbluke.com/blog/2019/03/28/자바_네스티드와_람다/" id="inner-title">[Java] 네스티드 클래스와 람다(Lambda)의 소개</a></h1><p data-v-cf1c6508="" class="meta">2019. 03. 28. </p></div><div data-v-cf1c6508="" id="article-content"><h1 id="java-네스티드-클래스와-람다lambda의-소개" style="display: none;">[Java] 네스티드 클래스와 람다(Lambda)의 소개</h1>
+<p>이번 포스팅에서는 네스티드 클래스를 알아보고, 이어서 자바의 코드를 한결 간결하게 해주는 람다에 대해서 공부해보려고 합니다. 책의 내용에 따라 네스티드에 대한 설명을 중점적으로 하고, 람다는 다음 포스팅에서 자세하게 정리하려고 합니다.</p>
+<h3 id="네스티드nested-클래스와-이너inner-클래스">네스티드(Nested) 클래스와 이너(Inner) 클래스</h3>
+<hr>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Nested</span> </span>{...}
+    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticNested</span> </span>{...}
+}</code></pre>
+<p>자바에서는 클래스 안에 새로운 클래스를 정의할 수 있습니다. 이렇게 클래스 내에 정의된 클래스를 <code class="hljs">네스티드 클래스(Nested Class)</code>라 하고, 이를 감싸는 클래스를 <code class="hljs">외부 클래스(Outer Class)</code>라 합니다.</p>
+<p>네스티드 클래스는 static의 선언 여부를 기준으로 <code class="hljs">Static 네스티드 클래스</code>와 <code class="hljs">Non-Static 네스티드 클래스</code>로 나뉘는데, 특별히 Non-static 네스티드를 <code class="hljs">이너(Inner) 클래스</code>라고 합니다.</p>
+<p>다시 이 이너 클래스는 정의되는 위치나 특성에 따라 세 종류로 나뉩니다.</p>
+<pre class="markdown"><code class="hljs"><span class="hljs-bullet">- </span>멤버 이너 클래스 (Member Inner Class)
+<span class="hljs-bullet">- </span>로컬 이너 클래스 (Local Inner Class)
+<span class="hljs-bullet">- </span>익명 이너 클래스 (Anonymous Inner Class)</code></pre>
+<p>보통 중간에 ’이너’를 생략하고 각각 멤버 클래스, 이너 클래스, 익명 클래스로 부릅니다.<br>
+멤버 클래스는 인스턴스 변수, 인스턴스 메소드와 동일한 위치에 정의되고, 로컬 클래스는 중괄호 내에, 또는 메소드 내에 정의되는 클래스를 말합니다. 익명 클래스는 다른 클래스들과 별개로, 클래스의 이름이 존재하지 않는 형태로 구현됩니다.</p>
+<h4 id="static-nested-class">Static Nested Class</h4>
+<p>Static 네스티드 클래스는 static 선언의 특성이 반영된 클래스입니다. 따라서 자신을 감싸는 외부 클래스의 인스턴스와 상관없이 인스턴스를 생성할 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Nested1</span> </span>{
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{ num += n; }
+    }
+
+    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Nested2</span> </span>{
+        <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> num; } 
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticNested</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Outer.Nested1 nst1 = <span class="hljs-keyword">new</span> Outer.Nested1();
+        nst1.add(<span class="hljs-number">5</span>);
+
+        Outer.Nested2 nst2 = <span class="hljs-keyword">new</span> Outer.Nested2();
+        System.out.println(nst2.get());
+    }
+}
+
+<span class="hljs-comment">// 결과 : 5</span></code></pre>
+<p>Nested1과 Nested2 클래스에서는 static 변수인 Outer의 num에 접근하고 있습니다. 반대로 <strong>static으로 선언되지 않은 Outer 변수에 대해서는 접근할 수가 없습니다.</strong> static 네스티드 클래스의 인스턴스 생성은 다음과 같이 외부 클래스의 이름을 포함하는 형태로 이루어져야 합니다.</p>
+<pre class="java"><code class="hljs">Outer.Nested1 nst1 = <span class="hljs-keyword">new</span> Outer.Nested1();</code></pre>
+<h4 id="member-class">Member Class</h4>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Member</span> </span>{
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{ num += n; }
+        <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> num; }
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemberInner</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Outer o1 = <span class="hljs-keyword">new</span> Outer();
+        Outer o2 = <span class="hljs-keyword">new</span> Outer();
+        
+        <span class="hljs-comment">// o1 기반으로 두 인스턴스 생성</span>
+        Outer.Member o1m1 = o1.new Member();
+        Outer.Member o1m2 = o1.new Member();
+
+        <span class="hljs-comment">// o2 기반으로 두 인스턴스 생성</span>
+        Outer.Member o2m1 = o2.new Member();
+        Outer.Member o2m2 = o2.new Member();
+
+        <span class="hljs-comment">// o1 기반으로 생성된 두 인스턴스의 메소드 호출</span>
+        o1m1.add(<span class="hljs-number">5</span>);
+        System.out.println(o1m2.get());
+
+        <span class="hljs-comment">// o2 기반으로 생성된 두 인스턴스의 메소드 호출</span>
+        o2m1.add(<span class="hljs-number">7</span>);
+        System.out.println(o2m2.get());
+    }
+}
+
+<span class="hljs-comment">/*
+5
+7
+*/</span></code></pre>
+<p>static 네스티드 클래스와 다르게 멤버 클래스의 가장 큰 특징은 <strong>멤버 클래스의 인스턴스는 외부 클래스의 인스턴스에 종속적이다</strong> 라는 것입니다. 위 코드에서 볼 수 있듯이 같은 Outer 인스턴스로부터 생성된 o1m1과 o1m2는 o1의 num 변수에 접근할 수 있음을 보여줍니다. 그렇다면 멤버 클래스는 언제 사용되는 것일까요?</p>
+<pre class="java"><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Printable</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span>;   
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Papers</span> </span>{
+    <span class="hljs-keyword">private</span> String con;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Papers</span><span class="hljs-params">(String s)</span> </span>{
+        con = s;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Printable <span class="hljs-title">getPrinter</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Printer(); <span class="hljs-comment">// 멤버 클래스 인스턴스 생성 및 반환</span>
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Printer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Printable</span> </span>{ <span class="hljs-comment">// 멤버 클래스의 정의</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>{
+            System.out.println(con);
+        }
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseMemberInner</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Papers p = <span class="hljs-keyword">new</span> Papers(<span class="hljs-string">"서류 내용"</span>);
+        Printable prn = p.getPrinter();
+        prn.print();
+    }
+}</code></pre>
+<p>Printer 클래스는 private으로 선언되었습니다. 따라서 이 클래스는 Outer 클래스에서만 인스턴스 생성이 가능해집니다. 결국 이 Printer 인스턴스는 다음과 같은 방법으로만 참조가 가능합니다.</p>
+<pre class="java"><code class="hljs">Papers p = <span class="hljs-keyword">new</span> Papers(<span class="hljs-string">"서류 내용"</span>);
+Printable prn = p.getPrinter();</code></pre>
+<p>이제 Papers 클래스의 외부에서는 getPrinter() 메소드가 어떠한 인스턴스의 참조 값을 반환하는지 알 수가 없습니다. 다만 그 인스턴스가 Printable 인터페이스를 구현하고 있어서 Printable의 참조 변수로 참조할 수 있다는 사실만 알 수가 있지요. 이 상황이 바로 <strong>클래스의 정의가 감추어진 상황</strong>인 것입니다.</p>
+<p>이렇게 클래스의 정의를 감추면, getPrinter() 메소드가 반환하는 인스턴스가 다른 클래스의 인스턴스로 변경되어도 Papers 외부의 코드는 조금도 수정할 필요가 없게 된다는 장점을 가집니다. 이러한 방식을 우리는 Iterator를 사용할 때 이미 본 적이 있습니다.</p>
+<pre class="java"><code class="hljs">Iterator&lt;String&gt; itr = list.iterator();</code></pre>
+<p>실제로 우리는 iterator() 메소드가 반환하는 인스턴스의 클래스를 알지 못하지만, 그걸 아는 것은 별 의미가 없습니다. 그저 그 인스턴스가 Iterator<e> 인터페이스를 구현하고 있다는 사실만 알면 충분한 것이죠.</e></p>
+<h4 id="local-class">Local Class</h4>
+<p>로컬 클래스는 멤버 클래스와 상당 부분 유사합니다. while문이나 if문, 메소드 내로 클래스의 정의가 들어간 형태입니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> Printable <span class="hljs-title">getPrinter</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Printer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Printable</span> </span>{ <span class="hljs-comment">// 로컬 클래스의 정의</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>{
+            System.out.println(con);
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Printer(); <span class="hljs-comment">// 로컬 클래스의 생성 및 반환</span>
+}</code></pre>
+<p>클래스의 정의가 메소드 내부에 있기 때문에 private 선언이 사실 상 의미가 없습니다. 어차피 메소드 내에서만 생성이 가능하니까요. 즉, 멤버 클래스보다도 클래스를 더 깊이 감추는 효과가 있습니다.</p>
+<h4 id="anonymous-class-익명-클래스">Anonymous Class (익명 클래스)</h4>
+<p>익명 클래스는 다음 단락에서 나올 람다(Lambda)와 관련이 있습니다. 앞서 보인 메소드에서는, Printer의 정의와 Printer 인스턴스의 생성이 분리되어 있는데요, 익명 클래스에서는 이를 하나로 묶을 수 있습니다.</p>
+<pre class="java"><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> Printable <span class="hljs-title">getPrinter</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Printable() { <span class="hljs-comment">// 익명 클래스의 정의와 인스턴스 생성 </span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>{
+            System.out.println(con);
+        }
+    }
+}</code></pre>
+<p>언뜻 보면 new 생성자를 사용할 수 없는 Printable 인터페이스에 new를 사용하고 있는 것처럼 보여서 이상하게 느낄지 모르지만, 이는 인터페이스를 new로 생성하는 것이 아니라 익명의, 말그대로 이름이 없는 클래스를 생성해서 바로 반환해주는 것이기 때문에 가능합니다. Collection 쪽의 예제는 다음과 같습니다.</p>
+<pre class="java"><code class="hljs">Comparator&lt;String&gt; cmp = <span class="hljs-keyword">new</span> Comparator&lt;String&gt;() {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(String s1, String s2)</span> </span>{
+        <span class="hljs-keyword">return</span> s1.length() - s2.length();
+    }
+}
+
+Collections.sort(list, cmp);</code></pre>
+<h3 id="람다-lambda">람다 (Lambda)</h3>
+<hr>
+<p>람다를 사용하면 코드가 눈에 띄게 줄어듭니다. 그러나 그만큼 익숙해지려면 시간이 걸립니다. 위에서 보았던 익명 클래스의 정의를 가지고 람다로 표현해보겠습니다.</p>
+<pre class="java"><code class="hljs">Printable prn = <span class="hljs-keyword">new</span> Printable() { <span class="hljs-comment">// 익명 클래스</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(String s)</span> </span>{
+        System.out.println(s);
+    }
+}</code></pre>
+<p>위 코드에서 없어도 될 것 같은 부분을 하나씩 없애봅시다. 먼저 ’new Printable() {’은 대입 연산자의 왼편에 Printable형 참조 변수가 오기 때문에, 없애도 될 것 같아 보입니다.<br>
+또한 Printable 인터페이스에는 추상 메소드가 하나만 존재하므로, 메소드의 이름도 생략할 수 있게 됩니다.<br>
+그러면 결국 System.out.println(s) 만 남게 되는데, 람다식의 <strong>람다 연산자 ‘-&gt;’</strong> 와 s가 매개변수라는 사실을 표시해주기만 하면 다음과 같이 람다식을 작성할 수 있습니다.</p>
+<pre class="java"><code class="hljs">Printable prn = (s) -&gt; { System.out.println(s); };</code></pre>
+<p>이제 람다식을 알았으니 이를 인자 전달에도 활용할 수 있습니다.</p>
+<pre class="java"><code class="hljs">method((s) -&gt; { System.out.println(s) }); 
+<span class="hljs-comment">// void method(Printable prn) {...}</span></code></pre>
+<p>다음 아티클에서 람다에 대해 계속 정리해보겠습니다.</p>
+<h3 id="출처">출처</h3>
+<hr>
+<p><img src="http://cdn.wbluke.com/yoon_java_book.jpg" width="250"></p>
+<p>위 아티클은 <a href="https://book.naver.com/bookdb/book_detail.nhn?bid=12236206">윤성우의 열혈 자바 프로그래밍</a> 도서를 공부하고 개인 기록을 남기기 위해 정리한 글입니다. 저자 분의 허락을 맡고 작성하고 있습니다.<br>
+<a href="https://cafe.naver.com/cstudyjava">저자 분의 네이버 카페</a>에서 해당 도서 정보 및 저자 직강을 보실 수 있습니다.</p>
+</div></article><hr data-v-cf1c6508=""><div data-v-cf1c6508="" id="disqus_thread"><iframe id="dsq-app9637" name="dsq-app9637" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=wbluke-com&amp;t_i=%2F2019%2F03%2F28%2F%EC%9E%90%EB%B0%94_%EB%84%A4%EC%8A%A4%ED%8B%B0%EB%93%9C%EC%99%80_%EB%9E%8C%EB%8B%A4%2F&amp;t_u=http%3A%2F%2Fwbluke.com%2Fblog%2F2019%2F03%2F28%2F%EC%9E%90%EB%B0%94_%EB%84%A4%EC%8A%A4%ED%8B%B0%EB%93%9C%EC%99%80_%EB%9E%8C%EB%8B%A4%2F&amp;t_e=%EC%9E%90%EB%B0%94_%EB%84%A4%EC%8A%A4%ED%8B%B0%EB%93%9C%EC%99%80_%EB%9E%8C%EB%8B%A4&amp;t_d=%0A%20%20%20%20%20%20%20%20Luke's%20Note%0A%20%20%20%20%20%20&amp;t_t=%EC%9E%90%EB%B0%94_%EB%84%A4%EC%8A%A4%ED%8B%B0%EB%93%9C%EC%99%80_%EB%9E%8C%EB%8B%A4&amp;s_o=default&amp;d_m=0#version=3cd87e0f949a3290918feaf8a303966c" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div></div></p></div><script src="/js/chunk-vendors.319ec894.js"></script><script src="/js/app.0cad233c.js"></script><iframe style="display: none;"></iframe></body></html>
